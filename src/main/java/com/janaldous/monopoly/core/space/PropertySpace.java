@@ -1,5 +1,5 @@
 package com.janaldous.monopoly.core.space;
-import com.janaldous.monopoly.core.ColorGroup;
+import com.janaldous.monopoly.core.PropertyGroup;
 import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.rentstrategy.RentStrategy;
@@ -15,12 +15,12 @@ public class PropertySpace extends Space
     protected final List<PlayerAction> playerActionOptions;
     protected final int siteOnlyRent;
     protected RentStrategy strategy;
-    protected final ColorGroup colorGroup;
+    protected final PropertyGroup colorGroup;
 
     
     protected PropertySpace(String name, 
                             int value,
-                            ColorGroup colorGroup,
+                            PropertyGroup colorGroup,
                             int siteOnlyRent,
                             List<PlayerAction> requiredActions,
                             List<PlayerAction> playerActionOptions)
@@ -30,15 +30,6 @@ public class PropertySpace extends Space
         this.value = value;
         this.siteOnlyRent = siteOnlyRent;
         this.playerActionOptions = playerActionOptions;
-    }
-    
-    protected PropertySpace(String name, 
-                            int value,
-                            ColorGroup colorGroup,
-                            int siteOnlyRent,
-                            List<PlayerAction> playerActionOptions)
-    {
-        this(name, value, colorGroup, siteOnlyRent, Collections.emptyList(), playerActionOptions);
     }
     
     public void setOwner(Player owner) {
@@ -66,6 +57,7 @@ public class PropertySpace extends Space
     }
     
     public int getRent() {
+        if (strategy == null) throw new IllegalStateException("strategy not initialized");
         return strategy.calculateRent();
     }
     
@@ -76,7 +68,7 @@ public class PropertySpace extends Space
             .collect(Collectors.toMap(PlayerAction::getName, Function.identity()));
     }
     
-    public ColorGroup getPropertyGroup() {
+    public PropertyGroup getPropertyGroup() {
         return colorGroup;
     }
 }

@@ -7,9 +7,8 @@ package com.janaldous.monopoly.core.exception;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class NotEnoughMoneyException extends Exception
-{
-    public NotEnoughMoneyException()
-    {
+public class NotEnoughMoneyException extends Exception {
+    public NotEnoughMoneyException() {
+        super("Not enough money");
     }
 }

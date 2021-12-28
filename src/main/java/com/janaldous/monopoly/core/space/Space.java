@@ -1,8 +1,11 @@
 package com.janaldous.monopoly.core.space;
+
 import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class Space
 {
@@ -13,12 +16,7 @@ public class Space
         this.name = name;
         this.requiredActions = requiredActions;
     }
-    
-    protected Space() {
-        this.name = null;
-        this.requiredActions = null;
-    }
-    
+
     public String getName() {
         return name;
     }

@@ -1,4 +1,6 @@
 package com.janaldous.monopoly.core;
+import com.janaldous.monopoly.core.dice.Dice;
+
 import java.util.*;
 
 public class GameContextImpl implements GameContext
@@ -14,8 +16,7 @@ public class GameContextImpl implements GameContext
     
     public GameContextImpl(Gameboard gameboard, Dice dice, Player[] players, Token[] tokens)
     {
-        assert players.length == tokens.length;
-        
+        if (players.length != tokens.length) throw new IllegalStateException("players and tokens should have same length");
         this.gameboard = gameboard;
         this.dice = dice;
         this.players = players;
@@ -27,13 +28,13 @@ public class GameContextImpl implements GameContext
     
     @Override
     public Gameboard getGameboard() {
-        assert gameboard != null;
+        if (gameboard == null) throw new IllegalStateException("gameboard not initialized");
         return gameboard;
     }
     
     @Override
     public Dice getDice() {
-        assert dice != null;
+        if (dice == null) throw new IllegalStateException("dice not initialized");
         return dice;
     }
     

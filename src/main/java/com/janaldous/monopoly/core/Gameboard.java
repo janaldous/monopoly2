@@ -6,8 +6,7 @@ import com.janaldous.monopoly.core.space.Space;
 import java.util.*;
 
 
-public interface Gameboard
-{
+public interface Gameboard {
     Space move(Token token, int steps);
     Card takeCommunityChestCard();
     Card takeChanceCard();
@@ -15,6 +14,11 @@ public interface Gameboard
     Space getSpace(Token token);
     int getPositionBySpaceName(String spaceName);
     Space getSpaceBySpaceName(String spaceName);
-    int getPropertySetSize(ColorGroup colorGroup);
-    Map<ColorGroup, List<PropertySpace>> getProperties();
+    int getPropertySetSize(PropertyGroup colorGroup);
+    Map<PropertyGroup, List<PropertySpace>> getProperties();
+    boolean inJail(Token token);
+    void moveToJail(Token token);
+    void setFreeFromJail(Token token);
+
+    int getNoOfSpaces();
 }

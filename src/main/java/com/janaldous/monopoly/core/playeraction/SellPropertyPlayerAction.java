@@ -65,7 +65,7 @@ public class SellPropertyPlayerAction implements PlayerAction
     
     private boolean beforeHasPropertyGroup(Player player, PropertySpace property) {
         Gameboard gameboard = context.getGameboard();
-        int playerOwnedPropertiesInGroup = Optional.ofNullable(player.getProperties().get(property.getPropertyGroup()))
+        int playerOwnedPropertiesInGroup = Optional.ofNullable(player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
             .map(List::size)
             .orElse(0);
         return playerOwnedPropertiesInGroup == gameboard.getProperties().get(property.getPropertyGroup()).size();

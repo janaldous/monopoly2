@@ -3,13 +3,17 @@ package com.janaldous.monopoly;
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.card.CardFactory;
+import com.janaldous.monopoly.core.dice.Dice;
+import com.janaldous.monopoly.core.dice.DiceImpl;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.*;
 import com.janaldous.monopoly.core.space.rentstrategy.NormalResidentialRentStrategy;
+import com.janaldous.monopoly.core.space.rentstrategy.RailroadRentStrategy;
 import com.janaldous.monopoly.core.space.rentstrategy.ResidentialPropertyGroupRentStrategy;
 import com.janaldous.monopoly.core.space.rentstrategy.UtilitySetGroupRentStrategy;
+import com.janaldous.monopoly.rules.OriginalGameboardFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +57,7 @@ public class GameEngineTest
     }
     
     @Test
-    public void tesIncomeTaxSpace() throws PlayerActionException {
+    public void testGoToJail() throws PlayerActionException {
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
@@ -62,7 +66,8 @@ public class GameEngineTest
         
         Space[] spaces = new Space[] {
             spaceFactory.createSpace("Go"), 
-            spaceFactory.createSpace("IncomeTax")
+            spaceFactory.createSpace("GoToJail"),
+                spaceFactory.createSpace("Jail"),
         };
         
         tokens = new Token[] {new CarToken(), new DogToken()};
@@ -84,14 +89,12 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 0;
-        Player currentPlayer = players[curPlayerIndex];
+        Player playerA = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 1);
-        List<PlayerAction> requiredActions = space.getRequiredActions();
-        requiredActions.get(0).act(currentPlayer);
+        space.getRequiredActions().get(0).act(playerA);
         
         // then
-        assertEquals(1300, currentPlayer.getBalance());
-        assertEquals(1500, players[1].getBalance());
+        assertTrue(gameboard.inJail(tokens[curPlayerIndex]));
     }
     
     @Test
@@ -389,7 +392,7 @@ public class GameEngineTest
         space3.getPlayerOptions(player0).get("Buy Property").act(player0);
         
         // then
-        assertEquals(3, player0.getProperties().get(ColorGroup.PINK).size());
+        assertEquals(3, player0.getPropertiesByPropertyGroup().get(PropertyGroup.PINK).size());
         assertTrue(((PropertySpace) space1).getStrategy() instanceof ResidentialPropertyGroupRentStrategy);
         assertTrue(((PropertySpace) space2).getStrategy() instanceof ResidentialPropertyGroupRentStrategy);
         assertTrue(((PropertySpace) space3).getStrategy() instanceof ResidentialPropertyGroupRentStrategy);
@@ -442,16 +445,16 @@ public class GameEngineTest
         gameContext.setGameboard(gameboard);
         gameContext.setPlayers(players);
         gameContext.setTokens(tokens);
-        
+
         // when
         Space space1 = gameboard.move(tokens[0], 1);
         // sell
         PlayerAction sellAction = space1.getPlayerOptions(player0).get("Sell Property");
         sellAction.act(player0);
-        
+
         // then
-        assertEquals(2, player0.getProperties().get(ColorGroup.PINK).size());
-        gameboard.getProperties().get(ColorGroup.PINK).forEach(p -> assertTrue(p.getStrategy() instanceof NormalResidentialRentStrategy));
+        assertEquals(2, player0.getPropertiesByPropertyGroup().get(PropertyGroup.PINK).size());
+        gameboard.getProperties().get(PropertyGroup.PINK).forEach(p -> assertTrue(p.getStrategy() instanceof NormalResidentialRentStrategy));
     }
     
     @Test
@@ -509,41 +512,129 @@ public class GameEngineTest
         // buy
         Space space2 = gameboard.move(tokens[0], 1);
         space2.getPlayerOptions(player0).get("Buy Property").act(player0);
-        
+
         // pay rent - rolls 11 then 10 x 11 = $110
         dice.roll();
         Space spaceA2 = gameboard.move(tokens[1], 1);
         spaceA2.getRequiredActions().get(0).act(playerB);
-        
-        assertEquals(1500-150+44-150+110, player0.getBalance());
-        assertEquals(1500-44-110, playerB.getBalance());
-        
+
+        assertEquals(1500 - 150 + 44 - 150 + 110, player0.getBalance());
+        assertEquals(1500 - 44 - 110, playerB.getBalance());
+
         // then
-        assertEquals(2, player0.getProperties().get(ColorGroup.UTILITY).size());
-        gameboard.getProperties().get(ColorGroup.UTILITY).forEach(p -> assertTrue(p.getStrategy() instanceof UtilitySetGroupRentStrategy));
+        assertEquals(2, player0.getPropertiesByPropertyGroup().get(PropertyGroup.UTILITY).size());
+        gameboard.getProperties().get(PropertyGroup.UTILITY).forEach(p -> assertTrue(p.getStrategy() instanceof UtilitySetGroupRentStrategy));
     }
-    
+
+    @Test
+    public void testBuyRailroad_thenExpectDifferentRent() throws PlayerActionException {
+        // given
+        GameContextImpl gameContext = new GameContextImpl();
+        Bank bank = new BankImpl();
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
+        OriginalGameboardFactory originalGameboardFactory = new OriginalGameboardFactory(spaceFactory);
+
+
+        Space[] spaces = new Space[]{
+                spaceFactory.createSpace("Go"),
+                originalGameboardFactory.createSpace("Reading Railroad"),
+                originalGameboardFactory.createSpace("Pennsylvania Railroad"),
+                originalGameboardFactory.createSpace("B & O Railroad"),
+                originalGameboardFactory.createSpace("Short Line"),
+        };
+
+        tokens = new Token[]{new CarToken(), new DogToken()};
+        Map<Token, Integer> tokenPositions = new HashMap<>() {{
+            put(tokens[0], 0);
+            put(tokens[1], 0);
+        }};
+        CardFactory cardFactory = new CardFactory(playerActionFactory);
+        Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
+        Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
+        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        Dice dice = new DiceImpl(2);
+        dice.setStrategy(() -> 11);
+        // pick order of players
+
+        Player playerA = new Player("A", 1500);
+        Player playerB = new Player("B", 1500);
+        players = new Player[]{playerA, playerB};
+
+        gameContext.setDice(dice);
+        gameContext.setGameboard(gameboard);
+        gameContext.setPlayers(players);
+        gameContext.setTokens(tokens);
+
+        // when
+        // buy
+        Space space1 = gameboard.move(tokens[0], 1);
+        space1.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+
+        // 1 railroad
+        dice.roll();
+        Space spaceA1 = gameboard.move(tokens[1], 1);
+        spaceA1.getRequiredActions().get(0).act(playerB);
+
+        assertEquals(1500 - 200 + 25, playerA.getBalance());
+        assertEquals(1500 - 25, playerB.getBalance());
+
+        // buy
+        Space space2 = gameboard.move(tokens[0], 1);
+        space2.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+
+        // 2 railroad
+        dice.roll();
+        Space spaceA2 = gameboard.move(tokens[1], 1);
+        spaceA2.getRequiredActions().get(0).act(playerB);
+
+        assertEquals(1500 - 400 + 75, playerA.getBalance());
+        assertEquals(1500 - 75, playerB.getBalance());
+
+        // buy
+        Space space3 = gameboard.move(tokens[0], 1);
+        space3.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+
+        // 3 railroad
+        dice.roll();
+        Space spaceA3 = gameboard.move(tokens[1], 1);
+        spaceA3.getRequiredActions().get(0).act(playerB);
+
+        assertEquals(1500 - 600 + 175, playerA.getBalance());
+        assertEquals(1500 - 175, playerB.getBalance());
+
+        // buy
+        Space space4 = gameboard.move(tokens[0], 1);
+        space4.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+
+        // 4 railroad
+        dice.roll();
+        Space spaceA4 = gameboard.move(tokens[1], 1);
+        spaceA4.getRequiredActions().get(0).act(playerB);
+
+        assertEquals(1500 - 800 + 375, playerA.getBalance());
+        assertEquals(1500 - 375, playerB.getBalance());
+
+        // then
+        assertEquals(4, playerA.getPropertiesByPropertyGroup().get(PropertyGroup.RAILROAD).size());
+        gameboard.getProperties().get(PropertyGroup.RAILROAD).forEach(p -> assertTrue(p.getStrategy() instanceof RailroadRentStrategy));
+    }
+
     private ResidentialSpace createStCharlesPlace(SpaceFactory spaceFactory) {
-        ResidentialSpace rs = (ResidentialSpace) spaceFactory.createPropertySpace("residential", "St Charles Place", 140, 100, 100, 10, 50, 750, ColorGroup.PINK);
+        ResidentialSpace rs = (ResidentialSpace) new OriginalGameboardFactory(spaceFactory).createSpace("St Charles Pl");
         rs.setStrategy(new NormalResidentialRentStrategy(rs));
         return rs;
     }
-    
+
     private ResidentialSpace createStatesAve(SpaceFactory spaceFactory) {
-        ResidentialSpace rs = (ResidentialSpace) spaceFactory.createPropertySpace("residential", "States Ave", 140, 100, 100, 10, 50, 750, ColorGroup.PINK);
+        ResidentialSpace rs = (ResidentialSpace) new OriginalGameboardFactory(spaceFactory).createSpace("States Ave");
         rs.setStrategy(new NormalResidentialRentStrategy(rs));
         return rs;
     }
     
     private ResidentialSpace createVirginiaAve(SpaceFactory spaceFactory) {
-        ResidentialSpace rs = (ResidentialSpace) spaceFactory.createPropertySpace("residential", "Virginia Ave", 140, 100, 100, 12, 60, 900, ColorGroup.PINK);
+        ResidentialSpace rs = (ResidentialSpace) new OriginalGameboardFactory(spaceFactory).createSpace("Virginia Ave");
         rs.setStrategy(new NormalResidentialRentStrategy(rs));
         return rs;
-    }
-    
-    private void actAllActions(Map<String, PlayerAction> playerActions, Player player) throws PlayerActionException {
-        for (PlayerAction pa: playerActions.values()) {
-            pa.act(player);
-        }
     }
 }

@@ -2,14 +2,8 @@ package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.exception.*;
-import com.janaldous.monopoly.core.space.PropertySpace;
-import com.janaldous.monopoly.core.space.ResidentialSpace;
-import com.janaldous.monopoly.core.space.Space;
-import com.janaldous.monopoly.core.space.UtilityCompanySpace;
-import com.janaldous.monopoly.core.space.rentstrategy.NormalResidentialRentStrategy;
-import com.janaldous.monopoly.core.space.rentstrategy.NormalUtilityRentStrategy;
-import com.janaldous.monopoly.core.space.rentstrategy.ResidentialPropertyGroupRentStrategy;
-import com.janaldous.monopoly.core.space.rentstrategy.UtilitySetGroupRentStrategy;
+import com.janaldous.monopoly.core.space.*;
+import com.janaldous.monopoly.core.space.rentstrategy.*;
 
 import java.util.*;
 
@@ -48,7 +42,7 @@ public class BuyPropertyPlayerAction implements PlayerAction
                 if (property instanceof ResidentialSpace) {
                     ResidentialSpace residence = (ResidentialSpace) property;
 
-                    int playerPropertiesInPropertyGroup = Optional.ofNullable(player.getProperties().get(property.getPropertyGroup()))
+                    int playerPropertiesInPropertyGroup = Optional.ofNullable(player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
                         .map(List::size)
                         .orElse(0);
                     if (playerPropertiesInPropertyGroup == gameboard.getPropertySetSize(property.getPropertyGroup())) {
@@ -60,17 +54,24 @@ public class BuyPropertyPlayerAction implements PlayerAction
                 }
                 
                 if (property instanceof UtilityCompanySpace) {
-                    UtilityCompanySpace utility = (UtilityCompanySpace) property;
-                    
-                    int playerPropertiesInPropertyGroup = Optional.ofNullable(player.getProperties().get(property.getPropertyGroup()))
-                        .map(List::size)
-                        .orElse(0);
+                    int playerPropertiesInPropertyGroup = Optional.ofNullable(player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
+                            .map(List::size)
+                            .orElse(0);
                     if (playerPropertiesInPropertyGroup == gameboard.getPropertySetSize(property.getPropertyGroup())) {
                         gameboard.getProperties().get(property.getPropertyGroup())
-                        .forEach(p -> p.setStrategy(new UtilitySetGroupRentStrategy(context)));
+                                .forEach(p -> p.setStrategy(new UtilitySetGroupRentStrategy(context)));
                     } else {
                         property.setStrategy(new NormalUtilityRentStrategy(context));
                     }
+                }
+
+                if (property instanceof RailroadSpace) {
+                    RailroadSpace railroad = (RailroadSpace) property;
+                    int playerPropertiesInPropertyGroup = Optional.ofNullable(player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
+                            .map(List::size)
+                            .orElse(0);
+                    player.getPropertiesByPropertyGroup().get(property.getPropertyGroup())
+                            .forEach(p -> p.setStrategy(new RailroadRentStrategy(playerPropertiesInPropertyGroup, railroad)));
                 }
             }
         }

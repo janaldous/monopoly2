@@ -5,8 +5,8 @@ import java.util.*;
 
 public class IncomeTaxSpace extends Space
 {
-    public IncomeTaxSpace(PlayerActionFactory factory)
+    public IncomeTaxSpace(PlayerActionFactory factory, String propertyName, int fixedTax, int percentTax)
     {
-        super("Income Tax", Arrays.asList(factory.createChargePlayerAction(200)));    
+        super(propertyName, Arrays.asList(factory.createChargeIncomeTaxPlayerAction(fixedTax, percentTax)));
     }
 }

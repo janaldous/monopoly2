@@ -2,6 +2,9 @@ package com.janaldous.monopoly;
 
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.card.Card;
+import com.janaldous.monopoly.core.card.CardFactory;
+import com.janaldous.monopoly.core.dice.Dice;
+import com.janaldous.monopoly.core.dice.DiceImpl;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;

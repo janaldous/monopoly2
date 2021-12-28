@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.space;
 
-import com.janaldous.monopoly.core.ColorGroup;
+import com.janaldous.monopoly.core.PropertyGroup;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 
 import java.util.*;
@@ -20,7 +20,7 @@ public class ResidentialSpace extends PropertySpace
     
     public ResidentialSpace(String name, 
                             int value, 
-                            ColorGroup colorGroup,
+                            PropertyGroup colorGroup,
                             int housePrice,
                             int hotelPrice,
                             int siteOnlyRent,
@@ -68,5 +68,9 @@ public class ResidentialSpace extends PropertySpace
     
     public int getHotelRent() {
         return hotels * hotelRent;
+    }
+
+    public int getHotelQty() {
+        return hotels;
     }
 }

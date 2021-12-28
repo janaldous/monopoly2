@@ -1,5 +1,6 @@
 package com.janaldous.monopoly.core;
 import com.janaldous.monopoly.core.card.Card;
+import com.janaldous.monopoly.core.space.JailSpace;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
 
@@ -11,12 +12,13 @@ import java.util.Map;
 public class GameboardImpl implements Gameboard
 {
     private final Space[] spaces;
+    private int jailIndex;
     private final GameContext context;
     private final Map<String, Space> spaceNameToSpace;
     private final Map<Token, Integer> tokenPositions;
     private final Queue<Card> communityChestCards;
     private final Queue<Card> chanceCards;
-    private final Map<ColorGroup, List<PropertySpace>> propertyGroupToProperties;
+    private final Map<PropertyGroup, List<PropertySpace>> propertyGroupToProperties;
     
     public GameboardImpl(Space[] spaces, 
                         Map<Token, Integer> tokenPositions,
@@ -32,7 +34,8 @@ public class GameboardImpl implements Gameboard
         this.chanceCards = chanceCards;
         spaceNameToSpace = Arrays.stream(spaces).collect(Collectors.toMap(Space::getName, Function.identity()));
         propertyGroupToProperties = new HashMap<>();
-        for (Space space: spaces) {
+        for (int i = 0; i < spaces.length; i++) {
+            Space space = spaces[i];
             if (space instanceof PropertySpace) {
                 PropertySpace propertySpace = (PropertySpace) space;
                 propertyGroupToProperties.computeIfAbsent(propertySpace.getPropertyGroup(), k -> new ArrayList<>());
@@ -40,6 +43,10 @@ public class GameboardImpl implements Gameboard
                     v.add(propertySpace);
                     return v;
                 });
+            }
+
+            if (space instanceof JailSpace) {
+                jailIndex = i;
             }
         }
     }
@@ -93,12 +100,34 @@ public class GameboardImpl implements Gameboard
     }
     
     @Override
-    public int getPropertySetSize(ColorGroup colorGroup) {
+    public int getPropertySetSize(PropertyGroup colorGroup) {
         return propertyGroupToProperties.get(colorGroup).size();
     }
     
     @Override
-    public Map<ColorGroup, List<PropertySpace>> getProperties() {
+    public Map<PropertyGroup, List<PropertySpace>> getProperties() {
         return propertyGroupToProperties;
+    }
+
+    @Override
+    public boolean inJail(Token token) {
+        return getPosition(token) == jailIndex;
+    }
+
+    @Override
+    public void moveToJail(Token token) {
+        int steps = jailIndex - getPosition(token);
+        move(token, steps);
+        ((JailSpace) spaces[jailIndex]).jail(token);
+    }
+
+    @Override
+    public int getNoOfSpaces() {
+        return spaces.length;
+    }
+
+    @Override
+    public void setFreeFromJail(Token token) {
+        ((JailSpace) spaces[jailIndex]).setFree(token);
     }
 }

@@ -1,15 +1,20 @@
 package com.janaldous.monopoly.core;
 
-import com.janaldous.monopoly.core.exception.*;
+import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.space.PropertySpace;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Player
 {
     private final String name;
     private int balance;
-    private final Map<ColorGroup, List<PropertySpace>> properties;
+    private final Map<PropertyGroup, List<PropertySpace>> properties;
+    private int getOutOfJailFreeCards;
 
     public Player(String name, int startingBalance)
     {
@@ -42,8 +47,12 @@ public class Player
         return balance;
     }
 
-    public Map<ColorGroup, List<PropertySpace>> getProperties() {
+    public Map<PropertyGroup, List<PropertySpace>> getPropertiesByPropertyGroup() {
         return properties;
+    }
+
+    public List<PropertySpace> getProperties() {
+        return properties.values().stream().flatMap(List::stream).collect(Collectors.toList());
     }
 
     public void addProperty(final PropertySpace propertySpace) {
@@ -60,5 +69,14 @@ public class Player
                 v.remove(property);
                 return v;
             });
+    }
+
+    public void addGetOutOfJailFree() {
+        getOutOfJailFreeCards++;
+    }
+
+    public void useGetOutOfJailFree() {
+        if (getOutOfJailFreeCards <= 0) throw new IllegalStateException("Cannot remove cards");
+        getOutOfJailFreeCards--;
     }
 }
