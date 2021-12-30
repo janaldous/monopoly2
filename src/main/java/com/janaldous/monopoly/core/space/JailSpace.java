@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.space;
 
-import com.janaldous.monopoly.core.Token;
+import com.janaldous.monopoly.core.token.Token;
 
 import java.util.ArrayList;
 import java.util.Collections;

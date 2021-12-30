@@ -5,7 +5,8 @@ import com.janaldous.monopoly.core.BankImpl;
 import com.janaldous.monopoly.core.GameContext;
 import com.janaldous.monopoly.core.GameContextImpl;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
-import com.janaldous.monopoly.core.space.SpaceFactory;
+import com.janaldous.monopoly.core.space.factory.SpaceFactory;
+import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import org.junit.jupiter.api.Test;
 
 class OriginalGameboardFactoryTest {

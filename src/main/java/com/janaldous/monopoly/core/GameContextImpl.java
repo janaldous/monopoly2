@@ -1,5 +1,7 @@
 package com.janaldous.monopoly.core;
 import com.janaldous.monopoly.core.dice.Dice;
+import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.token.Token;
 
 import java.util.*;
 
@@ -37,7 +39,12 @@ public class GameContextImpl implements GameContext
         if (dice == null) throw new IllegalStateException("dice not initialized");
         return dice;
     }
-    
+
+    @Override
+    public List<Player> getPlayers() {
+        return List.of(players);
+    }
+
     @Override
     public Token getPlayerToken(Player player) {
         int index = playerToPlayerIndex.get(player);
