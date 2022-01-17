@@ -26,10 +26,10 @@ public class GameImpl implements Game {
     private final Gameboard gameboard;
     private final Bank bank;
 
-    public GameImpl(GameConfig config, Gameboard gameboard, Bank bank) {
+    public GameImpl(List<Player> players, Gameboard gameboard, Bank bank) {
         this.config = config;
 
-        this.players = createPlayers(config.getPlayerNames(), config.initialMoney());
+        this.players = players;
         this.gameboard = gameboard;
         this.bank = bank;
     }
@@ -88,12 +88,10 @@ public class GameImpl implements Game {
             
             List<PlayerAction> requiredActions = space.getRequiredActions();
             for (PlayerAction requiredAction: requiredActions) {
-                try
-                {
+                try {
                     requiredAction.act(currentPlayer);
                 }
-                catch (PlayerActionException pae)
-                {
+                catch (PlayerActionException pae) {
                     pae.printStackTrace();
                 }
             }
