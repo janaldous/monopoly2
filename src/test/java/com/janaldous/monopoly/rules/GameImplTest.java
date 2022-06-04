@@ -31,7 +31,7 @@ public class GameImplTest {
                 .initialMoney(1500)
                 .build();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory();
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(null, null);
         OriginalGameboardFactory originalGameboardFactory = new OriginalGameboardFactory(new SpaceFactory(playerActionFactory));
         GameboardFactory gameboardFactory = new GameboardFactory(originalGameboardFactory);
         Gameboard gameboard = gameboardFactory.createGameboard("original");

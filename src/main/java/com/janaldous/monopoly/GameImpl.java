@@ -21,14 +21,13 @@ import java.util.stream.Collectors;
 
 public class GameImpl implements Game {
 
-    private final GameConfig config;
+    private final GameConfig gameConfig;
     private final List<Player> players;
     private final Gameboard gameboard;
     private final Bank bank;
 
-    public GameImpl(List<Player> players, Gameboard gameboard, Bank bank) {
-        this.config = config;
-
+    public GameImpl(GameConfig gameConfig, List<Player> players, Gameboard gameboard, Bank bank) {
+        this.gameConfig = gameConfig;
         this.players = players;
         this.gameboard = gameboard;
         this.bank = bank;

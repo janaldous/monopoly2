@@ -18,7 +18,7 @@ public interface Gameboard {
     Space getSpaceBySpaceName(String spaceName);
     int getPropertySetSize(PropertyGroup colorGroup);
     Map<PropertyGroup, List<PropertySpace>> getProperties();
-    boolean inJail(Token token);
+    boolean isInJail(Token token);
     void moveToJail(Token token);
     void setFreeFromJail(Token token);
 

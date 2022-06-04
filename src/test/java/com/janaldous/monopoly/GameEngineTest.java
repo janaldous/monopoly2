@@ -100,7 +100,7 @@ public class GameEngineTest
         space.getRequiredActions().get(0).act(playerA);
         
         // then
-        assertTrue(gameboard.inJail(tokens[curPlayerIndex]));
+        assertTrue(gameboard.isInJail(tokens[curPlayerIndex]));
     }
     
     @Test

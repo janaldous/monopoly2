@@ -13,7 +13,7 @@ public class GameFactory {
     public Game createGame(String name) {
         switch (name) {
             case "original":
-                return new GameImpl();
+                return new GameImpl(null, null, null, null);
             default:
                 throw new IllegalArgumentException("Cannot find game with name " + name);
         }
