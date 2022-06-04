@@ -1,7 +1,6 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.GameContext;
-import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.exception.*;
 
@@ -16,7 +15,7 @@ public class PickCommunityChestCardAction implements PlayerAction
     }
     
     @Override
-    public Optional<PlayerAction> act(PlayerImpl player) throws PlayerActionException {
+    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
         Card card = context.getGameboard().takeCommunityChestCard();
         
         return Optional.of(card.getPlayerAction());
