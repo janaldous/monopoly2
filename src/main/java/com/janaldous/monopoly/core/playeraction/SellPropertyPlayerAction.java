@@ -1,7 +1,8 @@
 package com.janaldous.monopoly.core.playeraction;
 
-import com.janaldous.monopoly.core.*;
-import com.janaldous.monopoly.core.exception.*;
+import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.ResidentialSpace;
@@ -9,7 +10,8 @@ import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.space.rentstrategy.NormalResidentialRentStrategy;
 import com.janaldous.monopoly.core.token.Token;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class SellPropertyPlayerAction implements PlayerAction
 {
@@ -65,7 +67,7 @@ public class SellPropertyPlayerAction implements PlayerAction
         return false;
     }
     
-    private boolean beforeHasPropertyGroup(PlayerImpl player, PropertySpace property) {
+    private boolean beforeHasPropertyGroup(Player player, PropertySpace property) {
         Gameboard gameboard = context.getGameboard();
         int playerOwnedPropertiesInGroup = Optional.ofNullable(player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
             .map(List::size)

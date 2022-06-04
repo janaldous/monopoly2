@@ -30,7 +30,7 @@ public class PayRentPlayerAction implements PlayerAction
         if (space instanceof PropertySpace) {
             PropertySpace property = (PropertySpace) space;
             int rent = property.getRent();
-            PlayerImpl owner = property.getOwner();
+            Player owner = property.getOwner();
             
             // owner does not pay rent
             if (owner.equals(player)) {

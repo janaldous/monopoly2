@@ -99,7 +99,7 @@ public class BuyPropertyPlayerAction implements PlayerAction
         return true;
     }
 
-    private boolean playerCanAfford(PlayerImpl player, PropertySpace property) {
+    private boolean playerCanAfford(Player player, PropertySpace property) {
         return player.getBalance() - property.getValue() >= 0;
     }
 
