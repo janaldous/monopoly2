@@ -1,8 +1,9 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.GameContext;
-import com.janaldous.monopoly.core.token.Token;
+import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
+import com.janaldous.monopoly.core.token.Token;
 
 import java.util.Optional;
 

@@ -1,14 +1,16 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.GameContext;
-import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.PlayerImpl;
-import com.janaldous.monopoly.core.token.Token;
-import com.janaldous.monopoly.core.exception.*;
+import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
+import com.janaldous.monopoly.core.exception.PlayerActionException;
+import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
+import com.janaldous.monopoly.core.token.Token;
 
-import java.util.*;
+import java.util.Optional;
 
 public class PayRentPlayerAction implements PlayerAction
 {

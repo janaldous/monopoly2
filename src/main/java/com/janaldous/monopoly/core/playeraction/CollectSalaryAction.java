@@ -1,5 +1,6 @@
 package com.janaldous.monopoly.core.playeraction;
 import com.janaldous.monopoly.core.Bank;
+import com.janaldous.monopoly.core.Player;
 
 import java.util.Optional;
 

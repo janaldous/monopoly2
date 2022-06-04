@@ -1,5 +1,6 @@
 package com.janaldous.monopoly.core.playeraction;
 
+import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 

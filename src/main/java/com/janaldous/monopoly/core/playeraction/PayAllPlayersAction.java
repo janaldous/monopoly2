@@ -1,6 +1,7 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
@@ -20,7 +21,7 @@ public class PayAllPlayersAction implements PlayerAction {
 
     @Override
     public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-        List<PlayerImpl> players = context.getPlayers();
+        List<Player> players = context.getPlayers();
         int cost = players.size() * amountPerPlayer;
 
         try {
