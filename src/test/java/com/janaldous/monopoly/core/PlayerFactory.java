@@ -10,8 +10,8 @@ public class PlayerFactory {
         this.config = config;
     }
 
-    public Player createPlayer(String name) {
-        return new Player(name, config.initialMoney());
+    public PlayerImpl createPlayer(String name) {
+        return new PlayerImpl(name, config.initialMoney());
     }
 
 }

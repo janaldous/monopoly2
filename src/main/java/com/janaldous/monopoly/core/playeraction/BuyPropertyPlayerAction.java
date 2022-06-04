@@ -18,7 +18,7 @@ public class BuyPropertyPlayerAction implements PlayerAction
     }
 
     @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    public Optional<PlayerAction> act(PlayerImpl player) throws PlayerActionException {
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
@@ -81,7 +81,7 @@ public class BuyPropertyPlayerAction implements PlayerAction
     }
 
     @Override
-    public boolean isValidAction(Player player) {
+    public boolean isValidAction(PlayerImpl player) {
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
@@ -99,7 +99,7 @@ public class BuyPropertyPlayerAction implements PlayerAction
         return true;
     }
 
-    private boolean playerCanAfford(Player player, PropertySpace property) {
+    private boolean playerCanAfford(PlayerImpl player, PropertySpace property) {
         return player.getBalance() - property.getValue() >= 0;
     }
 

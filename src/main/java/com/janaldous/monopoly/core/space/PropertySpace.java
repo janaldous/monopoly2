@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.space;
 import com.janaldous.monopoly.core.PropertyGroup;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.rentstrategy.RentStrategy;
 
@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public class PropertySpace extends Space
 {
-    protected Player owner;
+    protected PlayerImpl owner;
     protected final int value;
     protected final List<PlayerAction> playerActionOptions;
     protected final int siteOnlyRent;
@@ -32,11 +32,11 @@ public class PropertySpace extends Space
         this.playerActionOptions = playerActionOptions;
     }
     
-    public void setOwner(Player owner) {
+    public void setOwner(PlayerImpl owner) {
         this.owner = owner;
     }
     
-    public Player getOwner() {
+    public PlayerImpl getOwner() {
         return owner;
     }
     
@@ -62,7 +62,7 @@ public class PropertySpace extends Space
     }
     
     @Override
-    public Map<String, PlayerAction> getPlayerOptions(final Player player) {
+    public Map<String, PlayerAction> getPlayerOptions(final PlayerImpl player) {
         return playerActionOptions.stream()
             .filter(pa -> pa.isValidAction(player))
             .collect(Collectors.toMap(PlayerAction::getName, Function.identity()));

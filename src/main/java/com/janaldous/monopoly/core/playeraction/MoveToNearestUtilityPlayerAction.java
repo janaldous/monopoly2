@@ -25,7 +25,7 @@ public class MoveToNearestUtilityPlayerAction implements PlayerAction {
     }
 
     @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    public Optional<PlayerAction> act(PlayerImpl player) throws PlayerActionException {
         Gameboard gameboard = context.getGameboard();
         Token token = context.getPlayerToken(player);
         int steps = gameboard.getProperties().get(PropertyGroup.UTILITY).stream()

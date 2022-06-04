@@ -1,7 +1,7 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.Bank;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.space.ResidentialSpace;
@@ -21,7 +21,7 @@ public class MakeGeneralRepairsAction implements PlayerAction {
     }
 
     @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    public Optional<PlayerAction> act(PlayerImpl player) throws PlayerActionException {
         int totalRepairCost = player.getProperties().stream().filter(p -> p instanceof ResidentialSpace)
                 .map(p -> (ResidentialSpace) p)
                 .filter(r -> r.getHouseQty() > 0 || r.getHotelQty() > 0)

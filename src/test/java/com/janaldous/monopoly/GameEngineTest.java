@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class GameEngineTest
 {
-    Player[] players;
+    PlayerImpl[] players;
     Gameboard gameboard;
     Token[] tokens;
     
@@ -86,7 +86,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -95,7 +95,7 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 0;
-        Player playerA = players[curPlayerIndex];
+        PlayerImpl playerA = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 1);
         space.getRequiredActions().get(0).act(playerA);
         
@@ -128,7 +128,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -137,7 +137,7 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 0;
-        Player currentPlayer = players[curPlayerIndex];
+        PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 1);
         List<PlayerAction> requiredActions = space.getRequiredActions();
         // pick card
@@ -172,7 +172,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -181,7 +181,7 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 0;
-        Player currentPlayer = players[curPlayerIndex];
+        PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 1);
         Map<String, PlayerAction> playerOptions = space.getPlayerOptions(currentPlayer);
         // buy property
@@ -215,7 +215,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -224,7 +224,7 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 0;
-        Player currentPlayer = players[curPlayerIndex];
+        PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 1);
         Map<String, PlayerAction> playerOptions = space.getPlayerOptions(currentPlayer);
         // buy property
@@ -268,7 +268,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         property.setOwner(players[0]);
         
         gameContext.setDice(dice);
@@ -278,7 +278,7 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 1;
-        Player currentPlayer = players[curPlayerIndex];
+        PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 1);
         List<PlayerAction> requiredActions = space.getRequiredActions();
         // pay rent
@@ -323,7 +323,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         stCharlesPlace.setOwner(players[0]);
         statesAve.setOwner(players[0]);
         virginiaAve.setOwner(players[0]);
@@ -335,7 +335,7 @@ public class GameEngineTest
         
         // when
         int curPlayerIndex = 1;
-        Player currentPlayer = players[curPlayerIndex];
+        PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.move(tokens[curPlayerIndex], 3);
         List<PlayerAction> requiredActions = space.getRequiredActions();
         // pay rent
@@ -376,7 +376,7 @@ public class GameEngineTest
         gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -384,7 +384,7 @@ public class GameEngineTest
         gameContext.setTokens(tokens);
         
         // when
-        Player player0 = players[0];
+        PlayerImpl player0 = players[0];
         Space space1 = gameboard.move(tokens[0], 1);
         // buy
         space1.getPlayerOptions(player0).get("Buy Property").act(player0);
@@ -435,8 +435,8 @@ public class GameEngineTest
         Dice dice = new DiceImpl(2);
         // pick order of players
 
-        Player player0 = new Player("A", 1500);
-        players = new Player[] {player0, new Player("B", 1500)};
+        PlayerImpl player0 = new PlayerImpl("A", 1500);
+        players = new PlayerImpl[] {player0, new PlayerImpl("B", 1500)};
         player0.addProperty(stCharlesPlace);
         stCharlesPlace.setOwner(player0);
         stCharlesPlace.setStrategy(new ResidentialPropertyGroupRentStrategy(stCharlesPlace));
@@ -493,9 +493,9 @@ public class GameEngineTest
         dice.setStrategy(() -> 11);
         // pick order of players
 
-        Player player0 = new Player("A", 1500);
-        Player playerB = new Player("B", 1500);
-        players = new Player[] {player0, playerB};
+        PlayerImpl player0 = new PlayerImpl("A", 1500);
+        PlayerImpl playerB = new PlayerImpl("B", 1500);
+        players = new PlayerImpl[] {player0, playerB};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -563,9 +563,9 @@ public class GameEngineTest
         dice.setStrategy(() -> 11);
         // pick order of players
 
-        Player playerA = new Player("A", 1500);
-        Player playerB = new Player("B", 1500);
-        players = new Player[]{playerA, playerB};
+        PlayerImpl playerA = new PlayerImpl("A", 1500);
+        PlayerImpl playerB = new PlayerImpl("B", 1500);
+        players = new PlayerImpl[]{playerA, playerB};
 
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);

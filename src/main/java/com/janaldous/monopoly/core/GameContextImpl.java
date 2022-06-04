@@ -9,14 +9,14 @@ public class GameContextImpl implements GameContext
 {
     private Gameboard gameboard;
     private Dice dice;
-    private Player[] players;
+    private PlayerImpl[] players;
     private Token[] tokens;
-    private Map<Player, Integer> playerToPlayerIndex;
+    private Map<PlayerImpl, Integer> playerToPlayerIndex;
     
     public GameContextImpl() {
     }
     
-    public GameContextImpl(Gameboard gameboard, Dice dice, Player[] players, Token[] tokens)
+    public GameContextImpl(Gameboard gameboard, Dice dice, PlayerImpl[] players, Token[] tokens)
     {
         if (players.length != tokens.length) throw new IllegalStateException("players and tokens should have same length");
         this.gameboard = gameboard;
@@ -41,12 +41,12 @@ public class GameContextImpl implements GameContext
     }
 
     @Override
-    public List<Player> getPlayers() {
+    public List<PlayerImpl> getPlayers() {
         return List.of(players);
     }
 
     @Override
-    public Token getPlayerToken(Player player) {
+    public Token getPlayerToken(PlayerImpl player) {
         int index = playerToPlayerIndex.get(player);
         return tokens[index];
     }
@@ -59,7 +59,7 @@ public class GameContextImpl implements GameContext
         this.gameboard = gameboard;
     }
     
-    public void setPlayers(Player[] players) {
+    public void setPlayers(PlayerImpl[] players) {
         this.players = players;
         populateMap(players);
     }
@@ -68,7 +68,7 @@ public class GameContextImpl implements GameContext
         this.tokens = tokens;
     }
     
-    private void populateMap(Player[] players) {
+    private void populateMap(PlayerImpl[] players) {
         this.playerToPlayerIndex = new HashMap<>();
         for (int i = 0; i < players.length; i++) {
             playerToPlayerIndex.put(players[i], i);

@@ -4,7 +4,6 @@ import com.janaldous.monopoly.Game;
 import com.janaldous.monopoly.GameImpl;
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
-import com.janaldous.monopoly.core.gameboard.GameboardImpl;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.factory.SpaceFactory;
 import com.janaldous.monopoly.versions.factory.GameboardFactory;
@@ -36,7 +35,7 @@ public class GameImplTest {
         GameboardFactory gameboardFactory = new GameboardFactory(originalGameboardFactory);
         Gameboard gameboard = gameboardFactory.createGameboard("original");
         PlayerFactory playerFactory = new PlayerFactory(config);
-        List<Player> players = new ArrayList<>();
+        List<PlayerImpl> players = new ArrayList<>();
         players.add(playerFactory.createPlayer("A"));
         players.add(playerFactory.createPlayer("B"));
         Game game = new GameImpl(config, players, gameboard, bank);

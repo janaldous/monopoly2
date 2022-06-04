@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.playeraction;
 import com.janaldous.monopoly.core.Bank;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.PlayerImpl;
 
 import java.util.Optional;
 
@@ -13,7 +13,7 @@ public class CollectSalaryAction implements PlayerAction
     }
     
     @Override
-    public Optional<PlayerAction> act(Player player) {
+    public Optional<PlayerAction> act(PlayerImpl player) {
         int money = bank.withdraw(200);
         player.addMoney(money);
         

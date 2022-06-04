@@ -20,7 +20,7 @@ public class SellPropertyPlayerAction implements PlayerAction
     }
     
     @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    public Optional<PlayerAction> act(PlayerImpl player) throws PlayerActionException {
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
@@ -49,7 +49,7 @@ public class SellPropertyPlayerAction implements PlayerAction
     }
     
     @Override
-    public boolean isValidAction(Player player) {
+    public boolean isValidAction(PlayerImpl player) {
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
@@ -65,7 +65,7 @@ public class SellPropertyPlayerAction implements PlayerAction
         return false;
     }
     
-    private boolean beforeHasPropertyGroup(Player player, PropertySpace property) {
+    private boolean beforeHasPropertyGroup(PlayerImpl player, PropertySpace property) {
         Gameboard gameboard = context.getGameboard();
         int playerOwnedPropertiesInGroup = Optional.ofNullable(player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
             .map(List::size)

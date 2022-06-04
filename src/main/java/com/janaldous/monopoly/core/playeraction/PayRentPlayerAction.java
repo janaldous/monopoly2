@@ -2,7 +2,7 @@ package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.GameContext;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.token.Token;
 import com.janaldous.monopoly.core.exception.*;
 import com.janaldous.monopoly.core.space.PropertySpace;
@@ -21,14 +21,14 @@ public class PayRentPlayerAction implements PlayerAction
     }
     
     @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    public Optional<PlayerAction> act(PlayerImpl player) throws PlayerActionException {
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
         if (space instanceof PropertySpace) {
             PropertySpace property = (PropertySpace) space;
             int rent = property.getRent();
-            Player owner = property.getOwner();
+            PlayerImpl owner = property.getOwner();
             
             // owner does not pay rent
             if (owner.equals(player)) {

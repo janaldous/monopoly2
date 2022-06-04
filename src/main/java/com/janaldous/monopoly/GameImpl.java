@@ -22,19 +22,19 @@ import java.util.stream.Collectors;
 public class GameImpl implements Game {
 
     private final GameConfig gameConfig;
-    private final List<Player> players;
+    private final List<PlayerImpl> players;
     private final Gameboard gameboard;
     private final Bank bank;
 
-    public GameImpl(GameConfig gameConfig, List<Player> players, Gameboard gameboard, Bank bank) {
+    public GameImpl(GameConfig gameConfig, List<PlayerImpl> players, Gameboard gameboard, Bank bank) {
         this.gameConfig = gameConfig;
         this.players = players;
         this.gameboard = gameboard;
         this.bank = bank;
     }
 
-    private List<Player> createPlayers(Map<String, Token> playerNames, int initialMoney) {
-        return playerNames.keySet().stream().map(x -> new Player(x, initialMoney)).collect(Collectors.toList());
+    private List<PlayerImpl> createPlayers(Map<String, Token> playerNames, int initialMoney) {
+        return playerNames.keySet().stream().map(x -> new PlayerImpl(x, initialMoney)).collect(Collectors.toList());
     }
 
 
@@ -61,7 +61,7 @@ public class GameImpl implements Game {
         Gameboard gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
-        Player[] players = new Player[] {new Player("A", 1500), new Player("B", 1500)};
+        PlayerImpl[] players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
         
         gameContext.setDice(dice);
         gameContext.setGameboard(gameboard);
@@ -72,7 +72,7 @@ public class GameImpl implements Game {
         int curPlayerIndex = 0;
         for (int i = 0; i < 2; i++) {
             // roll dice
-            Player currentPlayer = players[curPlayerIndex];
+            PlayerImpl currentPlayerImpl = players[curPlayerIndex];
             int steps = dice.roll();
             
             // move token
@@ -88,21 +88,21 @@ public class GameImpl implements Game {
             List<PlayerAction> requiredActions = space.getRequiredActions();
             for (PlayerAction requiredAction: requiredActions) {
                 try {
-                    requiredAction.act(currentPlayer);
+                    requiredAction.act(currentPlayerImpl);
                 }
                 catch (PlayerActionException pae) {
                     pae.printStackTrace();
                 }
             }
 
-            Map<String, PlayerAction> playerActions = space.getPlayerOptions(currentPlayer);
+            Map<String, PlayerAction> playerActions = space.getPlayerOptions(currentPlayerImpl);
 
             if (!playerActions.isEmpty()) {
                 // always pick first action
                 PlayerAction action = playerActions.get("Buy Property");
                 try
                 {
-                    action.act(currentPlayer);
+                    action.act(currentPlayerImpl);
                 }
                 catch (PlayerActionException e)
                 {

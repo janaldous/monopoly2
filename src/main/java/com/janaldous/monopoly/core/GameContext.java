@@ -16,8 +16,8 @@ import java.util.List;
 public interface GameContext
 {
     Gameboard getGameboard();
-    Token getPlayerToken(Player player);
+    Token getPlayerToken(PlayerImpl player);
     Dice getDice();
 
-    List<Player> getPlayers();
+    List<PlayerImpl> getPlayers();
 }

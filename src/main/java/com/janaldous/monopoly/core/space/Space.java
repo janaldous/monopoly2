@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.space;
 
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class Space
         return name;
     }
     
-    public Map<String, PlayerAction> getPlayerOptions(Player player) {
+    public Map<String, PlayerAction> getPlayerOptions(PlayerImpl player) {
         return Collections.emptyMap();
     }
     
