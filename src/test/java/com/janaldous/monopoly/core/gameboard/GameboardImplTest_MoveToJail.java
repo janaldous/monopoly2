@@ -3,6 +3,7 @@ package com.janaldous.monopoly.core.gameboard;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.cardutil.TestToken;
 import com.janaldous.monopoly.core.space.DoNothingSpace;
+import com.janaldous.monopoly.core.space.JailSpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,11 +21,11 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-class GameboardImplTest_Move {
+class GameboardImplTest_MoveToJail {
 
   @Mock Queue<Card> communityChestCardsMock;
 
@@ -33,7 +34,11 @@ class GameboardImplTest_Move {
   // immutable inputs
   Space[] spaces =
       new Space[] {
-        new DoNothingSpace("space1"), new DoNothingSpace("space2"), new DoNothingSpace("space3")
+        new DoNothingSpace("space1"),
+        new DoNothingSpace("space2"),
+        new DoNothingSpace("space3"),
+        new JailSpace(),
+        new DoNothingSpace("space4")
       };
   TestToken testToken = new TestToken("token1");
 
@@ -50,32 +55,16 @@ class GameboardImplTest_Move {
         };
   }
 
-  @Test
-  void createGameBoardImpl_emptySpacesArr() {
-    // given
-    Space[] spaces = new Space[0];
-    Map<Token, Integer> tokenPositions = new HashMap<>();
-
-    // when
-    Executable executable =
-        () ->
-            new GameboardImpl(
-                spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
-
-    // then
-    assertThrows(IllegalArgumentException.class, executable);
-  }
-
   @ParameterizedTest
   @MethodSource("provideInputsForMoveTest")
-  void move(int stepsToMove, int initialPosition, int expectedPosition) {
+  void move(int initialPosition, int expectedPosition) {
     // given
     tokenPositions.put(testToken, initialPosition);
     Gameboard gameboard =
         new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
 
     // when
-    gameboard.move(testToken, stepsToMove);
+    gameboard.moveToJail(testToken);
 
     // then
     assertEquals(expectedPosition, gameboard.getPosition(testToken));
@@ -87,7 +76,7 @@ class GameboardImplTest_Move {
         new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
 
     // when
-    Executable executable = () -> gameboard.move(null, 1);
+    Executable executable = () -> gameboard.moveToJail(null);
 
     // then
     assertThrows(
@@ -101,7 +90,7 @@ class GameboardImplTest_Move {
         new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
 
     // when
-    Executable executable = () -> gameboard.move(invalidToken, 1);
+    Executable executable = () -> gameboard.moveToJail(invalidToken);
 
     // then
     assertThrows(
@@ -111,20 +100,10 @@ class GameboardImplTest_Move {
   private static Stream<Arguments> provideInputsForMoveTest() {
     // stepsToMove, initialPosition, expectedPosition
     return Stream.of(
-        Arguments.of(1, 0, 1),
-        Arguments.of(2, 0, 2),
-        Arguments.of(3, 0, 0),
-        Arguments.of(4, 0, 1),
-        Arguments.of(5, 0, 2),
-        Arguments.of(1, 1, 2),
-        Arguments.of(1, 2, 0),
-        Arguments.of(-1, 0, 2),
-        Arguments.of(-2, 0, 1),
-        Arguments.of(-3, 0, 0),
-        Arguments.of(-4, 0, 2),
-        Arguments.of(-5, 0, 1),
-        Arguments.of(-6, 0, 0),
-        Arguments.of(-1, 2, 1),
-        Arguments.of(-1, 1, 0));
+        Arguments.of(0, 3),
+        Arguments.of(1, 3),
+        Arguments.of(2, 3),
+        Arguments.of(3, 3),
+        Arguments.of(4, 3));
   }
 }

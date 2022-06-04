@@ -4,6 +4,7 @@ import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
+import lombok.NonNull;
 
 import java.util.*;
 

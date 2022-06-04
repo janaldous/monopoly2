@@ -76,27 +76,36 @@ public class GameboardImpl implements Gameboard {
 
   @Override
   public Space move(@NonNull Token token, int steps) {
-    if (!tokenPositions.containsKey(token))
-      throw new IllegalArgumentException("Token does is not in the gameboard");
+    validateToken(token);
 
     int startPosition = getPosition(token);
+    int moduloSteps = steps % spaces.length;
     int newPosition =
         steps > 0
-            ? calculateForwardMove(steps, startPosition)
-            : calculateBackwardMove(startPosition, steps);
+            ? calculateForwardMove(startPosition, moduloSteps)
+            : calculateBackwardMove(startPosition, moduloSteps);
     tokenPositions.put(token, newPosition);
 
     return spaces[newPosition];
   }
 
-  private int calculateForwardMove(int steps, int startPosition) {
-    return (startPosition + steps) % spaces.length;
+  private void validateToken(Token token) {
+    if (!tokenPositions.containsKey(token))
+      throw new IllegalArgumentException("Token does is not in the gameboard");
   }
 
-  private int calculateBackwardMove(int startPosition, int steps) {
-    int moduloSteps = Math.abs(steps) % spaces.length;
+  private int calculateForwardMove(int startPosition, int moduloSteps) {
     if (moduloSteps == 0) return startPosition;
-    return spaces.length - moduloSteps + startPosition;
+    return startPosition + moduloSteps;
+  }
+
+  private int calculateBackwardMove(int startPosition, int moduloSteps) {
+    if (moduloSteps == 0) return startPosition;
+    if (startPosition - moduloSteps >= 0) {
+      return startPosition - moduloSteps;
+    } else {
+      return spaces.length - startPosition - moduloSteps;
+    }
   }
 
   @Override
@@ -105,7 +114,7 @@ public class GameboardImpl implements Gameboard {
   }
 
   @Override
-  public int getPosition(Token token) {
+  public int getPosition(@NonNull Token token) {
     return tokenPositions.get(token);
   }
 
@@ -144,7 +153,8 @@ public class GameboardImpl implements Gameboard {
   }
 
   @Override
-  public void moveToJail(Token token) {
+  public void moveToJail(@NonNull Token token) {
+    validateToken(token);
     int steps = jailIndex - getPosition(token);
     move(token, steps);
     ((JailSpace) spaces[jailIndex]).jail(token);
