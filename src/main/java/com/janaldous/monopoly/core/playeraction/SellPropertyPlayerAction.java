@@ -13,8 +13,8 @@ import com.janaldous.monopoly.core.token.Token;
 import java.util.List;
 import java.util.Optional;
 
-public class SellPropertyPlayerAction implements PlayerAction
-{
+public class SellPropertyPlayerAction implements PlayerAction {
+
     private final GameContext context;
     
     public SellPropertyPlayerAction(GameContext context) {
@@ -26,9 +26,7 @@ public class SellPropertyPlayerAction implements PlayerAction
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
-        if (space instanceof PropertySpace) {
-            PropertySpace property = (PropertySpace) space;
-            
+        if (space instanceof PropertySpace property) {
             if (!player.equals(property.getOwner())) {
                 return Optional.empty();
             }
@@ -55,14 +53,8 @@ public class SellPropertyPlayerAction implements PlayerAction
         Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
         Space space = gameboard.getSpace(token);
-        if (space instanceof PropertySpace) {
-            PropertySpace property = (PropertySpace) space;
-            
-            if (!player.equals(property.getOwner())) {
-                return false;
-            }
-            
-            return true;
+        if (space instanceof PropertySpace property) {
+            return player.equals(property.getOwner());
         }
         return false;
     }
