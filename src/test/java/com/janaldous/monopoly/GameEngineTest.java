@@ -83,7 +83,7 @@ public class GameEngineTest
         }};
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList());
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -125,7 +125,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -169,7 +169,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -212,7 +212,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -265,7 +265,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -320,7 +320,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -373,7 +373,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};
@@ -431,7 +431,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
 
@@ -488,7 +488,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         dice.setStrategy(() -> 11);
         // pick order of players
@@ -558,7 +558,7 @@ public class GameEngineTest
         CardFactory cardFactory = new CardFactory(playerActionFactory);
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList(cardFactory.createCommunityChestCard("AdvanceToStCharlesPlace")));
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         dice.setStrategy(() -> 11);
         // pick order of players

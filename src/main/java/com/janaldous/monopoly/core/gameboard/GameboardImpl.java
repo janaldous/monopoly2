@@ -1,6 +1,5 @@
 package com.janaldous.monopoly.core.gameboard;
 
-import com.janaldous.monopoly.core.GameContext;
 import com.janaldous.monopoly.core.PropertyGroup;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.space.JailSpace;
@@ -24,11 +23,10 @@ public class GameboardImpl implements Gameboard {
   private final Map<PropertyGroup, List<PropertySpace>> propertyGroupToProperties;
 
   public GameboardImpl(
-      Space[] spaces,
-      Map<Token, Integer> tokenPositions,
-      GameContext context,
-      Queue<Card> communityChestCards,
-      Queue<Card> chanceCards) {
+          Space[] spaces,
+          Map<Token, Integer> tokenPositions,
+          Queue<Card> communityChestCards,
+          Queue<Card> chanceCards) {
     if (spaces.length == 0) {
       throw new IllegalArgumentException("spaces must have at least length >= 1");
     }

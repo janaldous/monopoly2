@@ -58,7 +58,7 @@ public class GameImpl implements Game {
         }};
         Queue<Card> communityChestCards = new LinkedList<>(Arrays.<Card>asList());
         Queue<Card> chanceCards = new LinkedList<>(Arrays.<Card>asList());
-        Gameboard gameboard = new GameboardImpl(spaces, tokenPositions, gameContext, communityChestCards, chanceCards);
+        Gameboard gameboard = new GameboardImpl(spaces, tokenPositions, communityChestCards, chanceCards);
         Dice dice = new DiceImpl(2);
         // pick order of players
         PlayerImpl[] players = new PlayerImpl[] {new PlayerImpl("A", 1500), new PlayerImpl("B", 1500)};

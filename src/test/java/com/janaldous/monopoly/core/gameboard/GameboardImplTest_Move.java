@@ -60,7 +60,7 @@ class GameboardImplTest_Move {
     Executable executable =
         () ->
             new GameboardImpl(
-                spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+                spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // then
     assertThrows(IllegalArgumentException.class, executable);
@@ -72,7 +72,7 @@ class GameboardImplTest_Move {
     // given
     tokenPositions.put(testToken, initialPosition);
     Gameboard gameboard =
-        new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+        new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
     gameboard.move(testToken, stepsToMove);
@@ -84,7 +84,7 @@ class GameboardImplTest_Move {
   @Test
   void move_nullToken() {
     Gameboard gameboard =
-        new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+        new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
     Executable executable = () -> gameboard.move(null, 1);
@@ -98,7 +98,7 @@ class GameboardImplTest_Move {
   void move_invalidToken() {
     Token invalidToken = new TestToken("testtoken2");
     Gameboard gameboard =
-        new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+        new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
     Executable executable = () -> gameboard.move(invalidToken, 1);

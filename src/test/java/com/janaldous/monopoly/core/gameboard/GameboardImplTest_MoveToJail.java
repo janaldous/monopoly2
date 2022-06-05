@@ -61,7 +61,7 @@ class GameboardImplTest_MoveToJail {
     // given
     tokenPositions.put(testToken, initialPosition);
     Gameboard gameboard =
-        new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+        new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
     gameboard.moveToJail(testToken);
@@ -73,7 +73,7 @@ class GameboardImplTest_MoveToJail {
   @Test
   void move_nullToken() {
     Gameboard gameboard =
-        new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+        new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
     Executable executable = () -> gameboard.moveToJail(null);
@@ -87,7 +87,7 @@ class GameboardImplTest_MoveToJail {
   void move_invalidToken() {
     Token invalidToken = new TestToken("testtoken2");
     Gameboard gameboard =
-        new GameboardImpl(spaces, tokenPositions, null, communityChestCardsMock, chanceCardsMock);
+        new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
     Executable executable = () -> gameboard.moveToJail(invalidToken);

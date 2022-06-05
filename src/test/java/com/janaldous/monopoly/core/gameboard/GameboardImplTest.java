@@ -52,7 +52,7 @@ class GameboardImplTest {
         // given empty chance card
         Queue<Card> chanceCards = new LinkedList<>();
         Gameboard gameboard =
-                new GameboardImpl(spaces, tokenPositions, null, mock(Queue.class), chanceCards);
+                new GameboardImpl(spaces, tokenPositions, mock(Queue.class), chanceCards);
 
         // when
         Card card = gameboard.takeChanceCard();
@@ -68,7 +68,7 @@ class GameboardImplTest {
             add(testCard);
         }};
         Gameboard gameboard =
-                new GameboardImpl(spaces, tokenPositions, null, mock(Queue.class), chanceCards);
+                new GameboardImpl(spaces, tokenPositions, mock(Queue.class), chanceCards);
 
         // when
         Card resultCard = gameboard.takeChanceCard();
@@ -82,7 +82,7 @@ class GameboardImplTest {
         // given empty chance card
         Queue<Card> communityChestCards = new LinkedList<>();
         Gameboard gameboard =
-                new GameboardImpl(spaces, tokenPositions, null, communityChestCards, mock(Queue.class));
+                new GameboardImpl(spaces, tokenPositions, communityChestCards, mock(Queue.class));
 
         // when
         Card card = gameboard.takeChanceCard();
@@ -98,7 +98,7 @@ class GameboardImplTest {
             add(testCard);
         }};
         Gameboard gameboard =
-                new GameboardImpl(spaces, tokenPositions, null, communityChestCards, mock(Queue.class));
+                new GameboardImpl(spaces, tokenPositions, communityChestCards, mock(Queue.class));
 
         // when
         Card resultCard = gameboard.takeCommunityChestCard();

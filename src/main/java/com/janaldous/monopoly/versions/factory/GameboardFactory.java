@@ -24,8 +24,7 @@ public class GameboardFactory {
         return new GameboardImpl(
             originalGameboardFactory.createSpaces(),
             createTokenPositions(Collections.emptyList()),
-            null,
-            null,
+                null,
             null);
       default:
         return null;
