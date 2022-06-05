@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class GameboardImpl implements Gameboard {
   private final Space[] spaces;
-  private int jailIndex;
+  private int jailIndex = -1;
   private final Map<String, Space> spaceNameToSpace;
   private final Map<Token, Integer> tokenPositions;
   private final Queue<Card> communityChestCards;
@@ -150,9 +150,12 @@ public class GameboardImpl implements Gameboard {
 
   @Override
   public void moveToJail(@NonNull Token token) {
+    if (jailIndex == -1) {
+      throw new IllegalStateException("Jail is not in the board");
+    }
     validateToken(token);
-    int steps = jailIndex - getPosition(token);
-    move(token, steps);
+
+    tokenPositions.put(token, jailIndex);
     ((JailSpace) spaces[jailIndex]).jail(token);
   }
 

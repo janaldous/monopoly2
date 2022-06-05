@@ -97,6 +97,22 @@ class GameboardImplTest_MoveToJail {
         IllegalArgumentException.class, executable, "testToken is marked non-null but is null");
   }
 
+  @Test
+  void move_noJail() {
+    Space[] spacesWithoutJail =
+        new Space[] {
+          new DoNothingSpace("space1"), new DoNothingSpace("space2"), new DoNothingSpace("space3")
+        };
+    Gameboard gameboard =
+        new GameboardImpl(spacesWithoutJail, tokenPositions, communityChestCardsMock, chanceCardsMock);
+
+    // when
+    Executable executable = () -> gameboard.moveToJail(testToken);
+
+    // then
+    assertThrows(IllegalStateException.class, executable);
+  }
+
   private static Stream<Arguments> provideInputsForMoveTest() {
     // stepsToMove, initialPosition, expectedPosition
     return Stream.of(
