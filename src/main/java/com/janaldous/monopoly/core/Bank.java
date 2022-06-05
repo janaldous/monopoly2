@@ -1,5 +1,7 @@
 package com.janaldous.monopoly.core;
 
+import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
+
 /**
  * Write a description of interface Bank here.
  *
@@ -14,4 +16,6 @@ public interface Bank {
   House buyHouse(int amount);
 
   Hotel buyHotel(int amount);
+
+  void pay(Player player, int value) throws NotEnoughMoneyException;
 }

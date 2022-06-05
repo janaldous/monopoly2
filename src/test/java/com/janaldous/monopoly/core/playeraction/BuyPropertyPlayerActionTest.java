@@ -1,9 +1,6 @@
 package com.janaldous.monopoly.core.playeraction;
 
-import com.janaldous.monopoly.core.GameContext;
-import com.janaldous.monopoly.core.Player;
-import com.janaldous.monopoly.core.PlayerImpl;
-import com.janaldous.monopoly.core.PropertyGroup;
+import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.PropertySpace;
@@ -27,8 +24,10 @@ class BuyPropertyPlayerActionTest {
   @Mock GameContext contextMock;
   @Mock Gameboard gameboardMock;
 
+
   ResidentialSpace residentialSpace;
   Map<PropertyGroup, List<PropertySpace>> propertyGroups;
+  Bank bank = new BankImpl();
 
   @BeforeEach
   void beforeEach() {
@@ -106,6 +105,7 @@ class BuyPropertyPlayerActionTest {
 
     when(contextMock.getPlayerSpace(player)).thenReturn(residentialSpace);
     when(contextMock.getGameboard()).thenReturn(gameboardMock);
+    when(contextMock.getBank()).thenReturn(bank);
 
     BuyPropertyPlayerAction action = new BuyPropertyPlayerAction(contextMock);
 
@@ -116,6 +116,7 @@ class BuyPropertyPlayerActionTest {
     assertEquals(player, residentialSpace.getOwner());
     assertThat(player.getProperties()).contains(residentialSpace);
     assertThat(result.isPresent()).isFalse();
+    assertEquals(0, player.getBalance());
     assertEquals(10, residentialSpace.getRent());
   }
 
@@ -128,6 +129,7 @@ class BuyPropertyPlayerActionTest {
 
     when(contextMock.getPlayerSpace(player)).thenReturn(residentialSpace);
     when(contextMock.getGameboard()).thenReturn(gameboardMock);
+    when(contextMock.getBank()).thenReturn(bank);
     when(gameboardMock.getPropertySetSize(PropertyGroup.PINK)).thenReturn(3);
     when(gameboardMock.getProperties()).thenReturn(propertyGroups);
 

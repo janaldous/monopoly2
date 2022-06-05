@@ -2,6 +2,7 @@ package com.janaldous.monopoly.core;
 
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.space.PropertySpace;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PlayerImpl implements Player {
+  @Getter
   private final String name;
   private int balance;
   private final Map<PropertyGroup, List<PropertySpace>> properties;

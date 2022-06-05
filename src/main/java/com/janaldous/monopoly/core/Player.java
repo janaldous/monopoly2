@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface Player {
+
+  String getName();
+
   int addMoney(int amount);
 
   int pay(int amount) throws NotEnoughMoneyException;

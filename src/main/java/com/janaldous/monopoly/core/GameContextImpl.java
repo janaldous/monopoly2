@@ -15,10 +15,12 @@ public class GameContextImpl implements GameContext {
   private Player[] players;
   private Token[] tokens;
   private Map<Player, Integer> playerToPlayerIndex;
+  private Bank bank;
 
   public GameContextImpl() {}
 
-  public GameContextImpl(Gameboard gameboard, Dice dice, PlayerImpl[] players, Token[] tokens) {
+  public GameContextImpl(Gameboard gameboard, Dice dice, PlayerImpl[] players, Token[] tokens, Bank bank) {
+    this.bank = bank;
     if (players.length != tokens.length)
       throw new IllegalStateException("players and tokens should have same length");
     this.gameboard = gameboard;
@@ -45,6 +47,11 @@ public class GameContextImpl implements GameContext {
   @Override
   public List<Player> getPlayers() {
     return List.of(players);
+  }
+
+  @Override
+  public Bank getBank() {
+    return bank;
   }
 
   @Override

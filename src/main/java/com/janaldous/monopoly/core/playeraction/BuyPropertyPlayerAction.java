@@ -25,7 +25,7 @@ public class BuyPropertyPlayerAction implements PlayerAction {
       throw new PlayerActionException("Invalid action");
     }
     try {
-      player.pay(property.getValue());
+      context.getBank().pay(player, property.getValue());
     } catch (NotEnoughMoneyException e) {
       throw new PlayerActionException(e);
     }

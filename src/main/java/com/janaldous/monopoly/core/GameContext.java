@@ -23,4 +23,6 @@ public interface GameContext {
   Dice getDice();
 
   List<Player> getPlayers();
+
+  Bank getBank();
 }
