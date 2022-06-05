@@ -20,75 +20,72 @@ public class BuyPropertyPlayerAction implements PlayerAction {
   @Override
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
     Gameboard gameboard = context.getGameboard();
-    Space space = context.getPlayerSpace(player);
-    if (space instanceof PropertySpace property) {
-      if (hasOwner(property)) {
-        throw new PlayerActionException("Property is already owned by another player");
-      }
+    PropertySpace property = (PropertySpace) context.getPlayerSpace(player);
+    if (!isValidAction(player)) {
+      throw new PlayerActionException("Invalid action");
+    }
+    try {
+      player.pay(property.getValue());
+    } catch (NotEnoughMoneyException e) {
+      throw new PlayerActionException(e);
+    }
+    property.setOwner(player);
+    player.addProperty(property);
 
-      if (playerCanAfford(player, property)) {
-        try {
-          player.pay(property.getValue());
-        } catch (NotEnoughMoneyException neme) {
-          throw new PlayerActionException(neme);
-        }
-        property.setOwner(player);
-        player.addProperty(property);
+    setRentStrategyForProperty(player, gameboard, property);
 
-        if (property instanceof ResidentialSpace) {
-          ResidentialSpace residence = (ResidentialSpace) property;
+    return Optional.empty();
+  }
 
-          int playerPropertiesInPropertyGroup =
-              Optional.ofNullable(
-                      player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
-                  .map(List::size)
-                  .orElse(0);
-          if (playerPropertiesInPropertyGroup
-              == gameboard.getPropertySetSize(property.getPropertyGroup())) {
-            gameboard
-                .getProperties()
-                .get(property.getPropertyGroup())
-                .forEach(p -> p.setStrategy(new ResidentialPropertyGroupRentStrategy(residence)));
-          } else {
-            property.setStrategy(new NormalResidentialRentStrategy(residence));
-          }
-        }
-
-        if (property instanceof UtilityCompanySpace) {
-          int playerPropertiesInPropertyGroup =
-              Optional.ofNullable(
-                      player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
-                  .map(List::size)
-                  .orElse(0);
-          if (playerPropertiesInPropertyGroup
-              == gameboard.getPropertySetSize(property.getPropertyGroup())) {
-            gameboard
-                .getProperties()
-                .get(property.getPropertyGroup())
-                .forEach(p -> p.setStrategy(new UtilitySetGroupRentStrategy(context)));
-          } else {
-            property.setStrategy(new NormalUtilityRentStrategy(context));
-          }
-        }
-
-        if (property instanceof RailroadSpace) {
-          RailroadSpace railroad = (RailroadSpace) property;
-          int playerPropertiesInPropertyGroup =
-              Optional.ofNullable(
-                      player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
-                  .map(List::size)
-                  .orElse(0);
-          player
-              .getPropertiesByPropertyGroup()
-              .get(property.getPropertyGroup())
-              .forEach(
-                  p ->
-                      p.setStrategy(
-                          new RailroadRentStrategy(playerPropertiesInPropertyGroup, railroad)));
-        }
+  private void setRentStrategyForProperty(Player player, Gameboard gameboard, PropertySpace property) {
+    if (property instanceof ResidentialSpace residence) {
+      int playerPropertiesInPropertyGroup =
+          Optional.ofNullable(
+                  player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
+              .map(List::size)
+              .orElse(0);
+      if (playerPropertiesInPropertyGroup
+          == gameboard.getPropertySetSize(property.getPropertyGroup())) {
+        gameboard
+            .getProperties()
+            .get(property.getPropertyGroup())
+            .forEach(p -> p.setStrategy(new ResidentialPropertyGroupRentStrategy(residence)));
+      } else {
+        property.setStrategy(new NormalResidentialRentStrategy(residence));
       }
     }
-    return Optional.empty();
+
+    if (property instanceof UtilityCompanySpace) {
+      int playerPropertiesInPropertyGroup =
+          Optional.ofNullable(
+                  player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
+              .map(List::size)
+              .orElse(0);
+      if (playerPropertiesInPropertyGroup
+          == gameboard.getPropertySetSize(property.getPropertyGroup())) {
+        gameboard
+            .getProperties()
+            .get(property.getPropertyGroup())
+            .forEach(p -> p.setStrategy(new UtilitySetGroupRentStrategy(context)));
+      } else {
+        property.setStrategy(new NormalUtilityRentStrategy(context));
+      }
+    }
+
+    if (property instanceof RailroadSpace railroad) {
+      int playerPropertiesInPropertyGroup =
+          Optional.ofNullable(
+                  player.getPropertiesByPropertyGroup().get(property.getPropertyGroup()))
+              .map(List::size)
+              .orElse(0);
+      player
+          .getPropertiesByPropertyGroup()
+          .get(property.getPropertyGroup())
+          .forEach(
+              p ->
+                  p.setStrategy(
+                      new RailroadRentStrategy(playerPropertiesInPropertyGroup, railroad)));
+    }
   }
 
   @Override
