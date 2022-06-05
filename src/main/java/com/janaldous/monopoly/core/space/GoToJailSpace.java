@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class GoToJailSpace extends Space {
 
-    public GoToJailSpace(PlayerActionFactory playerActionFactory) {
-        super("Go To Jail", Arrays.asList(playerActionFactory.createGoToJailAction()));
-    }
+  public GoToJailSpace(PlayerActionFactory playerActionFactory) {
+    super("Go To Jail", Arrays.asList(playerActionFactory.createGoToJailAction()));
+  }
 }

@@ -13,45 +13,48 @@ import java.util.Optional;
 /**
  * Advance token to the nearest Utility. If unowned, you may buy it from the Bank.
  *
- * If owned, throw dice and pay owner a total 10 (ten) times the amount thrown.
+ * <p>If owned, throw dice and pay owner a total 10 (ten) times the amount thrown.
  */
 public class MoveToNearestUtilityPlayerAction implements PlayerAction {
-    private GameContext context;
-    private PlayerAction buyProperty;
+  private GameContext context;
+  private PlayerAction buyProperty;
 
-    public MoveToNearestUtilityPlayerAction(GameContext context, PlayerAction buyProperty) {
-        this.context = context;
-        this.buyProperty = buyProperty;
+  public MoveToNearestUtilityPlayerAction(GameContext context, PlayerAction buyProperty) {
+    this.context = context;
+    this.buyProperty = buyProperty;
+  }
+
+  @Override
+  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    Gameboard gameboard = context.getGameboard();
+    Token token = context.getPlayerToken(player);
+    int steps =
+        gameboard.getProperties().get(PropertyGroup.UTILITY).stream()
+            .mapToInt(
+                r -> gameboard.getPositionBySpaceName(r.getName()) - gameboard.getPosition(token))
+            .min()
+            .orElseThrow(
+                () -> new RuntimeException("Something went wrong in calculating nearest utility"));
+    PropertySpace nearestUtility = (PropertySpace) gameboard.move(token, steps);
+
+    if (nearestUtility.getOwner() != null) {
+      return Optional.of(buyProperty);
+    } else {
+      Dice dice = context.getDice();
+      dice.roll();
+      int rent = dice.getValue() * 10;
+      nearestUtility.getOwner().addMoney(rent);
+      try {
+        player.pay(rent);
+      } catch (NotEnoughMoneyException e) {
+        throw new PlayerActionException(e);
+      }
+      return Optional.empty();
     }
+  }
 
-    @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-        Gameboard gameboard = context.getGameboard();
-        Token token = context.getPlayerToken(player);
-        int steps = gameboard.getProperties().get(PropertyGroup.UTILITY).stream()
-                .mapToInt(r -> gameboard.getPositionBySpaceName(r.getName()) - gameboard.getPosition(token))
-                .min()
-                .orElseThrow(() -> new RuntimeException("Something went wrong in calculating nearest utility"));
-        PropertySpace nearestUtility = (PropertySpace) gameboard.move(token, steps);
-
-        if (nearestUtility.getOwner() != null) {
-            return Optional.of(buyProperty);
-        } else {
-            Dice dice = context.getDice();
-            dice.roll();
-            int rent = dice.getValue() * 10;
-            nearestUtility.getOwner().addMoney(rent);
-            try {
-                player.pay(rent);
-            } catch (NotEnoughMoneyException e) {
-                throw new PlayerActionException(e);
-            }
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
+  @Override
+  public String getName() {
+    return null;
+  }
 }

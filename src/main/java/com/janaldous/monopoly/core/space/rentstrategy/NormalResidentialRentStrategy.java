@@ -1,6 +1,5 @@
 package com.janaldous.monopoly.core.space.rentstrategy;
 
-
 import com.janaldous.monopoly.core.space.ResidentialSpace;
 
 /**
@@ -9,23 +8,22 @@ import com.janaldous.monopoly.core.space.ResidentialSpace;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class NormalResidentialRentStrategy implements RentStrategy
-{
-    protected final ResidentialSpace property;
-    
-    public NormalResidentialRentStrategy(ResidentialSpace property) {
-        this.property = property;
+public class NormalResidentialRentStrategy implements RentStrategy {
+  protected final ResidentialSpace property;
+
+  public NormalResidentialRentStrategy(ResidentialSpace property) {
+    this.property = property;
+  }
+
+  @Override
+  public int calculateRent() {
+    return _calculateRent();
+  }
+
+  protected int _calculateRent() {
+    if (property.getHouseQty() == 0) {
+      return property.getSiteOnlyRent();
     }
-    
-    @Override
-    public int calculateRent() {
-        return _calculateRent();
-    }
-    
-    protected int _calculateRent() {
-        if (property.getHouseQty() == 0) {
-            return property.getSiteOnlyRent();
-        }
-        return (property.getHouseRent()) + (property.getHotelRent());
-    }
+    return (property.getHouseRent()) + (property.getHotelRent());
+  }
 }

@@ -17,7 +17,6 @@ import java.util.Map;
 public class GameboardImpl implements Gameboard {
   private final Space[] spaces;
   private int jailIndex;
-  private final GameContext context;
   private final Map<String, Space> spaceNameToSpace;
   private final Map<Token, Integer> tokenPositions;
   private final Queue<Card> communityChestCards;
@@ -35,7 +34,6 @@ public class GameboardImpl implements Gameboard {
     }
 
     this.spaces = spaces;
-    this.context = context;
     this.tokenPositions = tokenPositions;
     this.communityChestCards = communityChestCards;
     this.chanceCards = chanceCards;

@@ -1,6 +1,5 @@
 package com.janaldous.monopoly.core;
 
-
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.token.Token;
@@ -13,11 +12,12 @@ import java.util.List;
  * @author (your name)
  * @version (a version number or a date)
  */
-public interface GameContext
-{
-    Gameboard getGameboard();
-    Token getPlayerToken(Player player);
-    Dice getDice();
+public interface GameContext {
+  Gameboard getGameboard();
 
-    List<Player> getPlayers();
+  Token getPlayerToken(Player player);
+
+  Dice getDice();
+
+  List<Player> getPlayers();
 }

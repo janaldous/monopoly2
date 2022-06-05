@@ -8,18 +8,18 @@ import java.util.List;
 
 public class JailSpace extends Space {
 
-    private List<Token> prisoners;
+  private List<Token> prisoners;
 
-    public JailSpace() {
-        super("Jail", Collections.emptyList());
-        prisoners = new ArrayList<>();
-    }
+  public JailSpace() {
+    super("Jail", Collections.emptyList());
+    prisoners = new ArrayList<>();
+  }
 
-    public void jail(Token token) {
-        prisoners.add(token);
-    }
+  public void jail(Token token) {
+    prisoners.add(token);
+  }
 
-    public void setFree(Token token) {
-        prisoners.remove(token);
-    }
+  public void setFree(Token token) {
+    prisoners.remove(token);
+  }
 }

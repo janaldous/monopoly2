@@ -7,17 +7,16 @@ import java.util.Optional;
 
 public class PickGetOutOfJailFreeCardAction implements PlayerAction {
 
-    public PickGetOutOfJailFreeCardAction() {
-    }
+  public PickGetOutOfJailFreeCardAction() {}
 
-    @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-        player.addGetOutOfJailFree();
-        return Optional.empty();
-    }
+  @Override
+  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    player.addGetOutOfJailFree();
+    return Optional.empty();
+  }
 
-    @Override
-    public String getName() {
-        return null;
-    }
+  @Override
+  public String getName() {
+    return null;
+  }
 }

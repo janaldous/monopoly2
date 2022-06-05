@@ -7,25 +7,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class Space
-{
-    private final String name;
-    private final List<PlayerAction> requiredActions;
-    
-    protected Space(String name, List<PlayerAction> requiredActions) {
-        this.name = name;
-        this.requiredActions = requiredActions;
-    }
+public class Space {
+  private final String name;
+  private final List<PlayerAction> requiredActions;
 
-    public String getName() {
-        return name;
-    }
-    
-    public Map<String, PlayerAction> getPlayerOptions(PlayerImpl player) {
-        return Collections.emptyMap();
-    }
-    
-    public List<PlayerAction> getRequiredActions() {
-        return requiredActions;
-    }
+  protected Space(String name, List<PlayerAction> requiredActions) {
+    this.name = name;
+    this.requiredActions = requiredActions;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Map<String, PlayerAction> getPlayerOptions(PlayerImpl player) {
+    return Collections.emptyMap();
+  }
+
+  public List<PlayerAction> getRequiredActions() {
+    return requiredActions;
+  }
 }

@@ -1,8 +1,5 @@
 package com.janaldous.monopoly.core;
 
-public class Building
-{
-    public Building()
-    {
-    }
+public class Building {
+  public Building() {}
 }

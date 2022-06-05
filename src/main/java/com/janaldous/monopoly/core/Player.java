@@ -7,21 +7,21 @@ import java.util.List;
 import java.util.Map;
 
 public interface Player {
-    int addMoney(int amount);
+  int addMoney(int amount);
 
-    int pay(int amount) throws NotEnoughMoneyException;
+  int pay(int amount) throws NotEnoughMoneyException;
 
-    int getBalance();
+  int getBalance();
 
-    Map<PropertyGroup, List<PropertySpace>> getPropertiesByPropertyGroup();
+  Map<PropertyGroup, List<PropertySpace>> getPropertiesByPropertyGroup();
 
-    List<PropertySpace> getProperties();
+  List<PropertySpace> getProperties();
 
-    void addProperty(PropertySpace propertySpace);
+  void addProperty(PropertySpace propertySpace);
 
-    void removeProperty(PropertySpace property);
+  void removeProperty(PropertySpace property);
 
-    void addGetOutOfJailFree();
+  void addGetOutOfJailFree();
 
-    void useGetOutOfJailFree();
+  void useGetOutOfJailFree();
 }

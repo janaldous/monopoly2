@@ -1,8 +1,5 @@
 package com.janaldous.monopoly.core;
 
-public class Hotel extends Building
-{
-    public Hotel()
-    {
-    }
+public class Hotel extends Building {
+  public Hotel() {}
 }

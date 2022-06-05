@@ -8,22 +8,22 @@ import com.janaldous.monopoly.core.token.Token;
 import java.util.Optional;
 
 public class GoToJailPlayerAction implements PlayerAction {
-    private GameContext context;
+  private GameContext context;
 
-    public GoToJailPlayerAction(GameContext context) {
-        this.context = context;
-    }
+  public GoToJailPlayerAction(GameContext context) {
+    this.context = context;
+  }
 
-    @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-        Token token = context.getPlayerToken(player);
-        context.getGameboard().moveToJail(token);
+  @Override
+  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    Token token = context.getPlayerToken(player);
+    context.getGameboard().moveToJail(token);
 
-        return Optional.empty();
-    }
+    return Optional.empty();
+  }
 
-    @Override
-    public String getName() {
-        return null;
-    }
+  @Override
+  public String getName() {
+    return null;
+  }
 }
