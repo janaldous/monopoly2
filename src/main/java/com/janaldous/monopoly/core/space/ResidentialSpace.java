@@ -2,6 +2,7 @@ package com.janaldous.monopoly.core.space;
 
 import com.janaldous.monopoly.core.PropertyGroup;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
+import lombok.Builder;
 
 import java.util.*;
 
@@ -17,6 +18,7 @@ public class ResidentialSpace extends PropertySpace {
   private final int hotelRent;
   private boolean hasHotel;
 
+  @Builder
   public ResidentialSpace(
       String name,
       int value,

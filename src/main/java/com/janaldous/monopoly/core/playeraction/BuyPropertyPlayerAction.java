@@ -3,6 +3,7 @@ package com.janaldous.monopoly.core.playeraction;
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.exception.*;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.gameboard.GameboardImpl;
 import com.janaldous.monopoly.core.space.*;
 import com.janaldous.monopoly.core.space.rentstrategy.*;
 import com.janaldous.monopoly.core.token.Token;
@@ -18,12 +19,9 @@ public class BuyPropertyPlayerAction implements PlayerAction {
 
   @Override
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-    Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
-    Space space = gameboard.getSpace(token);
-    if (space instanceof PropertySpace) {
-      PropertySpace property = (PropertySpace) space;
-
+    Space space = context.getPlayerSpace(player);
+    if (space instanceof PropertySpace property) {
       if (hasOwner(property)) {
         throw new PlayerActionException("Property is already owned by another player");
       }
@@ -95,12 +93,8 @@ public class BuyPropertyPlayerAction implements PlayerAction {
 
   @Override
   public boolean isValidAction(Player player) {
-    Token token = context.getPlayerToken(player);
-    Gameboard gameboard = context.getGameboard();
-    Space space = gameboard.getSpace(token);
-    if (space instanceof PropertySpace) {
-      PropertySpace property = (PropertySpace) space;
-
+    Space space = context.getPlayerSpace(player);
+    if (space instanceof PropertySpace property) {
       if (hasOwner(property)) {
         return false;
       }

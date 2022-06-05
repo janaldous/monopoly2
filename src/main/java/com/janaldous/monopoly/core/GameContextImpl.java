@@ -2,6 +2,7 @@ package com.janaldous.monopoly.core;
 
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 
 import java.util.HashMap;
@@ -50,6 +51,12 @@ public class GameContextImpl implements GameContext {
   public Token getPlayerToken(Player player) {
     int index = playerToPlayerIndex.get(player);
     return tokens[index];
+  }
+
+  @Override
+  public Space getPlayerSpace(Player player) {
+    Token token = getPlayerToken(player);
+    return gameboard.getSpace(token);
   }
 
   public void setDice(Dice dice) {
