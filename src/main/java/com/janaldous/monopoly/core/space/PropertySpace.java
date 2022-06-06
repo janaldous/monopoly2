@@ -72,4 +72,8 @@ public class PropertySpace extends Space {
   public PropertyGroup getPropertyGroup() {
     return colorGroup;
   }
+
+  public boolean hasOwner() {
+    return owner != null;
+  }
 }

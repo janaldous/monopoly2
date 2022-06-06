@@ -20,9 +20,8 @@ public class MoveByPropertyNamePlayerAction implements PlayerAction {
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
-    int startPosition = gameboard.getPosition(token);
     int endPosition = gameboard.getPositionBySpaceName(propertyName);
-    gameboard.move(token, Math.abs(endPosition - startPosition));
+    gameboard.moveToPosition(token, endPosition);
 
     return Optional.empty();
   }

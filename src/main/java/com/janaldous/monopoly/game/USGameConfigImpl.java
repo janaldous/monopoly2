@@ -24,6 +24,16 @@ public class USGameConfigImpl implements GameConfig {
         return initialMoney;
     }
 
+    @Override
+    public int getSalaryAmount() {
+        return 200;
+    }
+
+    @Override
+    public int getMaxNumOfApartments() {
+        return 4;
+    }
+
     public static class USGameConfigBuilder {
         private Map<String, Token> playerNames;
         private int initialMoney;

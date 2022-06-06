@@ -17,8 +17,7 @@ public class PayPlayerAction implements PlayerAction {
 
   @Override
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-    bank.withdraw(amount);
-    player.addMoney(amount);
+    bank.payPlayer(player, amount);
     return Optional.empty();
   }
 

@@ -15,7 +15,7 @@ public class PlayerActionFactory {
   public PlayerAction createPlayerAction(String actionName) {
     switch (actionName) {
       case "CollectSalary":
-        return new CollectSalaryAction(bank);
+        return new CollectSalaryAction(bank, context.getConfig());
       case "PickCommunityChestCard":
         return new PickCommunityChestCardAction(context);
       default:

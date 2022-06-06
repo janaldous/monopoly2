@@ -76,7 +76,7 @@ public class GameImpl implements Game {
             int steps = dice.roll();
             
             // move token
-            Space space = gameboard.move(playerTokens[curPlayerIndex], steps);
+            Space space = gameboard.moveBySteps(playerTokens[curPlayerIndex], steps);
             
             // based on space, take action
             // player buys space?

@@ -19,9 +19,22 @@ public class BankImpl implements Bank {
   }
 
   @Override
-  public void pay(Player player, int value) throws NotEnoughMoneyException {
-    player.pay(value);
-    transactionRecords.add(new TransactionRecord(player.getName(), BANK_NAME, value));
+  public void playerToPay(Player player, int amount) throws NotEnoughMoneyException {
+    player.pay(amount);
+    transactionRecords.add(new TransactionRecord(player.getName(), BANK_NAME, amount));
+  }
+
+  @Override
+  public void payPlayer(Player player, int amount) {
+    player.addMoney(amount);
+    transactionRecords.add(new TransactionRecord(BANK_NAME, player.getName(), amount));
+  }
+
+  @Override
+  public void transfer(Player fromPlayer, Player toPlayer, int amount) throws NotEnoughMoneyException {
+    fromPlayer.pay(amount);
+    toPlayer.addMoney(amount);
+    transactionRecords.add(new TransactionRecord(fromPlayer.getName(), toPlayer.getName(), amount));
   }
 
   public House buyHouse(int value) {

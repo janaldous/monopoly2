@@ -12,8 +12,6 @@ import com.janaldous.monopoly.core.token.Token;
 import java.util.Optional;
 
 public class BuyHousePlayerAction implements PlayerAction {
-  private static final int MAX_NUMBER_OF_APARTMENTS = 4;
-
   private final GameContext context;
 
   public BuyHousePlayerAction(GameContext context) {
@@ -32,9 +30,9 @@ public class BuyHousePlayerAction implements PlayerAction {
         throw new PlayerActionException("This property is not owned by the player");
       }
 
-      if (property.getHouseQty() >= MAX_NUMBER_OF_APARTMENTS) {
+      if (property.getHouseQty() >= context.getConfig().getMaxNumOfApartments()) {
         throw new PlayerActionException(
-            "You cannot have more than " + MAX_NUMBER_OF_APARTMENTS + " apartments");
+            "You cannot have more than " + context.getConfig().getMaxNumOfApartments() + " apartments");
       }
 
       if (playerCanAffordApartment(player, property)) {
@@ -62,7 +60,7 @@ public class BuyHousePlayerAction implements PlayerAction {
         return false;
       }
 
-      if (property.getHouseQty() >= MAX_NUMBER_OF_APARTMENTS) {
+      if (property.getHouseQty() >= context.getConfig().getMaxNumOfApartments()) {
         return false;
       }
 

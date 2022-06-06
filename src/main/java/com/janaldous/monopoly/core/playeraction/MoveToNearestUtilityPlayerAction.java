@@ -35,17 +35,16 @@ public class MoveToNearestUtilityPlayerAction implements PlayerAction {
             .min()
             .orElseThrow(
                 () -> new RuntimeException("Something went wrong in calculating nearest utility"));
-    PropertySpace nearestUtility = (PropertySpace) gameboard.move(token, steps);
+    PropertySpace nearestUtility = (PropertySpace) gameboard.moveBySteps(token, steps);
 
-    if (nearestUtility.getOwner() != null) {
+    if (!nearestUtility.hasOwner()) {
       return Optional.of(buyProperty);
     } else {
       Dice dice = context.getDice();
       dice.roll();
       int rent = dice.getValue() * 10;
-      nearestUtility.getOwner().addMoney(rent);
       try {
-        player.pay(rent);
+        context.getBank().transfer(player, nearestUtility.getOwner(), rent);
       } catch (NotEnoughMoneyException e) {
         throw new PlayerActionException(e);
       }

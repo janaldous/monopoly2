@@ -4,13 +4,13 @@ import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
-import lombok.NonNull;
 
 import java.util.*;
 
 
 public interface Gameboard {
-    Space move(Token token, int steps);
+    Space moveBySteps(Token token, int steps);
+    Space moveToPosition(Token token, int position);
     Card takeCommunityChestCard();
     Card takeChanceCard();
     int getPosition(Token token);

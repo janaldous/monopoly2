@@ -19,8 +19,7 @@ public class ChargePlayerAction implements PlayerAction {
   @Override
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
     try {
-      player.pay(cost);
-      bank.deposit(cost);
+      bank.playerToPay(player, cost);
     } catch (NotEnoughMoneyException e) {
       throw new PlayerActionException(e);
     }

@@ -10,4 +10,7 @@ public interface GameConfig {
 
     int initialMoney();
 
+    int getSalaryAmount();
+
+    int getMaxNumOfApartments();
 }

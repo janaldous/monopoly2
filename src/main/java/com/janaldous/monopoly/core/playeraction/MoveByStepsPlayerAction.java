@@ -21,7 +21,7 @@ public class MoveByStepsPlayerAction implements PlayerAction {
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
-    gameboard.move(token, steps);
+    gameboard.moveBySteps(token, steps);
 
     return Optional.empty();
   }

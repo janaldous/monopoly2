@@ -34,7 +34,7 @@ public class MoveToNearestRailroadPlayerAction implements PlayerAction {
             .min()
             .orElseThrow(
                 () -> new RuntimeException("Something went wrong in calculating nearest railroad"));
-    PropertySpace nearestUtility = (PropertySpace) gameboard.move(token, steps);
+    PropertySpace nearestUtility = (PropertySpace) gameboard.moveBySteps(token, steps);
 
     if (nearestUtility.getOwner() != null) {
       return Optional.of(buyProperty);

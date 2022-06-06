@@ -96,7 +96,7 @@ public class GameEngineTest
         // when
         int curPlayerIndex = 0;
         PlayerImpl currentPlayer = players[curPlayerIndex];
-        Space space = gameboard.move(tokens[curPlayerIndex], 1);
+        Space space = gameboard.moveBySteps(tokens[curPlayerIndex], 1);
         Map<String, PlayerAction> playerOptions = space.getPlayerOptions(currentPlayer);
         // buy property
         playerOptions.get("Buy Property").act(currentPlayer);
@@ -139,7 +139,7 @@ public class GameEngineTest
         // when
         int curPlayerIndex = 0;
         PlayerImpl currentPlayer = players[curPlayerIndex];
-        Space space = gameboard.move(tokens[curPlayerIndex], 1);
+        Space space = gameboard.moveBySteps(tokens[curPlayerIndex], 1);
         Map<String, PlayerAction> playerOptions = space.getPlayerOptions(currentPlayer);
         // buy property
         assertEquals(1, playerOptions.entrySet().size());
@@ -193,7 +193,7 @@ public class GameEngineTest
         // when
         int curPlayerIndex = 1;
         PlayerImpl currentPlayer = players[curPlayerIndex];
-        Space space = gameboard.move(tokens[curPlayerIndex], 1);
+        Space space = gameboard.moveBySteps(tokens[curPlayerIndex], 1);
         List<PlayerAction> requiredActions = space.getRequiredActions();
         // pay rent
         requiredActions.get(0).act(currentPlayer);
@@ -250,7 +250,7 @@ public class GameEngineTest
         // when
         int curPlayerIndex = 1;
         PlayerImpl currentPlayer = players[curPlayerIndex];
-        Space space = gameboard.move(tokens[curPlayerIndex], 3);
+        Space space = gameboard.moveBySteps(tokens[curPlayerIndex], 3);
         List<PlayerAction> requiredActions = space.getRequiredActions();
         // pay rent
         requiredActions.get(0).act(currentPlayer);
@@ -299,15 +299,15 @@ public class GameEngineTest
         
         // when
         PlayerImpl player0 = players[0];
-        Space space1 = gameboard.move(tokens[0], 1);
+        Space space1 = gameboard.moveBySteps(tokens[0], 1);
         // buy
         space1.getPlayerOptions(player0).get("Buy Property").act(player0);
         
-        Space space2 = gameboard.move(tokens[0], 1);
+        Space space2 = gameboard.moveBySteps(tokens[0], 1);
         // buy
         space2.getPlayerOptions(player0).get("Buy Property").act(player0);
         
-        Space space3 = gameboard.move(tokens[0], 1);
+        Space space3 = gameboard.moveBySteps(tokens[0], 1);
         // buy
         space3.getPlayerOptions(player0).get("Buy Property").act(player0);
         
@@ -367,7 +367,7 @@ public class GameEngineTest
         gameContext.setTokens(tokens);
 
         // when
-        Space space1 = gameboard.move(tokens[0], 1);
+        Space space1 = gameboard.moveBySteps(tokens[0], 1);
         // sell
         PlayerAction sellAction = space1.getPlayerOptions(player0).get("Sell Property");
         sellAction.act(player0);
@@ -418,24 +418,24 @@ public class GameEngineTest
         
         // when
         // buy
-        Space space1 = gameboard.move(tokens[0], 1);
+        Space space1 = gameboard.moveBySteps(tokens[0], 1);
         space1.getPlayerOptions(player0).get("Buy Property").act(player0);
         
         // player 2 pays rent - rolls 11 then 4 x 11 = $44
         dice.roll();
-        Space spaceA1 = gameboard.move(tokens[1], 1);
+        Space spaceA1 = gameboard.moveBySteps(tokens[1], 1);
         spaceA1.getRequiredActions().get(0).act(playerB);
         
         assertEquals(1500-150+44, player0.getBalance());
         assertEquals(1500-44, playerB.getBalance());
         
         // buy
-        Space space2 = gameboard.move(tokens[0], 1);
+        Space space2 = gameboard.moveBySteps(tokens[0], 1);
         space2.getPlayerOptions(player0).get("Buy Property").act(player0);
 
         // pay rent - rolls 11 then 10 x 11 = $110
         dice.roll();
-        Space spaceA2 = gameboard.move(tokens[1], 1);
+        Space spaceA2 = gameboard.moveBySteps(tokens[1], 1);
         spaceA2.getRequiredActions().get(0).act(playerB);
 
         assertEquals(1500 - 150 + 44 - 150 + 110, player0.getBalance());
@@ -488,48 +488,48 @@ public class GameEngineTest
 
         // when
         // buy
-        Space space1 = gameboard.move(tokens[0], 1);
+        Space space1 = gameboard.moveBySteps(tokens[0], 1);
         space1.getPlayerOptions(playerA).get("Buy Property").act(playerA);
 
         // 1 railroad
         dice.roll();
-        Space spaceA1 = gameboard.move(tokens[1], 1);
+        Space spaceA1 = gameboard.moveBySteps(tokens[1], 1);
         spaceA1.getRequiredActions().get(0).act(playerB);
 
         assertEquals(1500 - 200 + 25, playerA.getBalance());
         assertEquals(1500 - 25, playerB.getBalance());
 
         // buy
-        Space space2 = gameboard.move(tokens[0], 1);
+        Space space2 = gameboard.moveBySteps(tokens[0], 1);
         space2.getPlayerOptions(playerA).get("Buy Property").act(playerA);
 
         // 2 railroad
         dice.roll();
-        Space spaceA2 = gameboard.move(tokens[1], 1);
+        Space spaceA2 = gameboard.moveBySteps(tokens[1], 1);
         spaceA2.getRequiredActions().get(0).act(playerB);
 
         assertEquals(1500 - 400 + 75, playerA.getBalance());
         assertEquals(1500 - 75, playerB.getBalance());
 
         // buy
-        Space space3 = gameboard.move(tokens[0], 1);
+        Space space3 = gameboard.moveBySteps(tokens[0], 1);
         space3.getPlayerOptions(playerA).get("Buy Property").act(playerA);
 
         // 3 railroad
         dice.roll();
-        Space spaceA3 = gameboard.move(tokens[1], 1);
+        Space spaceA3 = gameboard.moveBySteps(tokens[1], 1);
         spaceA3.getRequiredActions().get(0).act(playerB);
 
         assertEquals(1500 - 600 + 175, playerA.getBalance());
         assertEquals(1500 - 175, playerB.getBalance());
 
         // buy
-        Space space4 = gameboard.move(tokens[0], 1);
+        Space space4 = gameboard.moveBySteps(tokens[0], 1);
         space4.getPlayerOptions(playerA).get("Buy Property").act(playerA);
 
         // 4 railroad
         dice.roll();
-        Space spaceA4 = gameboard.move(tokens[1], 1);
+        Space spaceA4 = gameboard.moveBySteps(tokens[1], 1);
         spaceA4.getRequiredActions().get(0).act(playerB);
 
         assertEquals(1500 - 800 + 375, playerA.getBalance());

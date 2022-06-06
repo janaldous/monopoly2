@@ -75,7 +75,7 @@ class GameboardImplTest_Move {
         new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
-    gameboard.move(testToken, stepsToMove);
+    gameboard.moveBySteps(testToken, stepsToMove);
 
     // then
     assertEquals(expectedPosition, gameboard.getPosition(testToken));
@@ -87,7 +87,7 @@ class GameboardImplTest_Move {
         new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
-    Executable executable = () -> gameboard.move(null, 1);
+    Executable executable = () -> gameboard.moveBySteps(null, 1);
 
     // then
     assertThrows(
@@ -101,7 +101,7 @@ class GameboardImplTest_Move {
         new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // when
-    Executable executable = () -> gameboard.move(invalidToken, 1);
+    Executable executable = () -> gameboard.moveBySteps(invalidToken, 1);
 
     // then
     assertThrows(

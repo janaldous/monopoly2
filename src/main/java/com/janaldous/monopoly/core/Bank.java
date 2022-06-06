@@ -17,5 +17,9 @@ public interface Bank {
 
   Hotel buyHotel(int amount);
 
-  void pay(Player player, int value) throws NotEnoughMoneyException;
+  void playerToPay(Player player, int amount) throws NotEnoughMoneyException;
+
+  void payPlayer(Player player, int amount);
+
+  void transfer(Player fromPlayer, Player toPlayer, int amount) throws NotEnoughMoneyException;
 }

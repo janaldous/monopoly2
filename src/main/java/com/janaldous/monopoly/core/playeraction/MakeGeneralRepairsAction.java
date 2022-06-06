@@ -32,8 +32,7 @@ public class MakeGeneralRepairsAction implements PlayerAction {
             .reduce(0, (t, elem) -> t + elem);
 
     try {
-      player.pay(totalRepairCost);
-      bank.deposit(totalRepairCost);
+      bank.playerToPay(player, totalRepairCost);
     } catch (NotEnoughMoneyException e) {
       throw new PlayerActionException(e);
     }

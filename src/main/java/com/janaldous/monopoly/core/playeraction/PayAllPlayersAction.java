@@ -23,12 +23,14 @@ public class PayAllPlayersAction implements PlayerAction {
     List<Player> players = context.getPlayers();
     int cost = players.size() * amountPerPlayer;
 
-    try {
-      player.pay(cost);
-      players.forEach(p -> p.addMoney(amountPerPlayer));
-    } catch (NotEnoughMoneyException e) {
-      throw new PlayerActionException(e);
-    }
+    players.forEach(
+        otherPlayer -> {
+          try {
+            context.getBank().transfer(player, otherPlayer, amountPerPlayer);
+          } catch (NotEnoughMoneyException e) {
+            throw new RuntimeException(e);
+          }
+        });
     return Optional.empty();
   }
 

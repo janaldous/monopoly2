@@ -71,7 +71,7 @@ public class GameboardImpl implements Gameboard {
   }
 
   @Override
-  public Space move(@NonNull Token token, int steps) {
+  public Space moveBySteps(@NonNull Token token, int steps) {
     validateToken(token);
 
     int startPosition = getPosition(token);
@@ -80,8 +80,13 @@ public class GameboardImpl implements Gameboard {
         steps > 0
             ? calculateForwardMove(startPosition, moduloSteps)
             : calculateBackwardMove(startPosition, moduloSteps);
-    tokenPositions.put(token, newPosition);
 
+    return moveToPosition(token, newPosition);
+  }
+
+  @Override
+  public Space moveToPosition(Token token, int newPosition) {
+    tokenPositions.put(token, newPosition);
     return spaces[newPosition];
   }
 

@@ -3,10 +3,8 @@ package com.janaldous.monopoly.core.playeraction;
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.exception.*;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
-import com.janaldous.monopoly.core.gameboard.GameboardImpl;
 import com.janaldous.monopoly.core.space.*;
 import com.janaldous.monopoly.core.space.rentstrategy.*;
-import com.janaldous.monopoly.core.token.Token;
 
 import java.util.*;
 
@@ -25,7 +23,7 @@ public class BuyPropertyPlayerAction implements PlayerAction {
       throw new PlayerActionException("Invalid action");
     }
     try {
-      context.getBank().pay(player, property.getValue());
+      context.getBank().playerToPay(player, property.getValue());
     } catch (NotEnoughMoneyException e) {
       throw new PlayerActionException(e);
     }
