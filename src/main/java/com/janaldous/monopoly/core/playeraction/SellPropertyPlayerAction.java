@@ -23,9 +23,8 @@ public class SellPropertyPlayerAction implements PlayerAction {
     
     @Override
     public Optional<PlayerAction> act(Player player) throws PlayerActionException {
-        Token token = context.getPlayerToken(player);
         Gameboard gameboard = context.getGameboard();
-        Space space = gameboard.getSpace(token);
+        Space space = context.getPlayerSpace(player);
         if (space instanceof PropertySpace property) {
             if (!player.equals(property.getOwner())) {
                 return Optional.empty();
