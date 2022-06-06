@@ -1,4 +1,4 @@
-package com.janaldous.monopoly.engine;
+package com.janaldous.monopoly.controller;
 
 import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface GameController {
-
-    void start();
 
     Player getCurrentPlayer();
 
@@ -22,5 +20,7 @@ public interface GameController {
     Map<String, PlayerAction> getPlayerActionOptions();
 
     void doCurrentPlayerAction(PlayerAction playerAction);
+
+    void finishPlayerTurn();
 
 }

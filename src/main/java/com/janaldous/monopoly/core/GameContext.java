@@ -4,7 +4,7 @@ import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
-import com.janaldous.monopoly.game.GameConfig;
+import com.janaldous.monopoly.config.GameConfig;
 
 import java.util.List;
 

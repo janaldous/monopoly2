@@ -8,8 +8,8 @@ import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.factory.SpaceFactory;
 import com.janaldous.monopoly.versions.factory.GameboardFactory;
 import com.janaldous.monopoly.core.token.factory.TokenFactory;
-import com.janaldous.monopoly.game.GameConfig;
-import com.janaldous.monopoly.game.USGameConfigImpl;
+import com.janaldous.monopoly.config.GameConfig;
+import com.janaldous.monopoly.config.USGameConfigImpl;
 import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import org.junit.jupiter.api.Test;
 

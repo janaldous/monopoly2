@@ -1,4 +1,4 @@
-package com.janaldous.monopoly.engine;
+package com.janaldous.monopoly.controller;
 
 public interface RandomStrategy {
 

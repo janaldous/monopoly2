@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core;
 
-import com.janaldous.monopoly.game.GameConfig;
+import com.janaldous.monopoly.config.GameConfig;
 
 public class PlayerFactory {
 

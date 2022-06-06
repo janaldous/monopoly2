@@ -1,5 +1,6 @@
 package com.janaldous.monopoly.core;
 
+import com.janaldous.monopoly.config.GameConfig;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.Space;
@@ -16,11 +17,19 @@ public class GameContextImpl implements GameContext {
   private Token[] tokens;
   private Map<Player, Integer> playerToPlayerIndex;
   private Bank bank;
+  private GameConfig gameConfig;
 
   public GameContextImpl() {}
 
-  public GameContextImpl(Gameboard gameboard, Dice dice, PlayerImpl[] players, Token[] tokens, Bank bank) {
+  public GameContextImpl(
+      Gameboard gameboard,
+      Dice dice,
+      PlayerImpl[] players,
+      Token[] tokens,
+      Bank bank,
+      GameConfig gameConfig) {
     this.bank = bank;
+    this.gameConfig = gameConfig;
     if (players.length != tokens.length)
       throw new IllegalStateException("players and tokens should have same length");
     this.gameboard = gameboard;
@@ -52,6 +61,11 @@ public class GameContextImpl implements GameContext {
   @Override
   public Bank getBank() {
     return bank;
+  }
+
+  @Override
+  public GameConfig getConfig() {
+    return gameConfig;
   }
 
   @Override

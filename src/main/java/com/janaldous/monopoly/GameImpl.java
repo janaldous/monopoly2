@@ -14,7 +14,7 @@ import com.janaldous.monopoly.core.space.factory.SpaceFactory;
 import com.janaldous.monopoly.core.token.CarToken;
 import com.janaldous.monopoly.core.token.DogToken;
 import com.janaldous.monopoly.core.token.Token;
-import com.janaldous.monopoly.game.GameConfig;
+import com.janaldous.monopoly.config.GameConfig;
 
 import java.util.*;
 import java.util.stream.Collectors;
