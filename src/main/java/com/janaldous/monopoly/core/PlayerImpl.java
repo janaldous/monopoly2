@@ -104,6 +104,11 @@ public class PlayerImpl implements Player {
   }
 
   @Override
+  public void setStrategy(PlayerStrategy strategy) {
+    this.strategy = strategy;
+  }
+
+  @Override
   public boolean shouldAct(PlayerAction playerAction) {
     return strategy.shouldAct(playerAction);
   }

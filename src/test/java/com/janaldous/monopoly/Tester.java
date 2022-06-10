@@ -17,6 +17,7 @@ import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Log
 public class Tester {
@@ -27,9 +28,7 @@ public class Tester {
     GameContext gameContext = new GameContextFactory().createGameContextWithoutGameBoard();
     PlayerActionFactory playerActionFactory = new PlayerActionFactory(new BankImpl(), gameContext);
     GameboardFactory gameboardFactory =
-        new GameboardFactory(
-            new OriginalGameboardFactory(
-                new SpaceFactory(playerActionFactory)));
+        new GameboardFactory(new OriginalGameboardFactory(new SpaceFactory(playerActionFactory)));
     gameContext.setGameboard(gameboardFactory.createGameboard("original", gameContext.getTokens()));
     GameController gameController = new GameControllerImpl(gameContext);
 
@@ -44,14 +43,17 @@ public class Tester {
       gameController.doRequiredPlayerActions();
 
       Map<String, PlayerAction> playerActionOptions = gameController.getPlayerActionOptions();
-      playerActionOptions.values().stream().filter(playerAction -> currentPlayer.shouldAct(playerAction)).forEach(playerAction -> {
-        try {
-          playerAction.act(currentPlayer);
-        } catch (PlayerActionException e) {
-          throw new RuntimeException(e);
-        }
-      });
-
+      log.info("player options: " + playerActionOptions.values().stream().map(PlayerAction::getName).collect(Collectors.joining(",")));
+      playerActionOptions.values().stream()
+          .filter(playerAction -> currentPlayer.shouldAct(playerAction))
+          .forEach(
+              playerAction -> {
+                try {
+                  playerAction.act(currentPlayer);
+                } catch (PlayerActionException e) {
+                  throw new RuntimeException(e);
+                }
+              });
 
       gameController.finishPlayerTurn();
       log.info(playerName + " turn finished");

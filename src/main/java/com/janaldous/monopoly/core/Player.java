@@ -29,5 +29,7 @@ public interface Player {
 
   void useGetOutOfJailFree();
 
+  void setStrategy(PlayerStrategy strategy);
+
   boolean shouldAct(PlayerAction playerAction);
 }
