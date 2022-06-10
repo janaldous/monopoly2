@@ -22,4 +22,5 @@ public interface GameController {
 
     void finishPlayerTurn();
 
+    boolean hasWinner();
 }

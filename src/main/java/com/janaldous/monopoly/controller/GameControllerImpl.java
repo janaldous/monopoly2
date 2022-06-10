@@ -58,7 +58,9 @@ public class GameControllerImpl implements GameController {
 
   @Override
   public void doRequiredPlayerActions() {
-    gameContext.getPlayerSpace(currentPlayer).getRequiredActions().stream()
+    List<PlayerAction> requiredActions = gameContext.getPlayerSpace(currentPlayer).getRequiredActions();
+    log.info("required actions: " + requiredActions.toString());
+    requiredActions.stream()
         .filter(playerAction -> playerAction.isValidAction(currentPlayer))
         .forEach(
             playerAction -> {
@@ -87,12 +89,25 @@ public class GameControllerImpl implements GameController {
 
   @Override
   public void finishPlayerTurn() {
-    currentPlayerIndex++;
+    if (!isCurrentPlayerStillInTheGame()) {
+      players.remove(currentPlayerIndex);
+    } else {
+      currentPlayerIndex++;
+    }
     if (currentPlayerIndex >= players.size()) {
       currentPlayer = players.get(0);
       currentPlayerIndex = 0;
     } else {
       currentPlayer = players.get(currentPlayerIndex);
     }
+  }
+
+  @Override
+  public boolean hasWinner() {
+    return players.size() == 1;
+  }
+
+  private boolean isCurrentPlayerStillInTheGame() {
+    return currentPlayer.getBalance() > 0;
   }
 }

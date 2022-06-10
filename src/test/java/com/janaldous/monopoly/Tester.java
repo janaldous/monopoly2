@@ -35,7 +35,7 @@ public class Tester {
     gameContext.setGameboard(gameboardFactory.createGameboard("original", gameContext.getTokens()));
     GameController gameController = new GameControllerImpl(gameContext);
 
-    for (int i = 0; i < 5; i++) {
+    while (!gameController.hasWinner()) {
       Player currentPlayer = gameController.getCurrentPlayer();
       log.info("Current player " + currentPlayer);
 
@@ -46,6 +46,7 @@ public class Tester {
       gameController.doRequiredPlayerActions();
 
       Map<String, PlayerAction> playerActionOptions = gameController.getPlayerActionOptions();
+      log.info("player options: " + playerActionOptions.values().toString());
       log.info(
           "player options: "
               + playerActionOptions.values().stream()
@@ -65,5 +66,6 @@ public class Tester {
       gameController.finishPlayerTurn();
       log.info(playerName + " turn finished");
     }
+    log.info(gameController.getCurrentPlayer().getName() + " wins");
   }
 }
