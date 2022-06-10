@@ -4,7 +4,6 @@ import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.Space;
 
-import java.util.List;
 import java.util.Map;
 
 public interface GameController {
@@ -15,7 +14,7 @@ public interface GameController {
 
     int rollDice();
 
-    List<PlayerAction> getRequiredPlayerActions();
+    void doRequiredPlayerActions();
 
     Map<String, PlayerAction> getPlayerActionOptions();
 

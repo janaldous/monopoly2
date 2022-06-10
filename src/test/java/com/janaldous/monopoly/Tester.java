@@ -4,10 +4,8 @@ import com.janaldous.monopoly.controller.GameController;
 import com.janaldous.monopoly.controller.GameControllerImpl;
 import com.janaldous.monopoly.core.BankImpl;
 import com.janaldous.monopoly.core.Player;
-import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.gamecontext.GameContextFactory;
-import com.janaldous.monopoly.core.gamecontext.GameContextImpl;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.space.factory.SpaceFactory;
@@ -39,16 +37,7 @@ public class Tester {
       String playerName = currentPlayer.getName();
       log.info(playerName + " moves to " + space);
 
-      gameController.getRequiredPlayerActions().forEach(playerAction -> {
-        if (playerAction.isValidAction(currentPlayer)) {
-          try {
-            playerAction.act(currentPlayer);
-          } catch (PlayerActionException e) {
-            throw new RuntimeException(e);
-          }
-          log.info(playerName + " is required to act: " + playerAction.getName());
-        }
-      });
+      gameController.doRequiredPlayerActions();
 
       gameController.finishPlayerTurn();
       log.info(playerName + " turn finished");
