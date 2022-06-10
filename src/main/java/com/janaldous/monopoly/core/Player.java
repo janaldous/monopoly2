@@ -1,6 +1,7 @@
 package com.janaldous.monopoly.core;
 
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
+import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.PropertySpace;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface Player {
   void addGetOutOfJailFree();
 
   void useGetOutOfJailFree();
+
+  boolean shouldAct(PlayerAction playerAction);
 }

@@ -1,6 +1,7 @@
 package com.janaldous.monopoly.core;
 
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
+import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import lombok.Getter;
 import lombok.ToString;
@@ -20,11 +21,17 @@ public class PlayerImpl implements Player {
   private int balance;
   private final Map<PropertyGroup, List<PropertySpace>> properties;
   private int getOutOfJailFreeCards;
+  private PlayerStrategy strategy;
 
-  public PlayerImpl(String name, int startingBalance) {
+  public PlayerImpl(String name, int startingBalance, PlayerStrategy strategy) {
     this.name = name;
     this.balance = startingBalance;
+    this.strategy = strategy;
     properties = new HashMap<>();
+  }
+
+  public PlayerImpl(String name, int startingBalance) {
+    this(name, startingBalance, null);
   }
 
   @Override
@@ -94,6 +101,11 @@ public class PlayerImpl implements Player {
   public void useGetOutOfJailFree() {
     if (getOutOfJailFreeCards <= 0) throw new IllegalStateException("Cannot remove cards");
     getOutOfJailFreeCards--;
+  }
+
+  @Override
+  public boolean shouldAct(PlayerAction playerAction) {
+    return strategy.shouldAct(playerAction);
   }
 
 }
