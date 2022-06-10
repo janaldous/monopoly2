@@ -18,6 +18,7 @@ import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Log
@@ -43,25 +44,29 @@ public class Tester {
       Space space = gameController.moveCurrentPlayer(gameContext.getDice().roll());
       log.info(playerName + " moves to " + space);
 
-      gameController.doRequiredPlayerActions();
+      boolean isPlayerStilPlaying = gameController.doRequiredPlayerActions();
+
+      if (!isPlayerStilPlaying) {
+        continue;
+      }
 
       Map<String, PlayerAction> playerActionOptions = gameController.getPlayerActionOptions();
-      log.info("player options: " + playerActionOptions.values().toString());
+      log.info("player options: " + playerActionOptions.values());
       log.info(
           "player options: "
               + playerActionOptions.values().stream()
                   .map(PlayerAction::getName)
                   .collect(Collectors.joining(",")));
-      playerActionOptions.values().stream()
-          .filter(playerAction -> currentPlayer.shouldAct(playerAction))
-          .forEach(
-              playerAction -> {
-                try {
-                  playerAction.act(currentPlayer);
-                } catch (PlayerActionException e) {
-                  throw new RuntimeException(e);
-                }
-              });
+      Optional<PlayerAction> first = playerActionOptions.values().stream()
+              .filter(playerAction -> currentPlayer.shouldAct(playerAction))
+              .findFirst();
+      if (first.isPresent()) {
+        isPlayerStilPlaying = gameController.doCurrentPlayerAction(first.get());
+      }
+
+      if (!isPlayerStilPlaying) {
+        continue;
+      }
 
       gameController.finishPlayerTurn();
       log.info(playerName + " turn finished");

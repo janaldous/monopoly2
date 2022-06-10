@@ -13,6 +13,8 @@ import org.assertj.core.util.VisibleForTesting;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /** Controls flow of game i.e. decides which player is next. Player can act through this object */
 @Log
@@ -57,20 +59,24 @@ public class GameControllerImpl implements GameController {
   }
 
   @Override
-  public void doRequiredPlayerActions() {
-    List<PlayerAction> requiredActions = gameContext.getPlayerSpace(currentPlayer).getRequiredActions();
-    log.info("required actions: " + requiredActions.toString());
-    requiredActions.stream()
-        .filter(playerAction -> playerAction.isValidAction(currentPlayer))
-        .forEach(
-            playerAction -> {
-              try {
-                playerAction.act(currentPlayer);
-              } catch (PlayerActionException e) {
-                throw new RuntimeException(e);
-              }
-              log.info(currentPlayer.getName() + " is required to act: " + playerAction.getName());
-            });
+  public boolean doRequiredPlayerActions() {
+    List<PlayerAction> requiredActions =
+        gameContext.getPlayerSpace(currentPlayer).getRequiredActions().stream()
+            .filter(playerAction -> playerAction.isValidAction(currentPlayer))
+            .collect(Collectors.toList());
+    log.info("required actions: " + requiredActions);
+    for (PlayerAction playerAction: requiredActions) {
+      try {
+        playerAction.act(currentPlayer);
+      } catch (PlayerActionException e) {
+        log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
+        removeCurrentPlayerFromGame();
+        finishPlayerTurn();
+        return false;
+      }
+      log.info(currentPlayer.getName() + " is required to act: " + playerAction.getName());
+    }
+    return true;
   }
 
   @Override
@@ -79,18 +85,27 @@ public class GameControllerImpl implements GameController {
   }
 
   @Override
-  public void doCurrentPlayerAction(PlayerAction playerAction) {
+  public boolean doCurrentPlayerAction(PlayerAction playerAction) {
     try {
       playerAction.act(currentPlayer);
     } catch (PlayerActionException e) {
-      throw new GameException(e);
+      log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
+      removeCurrentPlayerFromGame();
+      finishPlayerTurn();
+      return false;
     }
+    return true;
+  }
+
+  private void removeCurrentPlayerFromGame() {
+    players.remove(currentPlayerIndex);
+    log.info(currentPlayer.getName() + " is removed from the game");
   }
 
   @Override
   public void finishPlayerTurn() {
     if (!isCurrentPlayerStillInTheGame()) {
-      players.remove(currentPlayerIndex);
+      removeCurrentPlayerFromGame();
     } else {
       currentPlayerIndex++;
     }

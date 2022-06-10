@@ -14,11 +14,19 @@ public interface GameController {
 
     int rollDice();
 
-    void doRequiredPlayerActions();
+    /**
+     * Do required player action. If player is bankkrupt, returns false
+     * @return if player is still allowed to play
+     */
+    boolean doRequiredPlayerActions();
 
     Map<String, PlayerAction> getPlayerActionOptions();
 
-    void doCurrentPlayerAction(PlayerAction playerAction);
+    /**
+     * Do player action. If player is bankkrupt, returns false
+     * @return if player is still allowed to play
+     */
+    boolean doCurrentPlayerAction(PlayerAction playerAction);
 
     void finishPlayerTurn();
 

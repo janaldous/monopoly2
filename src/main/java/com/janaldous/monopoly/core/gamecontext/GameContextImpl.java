@@ -9,9 +9,7 @@ import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameContextImpl implements GameContext {
   private Gameboard gameboard;
@@ -66,7 +64,7 @@ public class GameContextImpl implements GameContext {
 
   @Override
   public List<Player> getPlayers() {
-    return List.of(players);
+    return new ArrayList<>(Arrays.asList(players));
   }
 
   @Override
