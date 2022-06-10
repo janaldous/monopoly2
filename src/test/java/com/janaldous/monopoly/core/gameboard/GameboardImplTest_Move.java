@@ -58,9 +58,7 @@ class GameboardImplTest_Move {
 
     // when
     Executable executable =
-        () ->
-            new GameboardImpl(
-                spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
+        () -> new GameboardImpl(spaces, tokenPositions, communityChestCardsMock, chanceCardsMock);
 
     // then
     assertThrows(IllegalArgumentException.class, executable);
@@ -125,6 +123,7 @@ class GameboardImplTest_Move {
         Arguments.of(-5, 0, 1),
         Arguments.of(-6, 0, 0),
         Arguments.of(-1, 2, 1),
-        Arguments.of(-1, 1, 0));
+        Arguments.of(-1, 1, 0),
+        Arguments.of(2, 2, 1));
   }
 }

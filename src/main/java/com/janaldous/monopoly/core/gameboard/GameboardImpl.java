@@ -7,10 +7,12 @@ import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 import lombok.NonNull;
+import lombok.extern.java.Log;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Log
 public class GameboardImpl implements Gameboard {
   private final Space[] spaces;
   private int jailIndex = -1;
@@ -80,9 +82,9 @@ public class GameboardImpl implements Gameboard {
     int moduloSteps = steps % spaces.length;
     int newPosition =
         steps > 0
-            ? calculateForwardMove(startPosition, moduloSteps)
+            ? calculateForwardMove(startPosition, moduloSteps) % spaces.length
             : calculateBackwardMove(startPosition, moduloSteps);
-
+    log.info("moving from " + startPosition + " - " + moduloSteps + " steps");
     return moveToPosition(token, newPosition);
   }
 
@@ -104,10 +106,10 @@ public class GameboardImpl implements Gameboard {
 
   private int calculateBackwardMove(int startPosition, int moduloSteps) {
     if (moduloSteps == 0) return startPosition;
-    if (startPosition - moduloSteps >= 0) {
-      return startPosition - moduloSteps;
+    if (startPosition + moduloSteps >= 0) {
+      return startPosition + moduloSteps;
     } else {
-      return spaces.length - startPosition - moduloSteps;
+      return spaces.length - startPosition + moduloSteps;
     }
   }
 

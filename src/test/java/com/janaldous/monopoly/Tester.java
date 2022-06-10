@@ -37,10 +37,10 @@ public class Tester {
 
     while (!gameController.hasWinner()) {
       Player currentPlayer = gameController.getCurrentPlayer();
-      log.info("Current player " + currentPlayer);
+      String playerName = currentPlayer.getName();
+      log.info("Current player " + playerName);
 
       Space space = gameController.moveCurrentPlayer(gameContext.getDice().roll());
-      String playerName = currentPlayer.getName();
       log.info(playerName + " moves to " + space);
 
       gameController.doRequiredPlayerActions();
