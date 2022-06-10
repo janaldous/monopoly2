@@ -8,7 +8,7 @@ public interface GameConfig {
 
     Map<String, Token> getPlayerNames();
 
-    int initialMoney();
+    int getInitialMoney();
 
     int getSalaryAmount();
 

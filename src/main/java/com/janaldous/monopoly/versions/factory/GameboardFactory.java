@@ -8,6 +8,7 @@ import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class GameboardFactory {
@@ -18,12 +19,12 @@ public class GameboardFactory {
     this.originalGameboardFactory = originalGameboardFactory;
   }
 
-  public Gameboard createGameboard(String name) {
+  public Gameboard createGameboard(String name, List<Token> tokens) {
     switch (name) {
       case "original":
         return new GameboardImpl(
             originalGameboardFactory.createSpaces(),
-            createTokenPositions(Collections.emptyList()),
+            createTokenPositions(tokens),
                 null,
             null);
       default:
@@ -32,6 +33,6 @@ public class GameboardFactory {
   }
 
   private Map<Token, Integer> createTokenPositions(List<Token> tokens) {
-    return tokens.stream().collect(Collectors.toMap(x -> x, x -> 0));
+    return tokens.stream().collect(Collectors.toMap(Function.identity(), x -> 0));
   }
 }

@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.playeraction;
 
-import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
@@ -39,6 +39,12 @@ public class PayRentPlayerAction implements PlayerAction {
     }
 
     return Optional.empty();
+  }
+
+  @Override
+  public boolean isValidAction(Player player) {
+    Space space = context.getPlayerSpace(player);
+    return space instanceof PropertySpace property && property.hasOwner();
   }
 
   @Override

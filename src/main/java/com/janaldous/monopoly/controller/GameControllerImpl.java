@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.controller;
 
-import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class GameControllerImpl implements GameController {
 
     private final List<Player> players;
-    private final Gameboard gameboard;
+    private Gameboard gameboard;
     private final Dice dice;
     private final GameContext gameContext;
     private Player currentPlayer;
@@ -77,12 +77,12 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void finishPlayerTurn() {
+        currentPlayerIndex++;
         if (currentPlayerIndex >= players.size()) {
             currentPlayer = players.get(0);
             currentPlayerIndex = 0;
         } else {
             currentPlayer = players.get(currentPlayerIndex);
-            currentPlayerIndex++;
         }
     }
 }

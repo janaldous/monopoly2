@@ -3,6 +3,7 @@ package com.janaldous.monopoly.core.playeraction;
 import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.ResidentialSpace;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class BuyPropertyPlayerActionTest {
 
-  @Mock GameContext contextMock;
+  @Mock
+  GameContext contextMock;
   @Mock Gameboard gameboardMock;
 
 

@@ -1,6 +1,5 @@
 package com.janaldous.monopoly.core.space.rentstrategy;
 
-import com.janaldous.monopoly.core.GameContext;
 import com.janaldous.monopoly.core.space.RailroadSpace;
 
 public class RailroadRentStrategy implements RentStrategy {

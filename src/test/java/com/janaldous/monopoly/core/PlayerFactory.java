@@ -11,7 +11,7 @@ public class PlayerFactory {
     }
 
     public PlayerImpl createPlayer(String name) {
-        return new PlayerImpl(name, config.initialMoney());
+        return new PlayerImpl(name, config.getInitialMoney());
     }
 
 }

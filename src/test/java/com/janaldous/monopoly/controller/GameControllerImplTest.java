@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.controller;
 
-import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

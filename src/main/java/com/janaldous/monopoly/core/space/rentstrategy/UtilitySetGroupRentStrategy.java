@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.space.rentstrategy;
 
-import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
 
 public class UtilitySetGroupRentStrategy implements RentStrategy {
   protected final GameContext context;

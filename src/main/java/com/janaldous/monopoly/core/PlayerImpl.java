@@ -3,6 +3,8 @@ package com.janaldous.monopoly.core;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Log
+@ToString
 public class PlayerImpl implements Player {
   @Getter
   private final String name;
@@ -27,7 +31,7 @@ public class PlayerImpl implements Player {
   public int addMoney(int amount) {
     balance += amount;
 
-    System.out.println("player=" + name + " +" + amount + " balance=" + balance);
+    log.info(name + " +" + amount + " new balance=" + balance);
 
     return balance;
   }
@@ -40,7 +44,7 @@ public class PlayerImpl implements Player {
 
     balance -= amount;
 
-    System.out.println("player=" + name + " -" + amount + " balance=" + balance);
+    log.info(name + " -" + amount + " balance=" + balance);
 
     return balance;
   }
@@ -91,4 +95,5 @@ public class PlayerImpl implements Player {
     if (getOutOfJailFreeCards <= 0) throw new IllegalStateException("Cannot remove cards");
     getOutOfJailFreeCards--;
   }
+
 }

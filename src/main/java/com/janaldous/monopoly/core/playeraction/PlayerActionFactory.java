@@ -1,7 +1,9 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.Bank;
-import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.BankImpl;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
+import lombok.Setter;
 
 public class PlayerActionFactory {
   private final Bank bank;
@@ -12,7 +14,7 @@ public class PlayerActionFactory {
     this.context = context;
   }
 
-  public PlayerAction createPlayerAction(String actionName) {
+    public PlayerAction createPlayerAction(String actionName) {
     switch (actionName) {
       case "CollectSalary":
         return new CollectSalaryAction(bank, context.getConfig());

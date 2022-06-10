@@ -6,6 +6,7 @@ import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.factory.SpaceFactory;
+import com.janaldous.monopoly.core.token.Token;
 import com.janaldous.monopoly.versions.factory.GameboardFactory;
 import com.janaldous.monopoly.core.token.factory.TokenFactory;
 import com.janaldous.monopoly.config.GameConfig;
@@ -21,19 +22,20 @@ public class GameImplTest {
 
     @Test
     void test() {
-        GameFactory gameFactory = new GameFactory();
-        gameFactory.createGame("original");
-
         TokenFactory tokenFactory = new TokenFactory();
+        Token[] tokens = new Token[] {
+                tokenFactory.createToken("dog"),
+                tokenFactory.createToken("car")
+        };
         GameConfig config = USGameConfigImpl.USGameConfigBuilder.builder()
-                .players(Map.of("A", tokenFactory.createToken("dog"), "B", tokenFactory.createToken("car")))
+                .players(Map.of("A", tokens[0], "B", tokens[1]))
                 .initialMoney(1500)
                 .build();
         Bank bank = new BankImpl();
         PlayerActionFactory playerActionFactory = new PlayerActionFactory(null, null);
         OriginalGameboardFactory originalGameboardFactory = new OriginalGameboardFactory(new SpaceFactory(playerActionFactory));
         GameboardFactory gameboardFactory = new GameboardFactory(originalGameboardFactory);
-        Gameboard gameboard = gameboardFactory.createGameboard("original");
+        Gameboard gameboard = gameboardFactory.createGameboard("original", List.of(tokens));
         PlayerFactory playerFactory = new PlayerFactory(config);
         List<PlayerImpl> players = new ArrayList<>();
         players.add(playerFactory.createPlayer("A"));

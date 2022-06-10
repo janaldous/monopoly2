@@ -6,3 +6,4 @@ https://monopoly.fandom.com/wiki/Baltic_Avenue
 
 # Todo
 - game controller tests
+- create game controller that plays on its own - each player has a strategy - end goal: make a simulator?

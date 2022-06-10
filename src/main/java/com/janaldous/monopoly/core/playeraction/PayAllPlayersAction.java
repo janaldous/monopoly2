@@ -1,8 +1,7 @@
 package com.janaldous.monopoly.core.playeraction;
 
-import com.janaldous.monopoly.core.GameContext;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.Player;
-import com.janaldous.monopoly.core.PlayerImpl;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 

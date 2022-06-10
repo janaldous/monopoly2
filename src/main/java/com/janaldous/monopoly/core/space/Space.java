@@ -2,11 +2,13 @@ package com.janaldous.monopoly.core.space;
 
 import com.janaldous.monopoly.core.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
+import lombok.ToString;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@ToString
 public class Space {
   private final String name;
   private final List<PlayerAction> requiredActions;

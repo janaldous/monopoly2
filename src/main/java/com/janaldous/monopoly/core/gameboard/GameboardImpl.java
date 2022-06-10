@@ -16,7 +16,7 @@ import java.util.Map;
 public class GameboardImpl implements Gameboard {
   private final Space[] spaces;
   private int jailIndex = -1;
-  private final Map<String, Space> spaceNameToSpace;
+  private final Map<String, List<Space>> spaceNameToSpace;
   private final Map<Token, Integer> tokenPositions;
   private final Queue<Card> communityChestCards;
   private final Queue<Card> chanceCards;
@@ -38,7 +38,7 @@ public class GameboardImpl implements Gameboard {
     spaceNameToSpace =
         Arrays.stream(spaces)
             .filter(Objects::nonNull)
-            .collect(Collectors.toMap(Space::getName, Function.identity()));
+            .collect(Collectors.groupingBy(Space::getName));
     propertyGroupToProperties = new HashMap<>();
     for (int i = 0; i < spaces.length; i++) {
       Space space = spaces[i];
@@ -92,7 +92,7 @@ public class GameboardImpl implements Gameboard {
 
   private void validateToken(Token token) {
     if (!tokenPositions.containsKey(token))
-      throw new IllegalArgumentException("Token does is not in the gameboard");
+      throw new IllegalArgumentException("Token is not in the gameboard");
   }
 
   private int calculateForwardMove(int startPosition, int moduloSteps) {
@@ -121,7 +121,7 @@ public class GameboardImpl implements Gameboard {
 
   @Override
   public int getPositionBySpaceName(String spaceName) {
-    Space space = spaceNameToSpace.get(spaceName);
+    Space space = getSpaceBySpaceName(spaceName);
 
     for (int i = 0; i < spaces.length; i++) {
       Space s = spaces[i];
@@ -135,7 +135,7 @@ public class GameboardImpl implements Gameboard {
 
   @Override
   public Space getSpaceBySpaceName(String spaceName) {
-    return spaceNameToSpace.get(spaceName);
+    return spaceNameToSpace.get(spaceName).get(0);
   }
 
   @Override

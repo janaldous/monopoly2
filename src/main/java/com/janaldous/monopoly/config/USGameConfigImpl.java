@@ -6,8 +6,14 @@ import java.util.Map;
 
 public class USGameConfigImpl implements GameConfig {
 
-    private Map<String, Token> playerNames;
-    private int initialMoney;
+    public static final int DEFAULT_INITIAL_MONEY = 200;
+    private final Map<String, Token> playerNames;
+    private final int initialMoney;
+
+    public USGameConfigImpl(Map<String, Token> playerNames) {
+        this.playerNames = playerNames;
+        this.initialMoney = DEFAULT_INITIAL_MONEY;
+    }
 
     public USGameConfigImpl(Map<String, Token> playerNames, int initialMoney) {
         this.playerNames = playerNames;
@@ -20,7 +26,7 @@ public class USGameConfigImpl implements GameConfig {
     }
 
     @Override
-    public int initialMoney() {
+    public int getInitialMoney() {
         return initialMoney;
     }
 
