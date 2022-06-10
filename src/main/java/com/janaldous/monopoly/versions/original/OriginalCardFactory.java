@@ -1,5 +1,6 @@
 package com.janaldous.monopoly.versions.original;
 
+import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.card.ChanceCard;
 import com.janaldous.monopoly.core.card.CommunityChestCard;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
@@ -65,13 +66,13 @@ public class OriginalCardFactory {
         }
     }
 
-    public Queue<CommunityChestCard> createCommunityChestCardDeck() {
+    public Queue<Card> createCommunityChestCardDeck() {
         return new LinkedList<>(Arrays.asList(
            createCommunityChestCard("AdvanceToGo")
         ));
     }
 
-    public Queue<ChanceCard> createChanceCardDeck() {
+    public Queue<Card> createChanceCardDeck() {
         return new LinkedList<>(Arrays.<ChanceCard>asList(
                 createChanceCard("AdvanceToGo"),
                 createChanceCard("AdvanceToIllinoisAve"),

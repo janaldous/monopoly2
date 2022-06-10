@@ -12,6 +12,7 @@ import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.space.factory.SpaceFactory;
 import com.janaldous.monopoly.versions.factory.GameboardFactory;
+import com.janaldous.monopoly.versions.original.OriginalCardFactory;
 import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,9 @@ public class Tester {
     GameContext gameContext = new GameContextFactory().createGameContextWithoutGameBoard();
     PlayerActionFactory playerActionFactory = new PlayerActionFactory(new BankImpl(), gameContext);
     GameboardFactory gameboardFactory =
-        new GameboardFactory(new OriginalGameboardFactory(new SpaceFactory(playerActionFactory)));
+        new GameboardFactory(
+            new OriginalGameboardFactory(new SpaceFactory(playerActionFactory)),
+            new OriginalCardFactory(playerActionFactory));
     gameContext.setGameboard(gameboardFactory.createGameboard("original", gameContext.getTokens()));
     GameController gameController = new GameControllerImpl(gameContext);
 
@@ -43,7 +46,11 @@ public class Tester {
       gameController.doRequiredPlayerActions();
 
       Map<String, PlayerAction> playerActionOptions = gameController.getPlayerActionOptions();
-      log.info("player options: " + playerActionOptions.values().stream().map(PlayerAction::getName).collect(Collectors.joining(",")));
+      log.info(
+          "player options: "
+              + playerActionOptions.values().stream()
+                  .map(PlayerAction::getName)
+                  .collect(Collectors.joining(",")));
       playerActionOptions.values().stream()
           .filter(playerAction -> currentPlayer.shouldAct(playerAction))
           .forEach(

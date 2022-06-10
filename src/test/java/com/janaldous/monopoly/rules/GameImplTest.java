@@ -11,6 +11,7 @@ import com.janaldous.monopoly.versions.factory.GameboardFactory;
 import com.janaldous.monopoly.core.token.factory.TokenFactory;
 import com.janaldous.monopoly.config.GameConfig;
 import com.janaldous.monopoly.config.USGameConfigImpl;
+import com.janaldous.monopoly.versions.original.OriginalCardFactory;
 import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,8 @@ public class GameImplTest {
         Bank bank = new BankImpl();
         PlayerActionFactory playerActionFactory = new PlayerActionFactory(null, null);
         OriginalGameboardFactory originalGameboardFactory = new OriginalGameboardFactory(new SpaceFactory(playerActionFactory));
-        GameboardFactory gameboardFactory = new GameboardFactory(originalGameboardFactory);
+        OriginalCardFactory originalCardFactory = new OriginalCardFactory(playerActionFactory);
+        GameboardFactory gameboardFactory = new GameboardFactory(originalGameboardFactory, originalCardFactory);
         Gameboard gameboard = gameboardFactory.createGameboard("original", List.of(tokens));
         PlayerFactory playerFactory = new PlayerFactory(config);
         List<PlayerImpl> players = new ArrayList<>();

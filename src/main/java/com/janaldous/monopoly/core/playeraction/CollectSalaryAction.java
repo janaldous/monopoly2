@@ -24,6 +24,6 @@ public class CollectSalaryAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return "";
+    return "Collect salary";
   }
 }

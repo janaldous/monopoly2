@@ -9,9 +9,7 @@ import com.janaldous.monopoly.core.token.Token;
 import lombok.NonNull;
 
 import java.util.*;
-import java.util.stream.*;
-import java.util.function.*;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GameboardImpl implements Gameboard {
   private final Space[] spaces;
@@ -62,12 +60,16 @@ public class GameboardImpl implements Gameboard {
 
   @Override
   public Card takeChanceCard() {
-    return chanceCards.poll();
+    Card card = chanceCards.poll();
+    chanceCards.add(card);
+    return card;
   }
 
   @Override
   public Card takeCommunityChestCard() {
-    return communityChestCards.poll();
+    Card card = communityChestCards.poll();
+    communityChestCards.add(card);
+    return card;
   }
 
   @Override
