@@ -6,6 +6,7 @@ import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
+import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.playeraction.SellPropertyPlayerAction;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
@@ -13,6 +14,7 @@ import com.janaldous.monopoly.core.token.Token;
 import lombok.extern.java.Log;
 import org.assertj.core.util.VisibleForTesting;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,15 +28,17 @@ public class GameControllerImpl implements GameController {
   private final List<Player> players;
   private Gameboard gameboard;
   private final Dice dice;
+  private final PlayerActionFactory playerActionFactory;
   private final GameContext gameContext;
   private Player currentPlayer;
   private int currentPlayerIndex;
 
-  public GameControllerImpl(GameContext gameContext) {
+  public GameControllerImpl(GameContext gameContext, PlayerActionFactory playerActionFactory) {
     this.gameContext = gameContext;
     this.gameboard = gameContext.getGameboard();
     this.players = gameContext.getPlayers();
     this.dice = gameContext.getDice();
+    this.playerActionFactory = playerActionFactory;
     currentPlayerIndex = 0;
     currentPlayer = players.get(currentPlayerIndex);
   }
@@ -68,7 +72,7 @@ public class GameControllerImpl implements GameController {
             .filter(playerAction -> playerAction.isValidAction(currentPlayer))
             .collect(Collectors.toList());
     log.info("required actions: " + requiredActions);
-    for (PlayerAction playerAction: requiredActions) {
+    for (PlayerAction playerAction : requiredActions) {
       try {
         playerAction.act(currentPlayer);
       } catch (PlayerActionException e) {
@@ -99,7 +103,8 @@ public class GameControllerImpl implements GameController {
         if (sellAProperty(currentPlayer)) {
           continue;
         } else {
-          log.log(Level.INFO, e, () -> currentPlayer.getName() + " is bankrupt, removing from game");
+          log.log(
+              Level.INFO, e, () -> currentPlayer.getName() + " is bankrupt, removing from game");
           removeCurrentPlayerFromGame();
           finishPlayerTurn();
           return false;
@@ -111,14 +116,17 @@ public class GameControllerImpl implements GameController {
 
   /**
    * Sell a property.
+   *
    * @return if selling was successful
    * @param player who is selling
    */
   private boolean sellAProperty(Player player) {
     Optional<PropertySpace> propertyToSell = currentPlayer.getPropertyToSell();
     if (propertyToSell.isEmpty()) return false;
-    SellPropertyPlayerAction sellPropertyPlayerAction = new SellPropertyPlayerAction(gameContext, propertyToSell.get());
-    log.info(currentPlayer.getName() + " sold " + propertyToSell.get().getName() + " to get more money");
+    SellPropertyPlayerAction sellPropertyPlayerAction =
+        new SellPropertyPlayerAction(gameContext, propertyToSell.get());
+    log.info(
+        currentPlayer.getName() + " sold " + propertyToSell.get().getName() + " to get more money");
     try {
       sellPropertyPlayerAction.act(player);
       return true;
@@ -151,6 +159,43 @@ public class GameControllerImpl implements GameController {
   @Override
   public boolean hasWinner() {
     return players.size() == 1;
+  }
+
+  @Override
+  public List<PlayerAction> getActionOptions() {
+    List<PlayerAction> playerActionOptions = new ArrayList<>();
+
+    // be able to sell property, if property.size > 0
+    if (!currentPlayer.getProperties().isEmpty()) {
+      Optional<PropertySpace> maybePropertyToSell = currentPlayer.getPropertyToSell();
+      if (maybePropertyToSell.isPresent()) {
+        playerActionOptions.add(
+            playerActionFactory.createSellPropertyAction(maybePropertyToSell.get()));
+      }
+    }
+
+    // be able to use get out of jail
+    if (currentPlayer.hasGetOutOfJailFree()) {
+      playerActionOptions.add(playerActionFactory.createGetOutOfJailAction());
+    }
+
+    // be able to buy house/hotel, if has property group
+    List<PropertySpace> fullGroupProperties = getFullGroupProperties(currentPlayer);
+    fullGroupProperties.forEach(
+        propertySpace ->
+            playerActionOptions.add(playerActionFactory.createBuyHouseAction(propertySpace)));
+
+    // be able to mortgage?
+
+    return playerActionOptions;
+  }
+
+  private List<PropertySpace> getFullGroupProperties(Player player) {
+    return player.getPropertiesByPropertyGroup().entrySet().stream()
+        .filter((entry) -> entry.getValue().size() == gameboard.getPropertySetSize(entry.getKey()))
+        .map(Map.Entry::getValue)
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
   }
 
   private boolean isCurrentPlayerStillInTheGame() {

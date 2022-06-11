@@ -74,7 +74,7 @@ public class GameImpl implements Game {
     }
 
     private boolean actOnPlayerOptions() {
-        List<PlayerAction> playerActionOptions = currentPlayer.getActionOptions();
+        List<PlayerAction> playerActionOptions = gameController.getActionOptions();
         Optional<PlayerAction> possiblePlayerAction = playerActionOptions.stream()
                 .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                 .findFirst();

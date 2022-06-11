@@ -2,6 +2,7 @@ package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
+import com.janaldous.monopoly.core.space.PropertySpace;
 
 public class PlayerActionFactory {
   private final Bank bank;
@@ -51,6 +52,10 @@ public class PlayerActionFactory {
     return new SellPropertyPlayerAction(context);
   }
 
+  public PlayerAction createSellPropertyAction(PropertySpace propertySpace) {
+    return new SellPropertyPlayerAction(context, propertySpace);
+  }
+
   public PlayerAction createChargeIncomeTaxPlayerAction(int fixedTax, int percentTax) {
     return new ChargeIncomeTaxPlayerAction(fixedTax, percentTax);
   }
@@ -85,5 +90,9 @@ public class PlayerActionFactory {
 
   public PlayerAction createPayAllPlayersAction(int amount) {
     return new PayAllPlayersAction(context, amount);
+  }
+
+  public PlayerAction createBuyHouseAction(PropertySpace propertySpace) {
+    return new BuyHousePlayerAction(context, propertySpace);
   }
 }

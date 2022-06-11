@@ -5,6 +5,7 @@ import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.ResidentialSpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
@@ -13,19 +14,24 @@ import java.util.Optional;
 
 public class BuyHousePlayerAction implements PlayerAction {
   private final GameContext context;
+  private final PropertySpace property;
 
   public BuyHousePlayerAction(GameContext context) {
     this.context = context;
+    this.property = null;
+  }
+
+  public BuyHousePlayerAction(GameContext context, PropertySpace property) {
+    this.context = context;
+    this.property = property;
   }
 
   @Override
   public Optional<PlayerAction> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
-    Space space = gameboard.getSpace(token);
-    if (space instanceof ResidentialSpace) {
-      ResidentialSpace property = (ResidentialSpace) space;
-
+    Space space = getSpace(token, gameboard);
+    if (space instanceof ResidentialSpace property) {
       if (!player.equals(property.getOwner())) {
         throw new PlayerActionException("This property is not owned by the player");
       }
@@ -46,6 +52,14 @@ public class BuyHousePlayerAction implements PlayerAction {
     }
 
     return Optional.empty();
+  }
+
+  private Space getSpace(Token token, Gameboard gameboard) {
+    if (property != null) {
+      return property;
+    } else {
+      return gameboard.getSpace(token);
+    }
   }
 
   @Override

@@ -4,6 +4,7 @@ import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.Space;
 
+import java.util.List;
 import java.util.Map;
 
 public interface GameController {
@@ -31,4 +32,6 @@ public interface GameController {
     void finishPlayerTurn();
 
     boolean hasWinner();
+
+    List<PlayerAction> getActionOptions();
 }

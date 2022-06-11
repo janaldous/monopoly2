@@ -45,5 +45,6 @@ public interface Player {
    */
   Optional<PropertySpace> getPropertyToSell();
 
-  List<PlayerAction> getActionOptions();
+  boolean hasGetOutOfJailFree();
+
 }

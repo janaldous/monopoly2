@@ -127,12 +127,8 @@ public class PlayerImpl implements Player {
   }
 
   @Override
-  public List<PlayerAction> getActionOptions() {
-    // be able to sell property, if property.size > 0
-    // be able to use get out of jail
-    // be able to buy house/hotel, if has property group
-    // be able to mortage?
-    return Collections.emptyList();
+  public boolean hasGetOutOfJailFree() {
+    return getOutOfJailFreeCards > 0;
   }
 
   @Override
