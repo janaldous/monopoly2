@@ -50,6 +50,6 @@ public class PayRentPlayerAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return "";
+    return "Pay rent";
   }
 }

@@ -30,6 +30,6 @@ public class ChargePlayerAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return "";
+    return "Charge player";
   }
 }
