@@ -9,6 +9,7 @@ import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.token.Token;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,7 +27,7 @@ public class MoveToNearestRailroadPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Gameboard gameboard = context.getGameboard();
     Token token = context.getPlayerToken(player);
     int steps =
@@ -39,7 +40,7 @@ public class MoveToNearestRailroadPlayerAction implements PlayerAction {
     PropertySpace nearestUtility = (PropertySpace) gameboard.moveBySteps(token, steps);
 
     if (nearestUtility.getOwner() != null) {
-      return Optional.of(buyProperty);
+      return Optional.of(List.of(buyProperty));
     } else {
       int rent = nearestUtility.getRent();
       nearestUtility.getOwner().addMoney(rent);

@@ -6,6 +6,7 @@ import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.token.Token;
 
+import java.util.List;
 import java.util.Optional;
 
 public class MoveByStepsPlayerAction implements PlayerAction {
@@ -18,7 +19,7 @@ public class MoveByStepsPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
     gameboard.moveBySteps(token, steps);

@@ -7,6 +7,7 @@ import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PayRentPlayerAction implements PlayerAction {
@@ -18,7 +19,7 @@ public class PayRentPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Space space = context.getPlayerSpace(player);
     if (space instanceof PropertySpace property) {
       int rent = property.getRent();

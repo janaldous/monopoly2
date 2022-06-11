@@ -76,8 +76,8 @@ public class GameControllerImpl implements GameController {
       PlayerAction playerAction = requiredActions.get(i);
       try {
         log.info(currentPlayer.getName() + " is required to act: " + playerAction + " " + playerAction.getName());
-        Optional<PlayerAction> maybeFollowUpAction = playerAction.act(currentPlayer);
-        maybeFollowUpAction.ifPresent(followUpAction -> requiredActions.add(followUpAction));
+        Optional<List<PlayerAction>> maybeFollowUpAction = playerAction.act(currentPlayer);
+        maybeFollowUpAction.ifPresent(followUpAction -> requiredActions.addAll(followUpAction));
       } catch (PlayerActionException e) {
         log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
         removeCurrentPlayerFromGame();

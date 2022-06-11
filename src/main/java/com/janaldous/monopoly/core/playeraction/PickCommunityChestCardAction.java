@@ -6,6 +6,7 @@ import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import lombok.extern.java.Log;
 
+import java.util.List;
 import java.util.Optional;
 
 @Log
@@ -17,12 +18,12 @@ public class PickCommunityChestCardAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Card card = context.getGameboard().takeCommunityChestCard();
 
     log.info("card picked: " + card);
 
-    return Optional.of(card.getPlayerAction());
+    return Optional.of(List.of(card.getPlayerAction()));
   }
 
   @Override

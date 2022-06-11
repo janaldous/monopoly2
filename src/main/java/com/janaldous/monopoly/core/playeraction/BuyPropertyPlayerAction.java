@@ -17,7 +17,7 @@ public class BuyPropertyPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Gameboard gameboard = context.getGameboard();
     PropertySpace property = (PropertySpace) context.getPlayerSpace(player);
     if (!isValidAction(player)) {

@@ -10,6 +10,7 @@ import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.token.Token;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,7 +28,7 @@ public class MoveToNearestUtilityPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Gameboard gameboard = context.getGameboard();
     Token token = context.getPlayerToken(player);
     int steps =
@@ -40,7 +41,7 @@ public class MoveToNearestUtilityPlayerAction implements PlayerAction {
     PropertySpace nearestUtility = (PropertySpace) gameboard.moveBySteps(token, steps);
 
     if (!nearestUtility.hasOwner()) {
-      return Optional.of(buyProperty);
+      return Optional.of(List.of(buyProperty));
     } else {
       Dice dice = context.getDice();
       dice.roll();

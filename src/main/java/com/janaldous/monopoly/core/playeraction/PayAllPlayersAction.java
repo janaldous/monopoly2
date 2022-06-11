@@ -18,7 +18,7 @@ public class PayAllPlayersAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     List<Player> players = context.getPlayers();
     int cost = players.size() * amountPerPlayer;
 

@@ -10,6 +10,7 @@ import com.janaldous.monopoly.core.space.ResidentialSpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 
+import java.util.List;
 import java.util.Optional;
 
 public class BuyHousePlayerAction implements PlayerAction {
@@ -27,7 +28,7 @@ public class BuyHousePlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
     Space space = getSpace(token, gameboard);

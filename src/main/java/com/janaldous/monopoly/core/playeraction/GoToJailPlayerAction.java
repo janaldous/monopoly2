@@ -5,6 +5,7 @@ import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.token.Token;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GoToJailPlayerAction implements PlayerAction {
@@ -15,7 +16,7 @@ public class GoToJailPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     context.getGameboard().moveToJail(token);
 

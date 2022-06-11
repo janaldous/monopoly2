@@ -4,6 +4,7 @@ import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ChargeIncomeTaxPlayerAction implements PlayerAction {
@@ -16,7 +17,7 @@ public class ChargeIncomeTaxPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     int fixedTaxAmount = fixedTax;
     int percentTaxAmount = player.getBalance() * (percentTax / 100);
 

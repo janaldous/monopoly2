@@ -4,6 +4,7 @@ import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PayPlayerAction implements PlayerAction {
@@ -16,7 +17,7 @@ public class PayPlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     bank.payPlayer(player, amount);
     return Optional.empty();
   }

@@ -116,7 +116,7 @@ class BuyPropertyPlayerActionTest {
     BuyPropertyPlayerAction action = new BuyPropertyPlayerAction(contextMock);
 
     // when
-    Optional<PlayerAction> result = action.act(player);
+    Optional<List<PlayerAction>> result = action.act(player);
 
     // then
     assertEquals(player, residentialSpace.getOwner());
@@ -142,7 +142,7 @@ class BuyPropertyPlayerActionTest {
     BuyPropertyPlayerAction action = new BuyPropertyPlayerAction(contextMock);
 
     // when
-    Optional<PlayerAction> result = action.act(player);
+    Optional<List<PlayerAction>> result = action.act(player);
 
     // then
     assertEquals(player, residentialSpace.getOwner());

@@ -33,7 +33,7 @@ public class SellPropertyPlayerAction implements PlayerAction {
     }
     
     @Override
-    public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+    public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
         Gameboard gameboard = context.getGameboard();
         Space space = getSpaceToSell(player);
         if (space instanceof PropertySpace property) {

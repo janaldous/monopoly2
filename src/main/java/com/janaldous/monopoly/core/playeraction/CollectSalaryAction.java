@@ -4,6 +4,7 @@ import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.config.GameConfig;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CollectSalaryAction implements PlayerAction {
@@ -16,7 +17,7 @@ public class CollectSalaryAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) {
+  public Optional<List<PlayerAction>> act(Player player) {
     bank.payPlayer(player, gameConfig.getSalaryAmount());
 
     return Optional.empty();

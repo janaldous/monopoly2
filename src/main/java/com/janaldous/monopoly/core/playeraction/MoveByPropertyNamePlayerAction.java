@@ -18,7 +18,7 @@ public class MoveByPropertyNamePlayerAction implements PlayerAction {
   }
 
   @Override
-  public Optional<PlayerAction> act(Player player) throws PlayerActionException {
+  public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Token token = context.getPlayerToken(player);
     Gameboard gameboard = context.getGameboard();
     int endPosition = gameboard.getPositionBySpaceName(propertyName);
@@ -26,7 +26,7 @@ public class MoveByPropertyNamePlayerAction implements PlayerAction {
 
     Space endSpace = gameboard.getSpaceBySpaceName(propertyName);
 
-    return Optional.ofNullable(endSpace.getRequiredActions().get(0));
+    return Optional.ofNullable(endSpace.getRequiredActions());
   }
 
   @Override
