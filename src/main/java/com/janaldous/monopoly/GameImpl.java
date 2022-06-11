@@ -38,11 +38,11 @@ public class GameImpl implements Game {
             log.info("Current player " + playerName);
 
             Space space = gameController.moveCurrentPlayer(gameContext.getDice().roll());
-            log.info(playerName + " moves to " + space);
+            log.info(playerName + " moves to " + space.getName());
 
-            boolean isPlayerStilPlaying = gameController.doRequiredPlayerActions();
+            boolean isPlayerStillPlaying = gameController.doRequiredPlayerActions();
 
-            if (!isPlayerStilPlaying) {
+            if (!isPlayerStillPlaying) {
                 continue;
             }
 
@@ -57,10 +57,10 @@ public class GameImpl implements Game {
                     .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                     .findFirst();
             if (first.isPresent()) {
-                isPlayerStilPlaying = gameController.doCurrentPlayerAction(first.get());
+                isPlayerStillPlaying = gameController.doCurrentPlayerAction(first.get());
             }
 
-            if (!isPlayerStilPlaying) {
+            if (!isPlayerStillPlaying) {
                 continue;
             }
 
