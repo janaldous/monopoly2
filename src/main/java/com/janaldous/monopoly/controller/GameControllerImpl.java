@@ -84,7 +84,7 @@ public class GameControllerImpl implements GameController {
 
   @Override
   public Map<String, PlayerAction> getPlayerActionOptions() {
-    return gameContext.getPlayerSpace(currentPlayer).getPlayerOptions(currentPlayer);
+    return gameContext.getPlayerSpace(currentPlayer).getSpaceOptions(currentPlayer);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.janaldous.monopoly.core.playeraction;
 
-import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.bank.BankImpl;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
@@ -8,6 +7,7 @@ import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.player.PlayerImpl;
+import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.ResidentialSpace;
 import org.junit.jupiter.api.BeforeEach;

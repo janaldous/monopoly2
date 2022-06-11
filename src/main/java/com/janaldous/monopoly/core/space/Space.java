@@ -22,7 +22,7 @@ public class Space {
     return name;
   }
 
-  public Map<String, PlayerAction> getPlayerOptions(Player player) {
+  public Map<String, PlayerAction> getSpaceOptions(Player player) {
     return Collections.emptyMap();
   }
 

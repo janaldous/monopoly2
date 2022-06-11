@@ -1,6 +1,5 @@
 package com.janaldous.monopoly;
 
-import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.bank.BankImpl;
 import com.janaldous.monopoly.core.card.Card;
@@ -101,7 +100,7 @@ public class GameControllerTest
         int curPlayerIndex = 0;
         PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.moveBySteps(tokens[curPlayerIndex], 1);
-        Map<String, PlayerAction> playerOptions = space.getPlayerOptions(currentPlayer);
+        Map<String, PlayerAction> playerOptions = space.getSpaceOptions(currentPlayer);
         // buy property
         playerOptions.get("Buy Property").act(currentPlayer);
         
@@ -144,12 +143,12 @@ public class GameControllerTest
         int curPlayerIndex = 0;
         PlayerImpl currentPlayer = players[curPlayerIndex];
         Space space = gameboard.moveBySteps(tokens[curPlayerIndex], 1);
-        Map<String, PlayerAction> playerOptions = space.getPlayerOptions(currentPlayer);
+        Map<String, PlayerAction> playerOptions = space.getSpaceOptions(currentPlayer);
         // buy property
         assertEquals(1, playerOptions.entrySet().size());
         playerOptions.get("Buy Property").act(currentPlayer);
         
-        playerOptions = space.getPlayerOptions(currentPlayer);
+        playerOptions = space.getSpaceOptions(currentPlayer);
         assertEquals(2, playerOptions.entrySet().size());
         playerOptions.get("Buy House").act(currentPlayer);
         
@@ -305,15 +304,15 @@ public class GameControllerTest
         PlayerImpl player0 = players[0];
         Space space1 = gameboard.moveBySteps(tokens[0], 1);
         // buy
-        space1.getPlayerOptions(player0).get("Buy Property").act(player0);
+        space1.getSpaceOptions(player0).get("Buy Property").act(player0);
         
         Space space2 = gameboard.moveBySteps(tokens[0], 1);
         // buy
-        space2.getPlayerOptions(player0).get("Buy Property").act(player0);
+        space2.getSpaceOptions(player0).get("Buy Property").act(player0);
         
         Space space3 = gameboard.moveBySteps(tokens[0], 1);
         // buy
-        space3.getPlayerOptions(player0).get("Buy Property").act(player0);
+        space3.getSpaceOptions(player0).get("Buy Property").act(player0);
         
         // then
         assertEquals(3, player0.getPropertiesByPropertyGroup().get(PropertyGroup.PINK).size());
@@ -373,7 +372,7 @@ public class GameControllerTest
         // when
         Space space1 = gameboard.moveBySteps(tokens[0], 1);
         // sell
-        PlayerAction sellAction = space1.getPlayerOptions(player0).get("Sell Property");
+        PlayerAction sellAction = space1.getSpaceOptions(player0).get("Sell Property");
         sellAction.act(player0);
 
         // then
@@ -423,7 +422,7 @@ public class GameControllerTest
         // when
         // buy
         Space space1 = gameboard.moveBySteps(tokens[0], 1);
-        space1.getPlayerOptions(player0).get("Buy Property").act(player0);
+        space1.getSpaceOptions(player0).get("Buy Property").act(player0);
         
         // player 2 pays rent - rolls 11 then 4 x 11 = $44
         dice.roll();
@@ -435,7 +434,7 @@ public class GameControllerTest
         
         // buy
         Space space2 = gameboard.moveBySteps(tokens[0], 1);
-        space2.getPlayerOptions(player0).get("Buy Property").act(player0);
+        space2.getSpaceOptions(player0).get("Buy Property").act(player0);
 
         // pay rent - rolls 11 then 10 x 11 = $110
         dice.roll();
@@ -493,7 +492,7 @@ public class GameControllerTest
         // when
         // buy
         Space space1 = gameboard.moveBySteps(tokens[0], 1);
-        space1.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+        space1.getSpaceOptions(playerA).get("Buy Property").act(playerA);
 
         // 1 railroad
         dice.roll();
@@ -505,7 +504,7 @@ public class GameControllerTest
 
         // buy
         Space space2 = gameboard.moveBySteps(tokens[0], 1);
-        space2.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+        space2.getSpaceOptions(playerA).get("Buy Property").act(playerA);
 
         // 2 railroad
         dice.roll();
@@ -517,7 +516,7 @@ public class GameControllerTest
 
         // buy
         Space space3 = gameboard.moveBySteps(tokens[0], 1);
-        space3.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+        space3.getSpaceOptions(playerA).get("Buy Property").act(playerA);
 
         // 3 railroad
         dice.roll();
@@ -529,7 +528,7 @@ public class GameControllerTest
 
         // buy
         Space space4 = gameboard.moveBySteps(tokens[0], 1);
-        space4.getPlayerOptions(playerA).get("Buy Property").act(playerA);
+        space4.getSpaceOptions(playerA).get("Buy Property").act(playerA);
 
         // 4 railroad
         dice.roll();

@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.gameboard;
 
-import com.janaldous.monopoly.core.PropertyGroup;
+import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.space.JailSpace;
 import com.janaldous.monopoly.core.space.PropertySpace;
@@ -84,7 +84,7 @@ public class GameboardImpl implements Gameboard {
         steps > 0
             ? calculateForwardMove(startPosition, moduloSteps) % spaces.length
             : calculateBackwardMove(startPosition, moduloSteps);
-    log.info("moving from " + startPosition + " - " + moduloSteps + " steps");
+    log.info("moving from position=" + startPosition + " steps=" + moduloSteps);
     return moveToPosition(token, newPosition);
   }
 

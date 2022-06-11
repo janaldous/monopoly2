@@ -1,5 +1,5 @@
 package com.janaldous.monopoly.core.gameboard;
-import com.janaldous.monopoly.core.PropertyGroup;
+import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;

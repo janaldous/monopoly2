@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.player;
 
-import com.janaldous.monopoly.core.PropertyGroup;
+import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.player.playerstrategy.PlayerStrategy;
 import com.janaldous.monopoly.core.player.sellstrategy.SellPropertyStrategy;

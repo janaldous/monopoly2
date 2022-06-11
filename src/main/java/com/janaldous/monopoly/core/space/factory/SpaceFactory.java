@@ -1,7 +1,7 @@
 package com.janaldous.monopoly.core.space.factory;
 
 
-import com.janaldous.monopoly.core.PropertyGroup;
+import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.*;
 

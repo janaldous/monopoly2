@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.versions.original;
 
-import com.janaldous.monopoly.core.PropertyGroup;
+import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.space.factory.SpaceFactory;
 

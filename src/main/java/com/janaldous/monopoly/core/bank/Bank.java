@@ -1,7 +1,7 @@
 package com.janaldous.monopoly.core.bank;
 
-import com.janaldous.monopoly.core.Hotel;
-import com.janaldous.monopoly.core.House;
+import com.janaldous.monopoly.core.building.Hotel;
+import com.janaldous.monopoly.core.building.House;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 
