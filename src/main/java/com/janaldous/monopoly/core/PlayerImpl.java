@@ -44,7 +44,7 @@ public class PlayerImpl implements Player {
   @Override
   public int pay(int amount) throws NotEnoughMoneyException {
     if (balance - amount < 0) {
-      throw new NotEnoughMoneyException();
+      throw new NotEnoughMoneyException("expected to pay " + amount + " but only had " + balance);
     }
 
     balance -= amount;
