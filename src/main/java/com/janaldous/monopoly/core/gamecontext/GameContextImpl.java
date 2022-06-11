@@ -8,9 +8,11 @@ import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
+import lombok.extern.java.Log;
 
 import java.util.*;
 
+@Log
 public class GameContextImpl implements GameContext {
   private Gameboard gameboard;
   private Dice dice;
