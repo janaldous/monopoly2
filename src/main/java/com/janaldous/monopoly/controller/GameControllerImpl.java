@@ -99,7 +99,7 @@ public class GameControllerImpl implements GameController {
         if (sellAProperty(currentPlayer)) {
           continue;
         } else {
-          log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
+          log.log(Level.INFO, e, () -> currentPlayer.getName() + " is bankrupt");
           removeCurrentPlayerFromGame();
           finishPlayerTurn();
           return false;

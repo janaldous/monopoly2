@@ -75,7 +75,7 @@ public class PlayerImpl implements Player {
 
   @Override
   public void addProperty(final PropertySpace propertySpace) {
-    properties.computeIfAbsent(propertySpace.getPropertyGroup(), k -> new ArrayList<>());
+    properties.putIfAbsent(propertySpace.getPropertyGroup(), new ArrayList<>());
     properties.computeIfPresent(
         propertySpace.getPropertyGroup(),
         (k, v) -> {
