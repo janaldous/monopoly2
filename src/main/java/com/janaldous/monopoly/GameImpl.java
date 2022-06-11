@@ -33,12 +33,12 @@ public class GameImpl implements Game {
                         new OriginalGameboardFactory(new SpaceFactory(playerActionFactory)),
                         new OriginalCardFactory(playerActionFactory));
         gameContext.setGameboard(gameboardFactory.createGameboard("original", gameContext.getTokens()));
-        gameController = new GameControllerImpl(gameContext);
+        gameController = new GameControllerImpl(gameContext, playerActionFactory);
     }
 
     @Override
     public Player start() {
-        while (!gameController.hasWinner()) {
+    for (int i = 0; i < 1000 && !gameController.hasWinner(); i++) {
             currentPlayer = gameController.getCurrentPlayer();
             String playerName = currentPlayer.getName();
             log.info("Current player " + playerName);
@@ -63,9 +63,14 @@ public class GameImpl implements Game {
 
             finishPlayerTurn();
         }
-        log.info(gameController.getCurrentPlayer().getName() + " wins");
 
-        return gameController.getCurrentPlayer();
+        if (!gameController.hasWinner()) {
+            log.info("no winner within 1000 turns");
+            return null;
+        } else {
+            log.info(gameController.getCurrentPlayer().getName() + " wins");
+            return gameController.getCurrentPlayer();
+        }
     }
 
     private void finishPlayerTurn() {
@@ -75,10 +80,12 @@ public class GameImpl implements Game {
 
     private boolean actOnPlayerOptions() {
         List<PlayerAction> playerActionOptions = gameController.getActionOptions();
+        log.info("player options: " + playerActionOptions);
         Optional<PlayerAction> possiblePlayerAction = playerActionOptions.stream()
                 .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                 .findFirst();
         if (possiblePlayerAction.isPresent()) {
+            log.info("player acting on player option " + possiblePlayerAction.get().getName());
             return gameController.doCurrentPlayerAction(possiblePlayerAction.get());
         }
         return true;
@@ -87,15 +94,11 @@ public class GameImpl implements Game {
     private boolean actOnSpaceOptions() {
         Map<String, PlayerAction> spaceOptions = gameController.getSpaceOptions();
         log.info("space options: " + spaceOptions.values());
-        log.info(
-                "space options: "
-                        + spaceOptions.values().stream()
-                        .map(PlayerAction::getName)
-                        .collect(Collectors.joining(",")));
         Optional<PlayerAction> possibleSpaceAction = spaceOptions.values().stream()
                 .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                 .findFirst();
         if (possibleSpaceAction.isPresent()) {
+            log.info("player acting on space option " + possibleSpaceAction.get().getName());
             return gameController.doCurrentPlayerAction(possibleSpaceAction.get());
         }
         return true;

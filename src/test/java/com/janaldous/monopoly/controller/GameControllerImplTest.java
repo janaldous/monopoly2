@@ -2,6 +2,7 @@ package com.janaldous.monopoly.controller;
 
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.player.Player;
+import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +27,9 @@ class GameControllerImplTest {
     @Mock
     GameContext gameContextMock;
 
+    @Mock
+    PlayerActionFactory playerActionFactoryMock;
+
     GameControllerImpl gameController;
 
     @BeforeEach
@@ -36,7 +40,7 @@ class GameControllerImplTest {
 
         when(gameContextMock.getPlayers()).thenReturn(players);
 
-        gameController = new GameControllerImpl(gameContextMock);
+        gameController = new GameControllerImpl(gameContextMock, playerActionFactoryMock);
     }
 
     @Test

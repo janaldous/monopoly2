@@ -3,6 +3,7 @@ package com.janaldous.monopoly.core.playeraction;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 import com.janaldous.monopoly.core.exception.*;
 import java.util.*;
@@ -23,11 +24,13 @@ public class MoveByPropertyNamePlayerAction implements PlayerAction {
     int endPosition = gameboard.getPositionBySpaceName(propertyName);
     gameboard.moveToPosition(token, endPosition);
 
-    return Optional.empty();
+    Space endSpace = gameboard.getSpaceBySpaceName(propertyName);
+
+    return Optional.ofNullable(endSpace.getRequiredActions().get(0));
   }
 
   @Override
   public String getName() {
-    return "";
+    return "Move by property: " + propertyName;
   }
 }

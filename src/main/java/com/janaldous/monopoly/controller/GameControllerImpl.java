@@ -72,16 +72,18 @@ public class GameControllerImpl implements GameController {
             .filter(playerAction -> playerAction.isValidAction(currentPlayer))
             .collect(Collectors.toList());
     log.info("required actions: " + requiredActions);
-    for (PlayerAction playerAction : requiredActions) {
+    for (int i = 0; i < requiredActions.size(); i++) {
+      PlayerAction playerAction = requiredActions.get(i);
       try {
-        playerAction.act(currentPlayer);
+        log.info(currentPlayer.getName() + " is required to act: " + playerAction + " " + playerAction.getName());
+        Optional<PlayerAction> maybeFollowUpAction = playerAction.act(currentPlayer);
+        maybeFollowUpAction.ifPresent(followUpAction -> requiredActions.add(followUpAction));
       } catch (PlayerActionException e) {
         log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
         removeCurrentPlayerFromGame();
         finishPlayerTurn();
         return false;
       }
-      log.info(currentPlayer.getName() + " is required to act: " + playerAction.getName());
     }
     return true;
   }
