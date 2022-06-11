@@ -10,4 +10,4 @@ https://monopoly.fandom.com/wiki/Baltic_Avenue
   - be able to sell property, if property.size > 0
   - be able to use get out of jail
   - be able to buy house/hotel, if has property group
-  - be able to mortage?
+  - be able to mortgage, if property.size > 0
