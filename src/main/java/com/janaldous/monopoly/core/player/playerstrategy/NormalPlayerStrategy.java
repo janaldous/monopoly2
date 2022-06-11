@@ -1,6 +1,7 @@
-package com.janaldous.monopoly.core;
+package com.janaldous.monopoly.core.player.playerstrategy;
 
 import com.janaldous.monopoly.core.gamecontext.GameContext;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.playeraction.BuyPropertyPlayerAction;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.PropertySpace;

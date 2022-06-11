@@ -1,9 +1,7 @@
 package com.janaldous.monopoly.core.playeraction;
 
-import com.janaldous.monopoly.core.Bank;
-import com.janaldous.monopoly.core.BankImpl;
+import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
-import lombok.Setter;
 
 public class PlayerActionFactory {
   private final Bank bank;

@@ -1,4 +1,4 @@
-package com.janaldous.monopoly.core;
+package com.janaldous.monopoly.core.player.sellstrategy;
 
 import com.janaldous.monopoly.core.space.PropertySpace;
 

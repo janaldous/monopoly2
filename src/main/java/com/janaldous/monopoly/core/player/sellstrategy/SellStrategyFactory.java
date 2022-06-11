@@ -1,7 +1,6 @@
-package com.janaldous.monopoly.core.gamecontext;
+package com.janaldous.monopoly.core.player.sellstrategy;
 
-import com.janaldous.monopoly.core.Player;
-import com.janaldous.monopoly.core.SellPropertyStrategy;
+import com.janaldous.monopoly.core.player.Player;
 
 public class SellStrategyFactory {
     public static SellPropertyStrategy createStrategy(String strategy, Player player) {

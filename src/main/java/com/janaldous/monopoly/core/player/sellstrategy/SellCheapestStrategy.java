@@ -1,7 +1,7 @@
-package com.janaldous.monopoly.core.gamecontext;
+package com.janaldous.monopoly.core.player.sellstrategy;
 
-import com.janaldous.monopoly.core.Player;
-import com.janaldous.monopoly.core.SellPropertyStrategy;
+import com.janaldous.monopoly.core.player.Player;
+import com.janaldous.monopoly.core.player.sellstrategy.SellPropertyStrategy;
 import com.janaldous.monopoly.core.space.PropertySpace;
 
 import java.util.Collections;

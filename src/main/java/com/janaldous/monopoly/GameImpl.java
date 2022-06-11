@@ -2,9 +2,10 @@ package com.janaldous.monopoly;
 
 import com.janaldous.monopoly.controller.GameController;
 import com.janaldous.monopoly.controller.GameControllerImpl;
-import com.janaldous.monopoly.core.*;
+import com.janaldous.monopoly.core.bank.BankImpl;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.gamecontext.GameContextFactory;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.Space;

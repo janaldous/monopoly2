@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.controller;
 
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.Space;
 

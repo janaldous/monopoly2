@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.playeractionutil;
 
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 

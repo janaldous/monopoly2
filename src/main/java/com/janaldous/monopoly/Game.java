@@ -1,6 +1,6 @@
 package com.janaldous.monopoly;
 
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.player.Player;
 
 public interface Game {
 

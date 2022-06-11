@@ -2,14 +2,12 @@ package com.janaldous.monopoly.rules;
 
 import com.janaldous.monopoly.Game;
 import com.janaldous.monopoly.GameImpl;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.player.Player;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Log
 public class GameImplTest {

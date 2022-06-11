@@ -1,7 +1,7 @@
 package com.janaldous.monopoly.controller;
 
 import com.janaldous.monopoly.core.gamecontext.GameContext;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;

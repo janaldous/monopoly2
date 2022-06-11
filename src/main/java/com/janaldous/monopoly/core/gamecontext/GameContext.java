@@ -1,7 +1,7 @@
 package com.janaldous.monopoly.core.gamecontext;
 
-import com.janaldous.monopoly.core.Bank;
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.bank.Bank;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.Space;

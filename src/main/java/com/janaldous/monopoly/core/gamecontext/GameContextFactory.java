@@ -2,9 +2,13 @@ package com.janaldous.monopoly.core.gamecontext;
 
 import com.janaldous.monopoly.config.GameConfig;
 import com.janaldous.monopoly.config.USGameConfigImpl;
-import com.janaldous.monopoly.core.*;
+import com.janaldous.monopoly.core.bank.Bank;
+import com.janaldous.monopoly.core.bank.BankImpl;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.dice.DiceImpl;
+import com.janaldous.monopoly.core.player.PlayerImpl;
+import com.janaldous.monopoly.core.player.playerstrategy.PlayerStrategyFactory;
+import com.janaldous.monopoly.core.player.sellstrategy.SellStrategyFactory;
 import com.janaldous.monopoly.core.token.CarToken;
 import com.janaldous.monopoly.core.token.DogToken;
 import com.janaldous.monopoly.core.token.Token;

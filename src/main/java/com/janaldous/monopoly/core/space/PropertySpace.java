@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.space;
 
-import com.janaldous.monopoly.core.Player;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.PropertyGroup;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.rentstrategy.RentStrategy;

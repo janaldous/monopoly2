@@ -1,6 +1,8 @@
 package com.janaldous.monopoly;
 
 import com.janaldous.monopoly.core.*;
+import com.janaldous.monopoly.core.bank.Bank;
+import com.janaldous.monopoly.core.bank.BankImpl;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.card.CardFactory;
 import com.janaldous.monopoly.core.dice.Dice;
@@ -9,6 +11,7 @@ import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.gameboard.GameboardImpl;
 import com.janaldous.monopoly.core.gamecontext.GameContextImpl;
+import com.janaldous.monopoly.core.player.PlayerImpl;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.space.*;

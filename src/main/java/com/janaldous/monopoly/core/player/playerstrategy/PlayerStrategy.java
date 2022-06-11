@@ -1,4 +1,4 @@
-package com.janaldous.monopoly.core;
+package com.janaldous.monopoly.core.player.playerstrategy;
 
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 
