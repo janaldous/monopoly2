@@ -14,11 +14,10 @@ public class GameImplTest {
 
   @Test
   void test() {
-    Game game = new GameImpl();
-
     Map<String, Integer> playerScores = new HashMap<>();
 
     for (int i = 0; i < 10; i++) {
+      Game game = new GameImpl();
       Player winner = game.start();
       playerScores.putIfAbsent(winner.getName(), 0);
       playerScores.put(winner.getName(), playerScores.get(winner.getName()) + 1);

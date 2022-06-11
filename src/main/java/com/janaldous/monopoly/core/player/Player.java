@@ -44,4 +44,6 @@ public interface Player {
    * @return
    */
   Optional<PropertySpace> getPropertyToSell();
+
+  List<PlayerAction> getActionOptions();
 }

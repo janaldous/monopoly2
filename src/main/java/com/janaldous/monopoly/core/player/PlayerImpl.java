@@ -127,6 +127,11 @@ public class PlayerImpl implements Player {
   }
 
   @Override
+  public List<PlayerAction> getActionOptions() {
+    return Collections.emptyList();
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
