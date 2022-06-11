@@ -38,8 +38,8 @@ public class BuyHousePlayerAction implements PlayerAction {
       if (playerCanAffordApartment(player, property)) {
         try {
           player.pay(property.getValue());
-        } catch (NotEnoughMoneyException neme) {
-          throw new PlayerActionException(neme);
+        } catch (NotEnoughMoneyException e) {
+          throw new PlayerActionException(e);
         }
         property.addHouse();
       }

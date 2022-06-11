@@ -6,6 +6,8 @@ import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
+import com.janaldous.monopoly.core.playeraction.SellPropertyPlayerAction;
+import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.Space;
 import com.janaldous.monopoly.core.token.Token;
 import lombok.extern.java.Log;
@@ -13,6 +15,7 @@ import org.assertj.core.util.VisibleForTesting;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -86,15 +89,43 @@ public class GameControllerImpl implements GameController {
 
   @Override
   public boolean doCurrentPlayerAction(PlayerAction playerAction) {
-    try {
-      playerAction.act(currentPlayer);
-    } catch (PlayerActionException e) {
-      log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
-      removeCurrentPlayerFromGame();
-      finishPlayerTurn();
-      return false;
+
+    while (true) {
+      try {
+        playerAction.act(currentPlayer);
+        break;
+      } catch (PlayerActionException e) {
+        log.log(Level.INFO, e, () -> currentPlayer.getName() + " does not have enough money");
+        if (sellAProperty(currentPlayer)) {
+          continue;
+        } else {
+          log.log(Level.SEVERE, e, () -> currentPlayer.getName() + " is bankrupt");
+          removeCurrentPlayerFromGame();
+          finishPlayerTurn();
+          return false;
+        }
+      }
     }
     return true;
+  }
+
+  /**
+   *
+   * @return if selling was successful
+   * @param player
+   */
+  private boolean sellAProperty(Player player) {
+    Optional<PropertySpace> propertyToSell = currentPlayer.getPropertyToSell();
+    if (propertyToSell.isEmpty()) return false;
+    SellPropertyPlayerAction sellPropertyPlayerAction = new SellPropertyPlayerAction(gameContext, propertyToSell.get());
+    log.info(currentPlayer.getName() + " sold " + propertyToSell.get().getName() + " to get more money");
+    try {
+      sellPropertyPlayerAction.act(player);
+      return true;
+    } catch (PlayerActionException e) {
+      log.log(Level.INFO, e, () -> "Selling property was not successful");
+      return false;
+    }
   }
 
   private void removeCurrentPlayerFromGame() {

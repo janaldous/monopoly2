@@ -3,7 +3,6 @@ package com.janaldous.monopoly.core;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.space.PropertySpace;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.java.Log;
@@ -20,16 +19,18 @@ public class PlayerImpl implements Player {
   private final Map<PropertyGroup, List<PropertySpace>> properties;
   private int getOutOfJailFreeCards;
   private PlayerStrategy strategy;
+  private SellPropertyStrategy sellStrategy;
 
-  public PlayerImpl(String name, int startingBalance, PlayerStrategy strategy) {
+  public PlayerImpl(String name, int startingBalance, PlayerStrategy strategy, SellPropertyStrategy sellStrategy) {
     this.name = name;
     this.balance = startingBalance;
     this.strategy = strategy;
+    this.sellStrategy = sellStrategy;
     properties = new HashMap<>();
   }
 
   public PlayerImpl(String name, int startingBalance) {
-    this(name, startingBalance, null);
+    this(name, startingBalance, null, null);
   }
 
   @Override
@@ -109,6 +110,17 @@ public class PlayerImpl implements Player {
   @Override
   public boolean shouldAct(PlayerAction playerAction) {
     return strategy.shouldAct(playerAction);
+  }
+
+  @Override
+  public void setSellStrategy(SellPropertyStrategy sellStrategy) {
+    this.sellStrategy = sellStrategy;
+  }
+
+
+  @Override
+  public Optional<PropertySpace> getPropertyToSell() {
+    return sellStrategy.chooseProperty();
   }
 
   @Override

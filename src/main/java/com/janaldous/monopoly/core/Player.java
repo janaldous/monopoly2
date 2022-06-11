@@ -6,6 +6,7 @@ import com.janaldous.monopoly.core.space.PropertySpace;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface Player {
 
@@ -32,4 +33,12 @@ public interface Player {
   void setStrategy(PlayerStrategy strategy);
 
   boolean shouldAct(PlayerAction playerAction);
+
+  void setSellStrategy(SellPropertyStrategy sellStrategy);
+
+  /**
+   * Calculate which property to sell in case
+   * @return
+   */
+  Optional<PropertySpace> getPropertyToSell();
 }

@@ -16,15 +16,26 @@ import java.util.Optional;
 public class SellPropertyPlayerAction implements PlayerAction {
 
     private final GameContext context;
-    
+    private final PropertySpace propertyToSell;
+
+    public SellPropertyPlayerAction(GameContext context, PropertySpace propertyToSell) {
+        this.context = context;
+        this.propertyToSell = propertyToSell;
+    }
+
+    /**
+     * If property to sell == null, then use player's current space
+     * @param context
+     */
     public SellPropertyPlayerAction(GameContext context) {
         this.context = context;
+        this.propertyToSell = null;
     }
     
     @Override
     public Optional<PlayerAction> act(Player player) throws PlayerActionException {
         Gameboard gameboard = context.getGameboard();
-        Space space = context.getPlayerSpace(player);
+        Space space = getSpaceToSell(player);
         if (space instanceof PropertySpace property) {
             if (!player.equals(property.getOwner())) {
                 return Optional.empty();
@@ -46,7 +57,15 @@ public class SellPropertyPlayerAction implements PlayerAction {
         
         return Optional.empty();
     }
-    
+
+    private Space getSpaceToSell(Player player) {
+        if (propertyToSell != null) {
+            return propertyToSell;
+        } else {
+            return context.getPlayerSpace(player);
+        }
+    }
+
     @Override
     public boolean isValidAction(Player player) {
         Token token = context.getPlayerToken(player);

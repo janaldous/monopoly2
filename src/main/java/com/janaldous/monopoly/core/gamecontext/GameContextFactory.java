@@ -2,10 +2,7 @@ package com.janaldous.monopoly.core.gamecontext;
 
 import com.janaldous.monopoly.config.GameConfig;
 import com.janaldous.monopoly.config.USGameConfigImpl;
-import com.janaldous.monopoly.core.Bank;
-import com.janaldous.monopoly.core.BankImpl;
-import com.janaldous.monopoly.core.PlayerImpl;
-import com.janaldous.monopoly.core.PlayerStrategyFactory;
+import com.janaldous.monopoly.core.*;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.dice.DiceImpl;
 import com.janaldous.monopoly.core.token.CarToken;
@@ -39,9 +36,11 @@ public class GameContextFactory {
     GameContextImpl gameContext = new GameContextImpl(dice, players, tokens, bank, gameConfig);
     Arrays.stream(players)
         .forEach(
-            player ->
+            player -> {
                 player.setStrategy(
-                    PlayerStrategyFactory.createStrategy("normal", player, gameContext)));
+                        PlayerStrategyFactory.createStrategy("normal", player, gameContext));
+                player.setSellStrategy(SellStrategyFactory.createStrategy("cheapest", player));
+            });
     return gameContext;
   }
 }
