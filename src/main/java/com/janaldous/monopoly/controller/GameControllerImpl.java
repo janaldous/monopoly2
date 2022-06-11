@@ -83,7 +83,7 @@ public class GameControllerImpl implements GameController {
   }
 
   @Override
-  public Map<String, PlayerAction> getPlayerActionOptions() {
+  public Map<String, PlayerAction> getSpaceOptions() {
     return gameContext.getPlayerSpace(currentPlayer).getSpaceOptions(currentPlayer);
   }
 
@@ -99,7 +99,7 @@ public class GameControllerImpl implements GameController {
         if (sellAProperty(currentPlayer)) {
           continue;
         } else {
-          log.log(Level.INFO, e, () -> currentPlayer.getName() + " is bankrupt");
+          log.log(Level.INFO, e, () -> currentPlayer.getName() + " is bankrupt, removing from game");
           removeCurrentPlayerFromGame();
           finishPlayerTurn();
           return false;
@@ -110,9 +110,9 @@ public class GameControllerImpl implements GameController {
   }
 
   /**
-   *
+   * Sell a property.
    * @return if selling was successful
-   * @param player
+   * @param player who is selling
    */
   private boolean sellAProperty(Player player) {
     Optional<PropertySpace> propertyToSell = currentPlayer.getPropertyToSell();

@@ -46,14 +46,14 @@ public class GameImpl implements Game {
                 continue;
             }
 
-            Map<String, PlayerAction> playerActionOptions = gameController.getPlayerActionOptions();
-            log.info("player options: " + playerActionOptions.values());
+            Map<String, PlayerAction> spaceOptions = gameController.getSpaceOptions();
+            log.info("space options: " + spaceOptions.values());
             log.info(
-                    "player options: "
-                            + playerActionOptions.values().stream()
+                    "space options: "
+                            + spaceOptions.values().stream()
                             .map(PlayerAction::getName)
                             .collect(Collectors.joining(",")));
-            Optional<PlayerAction> first = playerActionOptions.values().stream()
+            Optional<PlayerAction> first = spaceOptions.values().stream()
                     .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                     .findFirst();
             if (first.isPresent()) {

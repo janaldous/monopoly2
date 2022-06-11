@@ -20,7 +20,7 @@ public interface GameController {
      */
     boolean doRequiredPlayerActions();
 
-    Map<String, PlayerAction> getPlayerActionOptions();
+    Map<String, PlayerAction> getSpaceOptions();
 
     /**
      * Do player action. If player is bankkrupt, returns false
