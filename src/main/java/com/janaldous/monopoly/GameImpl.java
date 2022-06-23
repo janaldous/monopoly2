@@ -15,6 +15,7 @@ import com.janaldous.monopoly.versions.original.OriginalCardFactory;
 import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import lombok.extern.java.Log;
 
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,7 @@ public class GameImpl implements Game {
     for (int i = 0; i < 1000 && !gameController.hasWinner(); i++) {
             currentPlayer = gameController.getCurrentPlayer();
             String playerName = currentPlayer.getName();
-            log.info("Current player " + playerName);
+            log.info("current player <" + playerName + ">");
 
             boolean isPlayerStillPlaying = movePlayer();
 
@@ -75,7 +76,7 @@ public class GameImpl implements Game {
 
     private void finishPlayerTurn() {
         gameController.finishPlayerTurn();
-        log.info(currentPlayer.getName() + " turn finished");
+        log.info(MessageFormat.format("<{0}> turn furnished", currentPlayer.getName()));
     }
 
     private boolean actOnPlayerOptions() {
@@ -85,7 +86,7 @@ public class GameImpl implements Game {
                 .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                 .findFirst();
         if (possiblePlayerAction.isPresent()) {
-            log.info("player acting on player option " + possiblePlayerAction.get().getName());
+            log.info("player acting on player option <" + possiblePlayerAction.get().getName() + ">");
             return gameController.doCurrentPlayerAction(possiblePlayerAction.get());
         }
         return true;
@@ -98,7 +99,7 @@ public class GameImpl implements Game {
                 .filter(playerAction -> currentPlayer.shouldAct(playerAction))
                 .findFirst();
         if (possibleSpaceAction.isPresent()) {
-            log.info("player acting on space option " + possibleSpaceAction.get().getName());
+            log.info("player acting on space option <" + possibleSpaceAction.get().getName() + ">");
             return gameController.doCurrentPlayerAction(possibleSpaceAction.get());
         }
         return true;
@@ -106,7 +107,7 @@ public class GameImpl implements Game {
 
     private boolean movePlayer() {
         Space space = gameController.moveCurrentPlayer(gameContext.getDice().roll());
-        log.info(currentPlayer.getName() + " moves to " + space.getName());
+        log.info(MessageFormat.format("<{0}> moves to <{1}>", currentPlayer.getName(), space.getName()));
 
         return gameController.doRequiredPlayerActions();
     }

@@ -14,6 +14,7 @@ import com.janaldous.monopoly.core.token.Token;
 import lombok.extern.java.Log;
 import org.assertj.core.util.VisibleForTesting;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +76,7 @@ public class GameControllerImpl implements GameController {
     for (int i = 0; i < requiredActions.size(); i++) {
       PlayerAction playerAction = requiredActions.get(i);
       try {
-        log.info(currentPlayer.getName() + " is required to act: " + playerAction + " " + playerAction.getName());
+        log.info(MessageFormat.format("<{0}> is required to act <{1}>", currentPlayer.getName(), playerAction));
         Optional<List<PlayerAction>> maybeFollowUpAction = playerAction.act(currentPlayer);
         maybeFollowUpAction.ifPresent(followUpAction -> requiredActions.addAll(followUpAction));
       } catch (PlayerActionException e) {

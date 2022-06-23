@@ -6,6 +6,7 @@ import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.exception.NotEnoughMoneyException;
 import lombok.extern.java.Log;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +29,14 @@ public class BankImpl implements Bank {
     player.pay(amount);
     transactionRecords.add(new TransactionRecord(player.getName(), BANK_NAME, amount));
 
-    log.info(player.getName() + " paid the Bank | $" + amount);
+    log.info(MessageFormat.format("<{0}> paid the bank <${1}>", player.getName(), amount));
   }
 
   @Override
   public void payPlayer(Player player, int amount) {
     player.addMoney(amount);
     transactionRecords.add(new TransactionRecord(BANK_NAME, player.getName(), amount));
-    log.info("The Bank paid " + player.getName() + " | $" + amount);
+    log.info(MessageFormat.format("the bank paid the <{0}> <${1}>", player.getName(), amount));
   }
 
   @Override
@@ -43,7 +44,7 @@ public class BankImpl implements Bank {
     fromPlayer.pay(amount);
     toPlayer.addMoney(amount);
     transactionRecords.add(new TransactionRecord(fromPlayer.getName(), toPlayer.getName(), amount));
-    log.info(fromPlayer.getName() + " paid " + toPlayer.getName() + " | $" + amount);
+    log.info(MessageFormat.format("<{0}> paid <{1}> <${2}>", fromPlayer.getName(), toPlayer.getName(), amount));
   }
 
   public House buyHouse(int value) {

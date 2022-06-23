@@ -21,7 +21,7 @@ public class PickCommunityChestCardAction implements PlayerAction {
   public Optional<List<PlayerAction>> act(Player player) throws PlayerActionException {
     Card card = context.getGameboard().takeCommunityChestCard();
 
-    log.info("card picked: " + card);
+    log.info("card picked <" + card + ">");
 
     return Optional.of(List.of(card.getPlayerAction()));
   }

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.java.Log;
 
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,7 @@ public class PlayerImpl implements Player {
   public int addMoney(int amount) {
     balance += amount;
 
-    log.info(name + " +" + amount + " new balance=" + balance);
+    log.info(MessageFormat.format("<{0}> got +<{1}> balance=<{2}>", name, amount, balance));
 
     return balance;
   }
@@ -48,12 +49,12 @@ public class PlayerImpl implements Player {
   @Override
   public int pay(int amount) throws NotEnoughMoneyException {
     if (balance - amount < 0) {
-      throw new NotEnoughMoneyException("expected to pay " + amount + " but only had " + balance);
+      throw new NotEnoughMoneyException("expected to pay <" + amount + "> but only had <" + balance + ">");
     }
 
     balance -= amount;
 
-    log.info(name + " -" + amount + " balance=" + balance);
+    log.info(MessageFormat.format("<{0}> paid -<{1}> balance=<{2}>", name, amount, balance));
 
     return balance;
   }
