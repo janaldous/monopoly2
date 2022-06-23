@@ -57,6 +57,11 @@ public class MoveToNearestUtilityPlayerAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return null;
+    return "Move to nearest utility";
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

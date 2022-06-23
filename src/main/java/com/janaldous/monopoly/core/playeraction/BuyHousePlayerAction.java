@@ -94,4 +94,9 @@ public class BuyHousePlayerAction implements PlayerAction {
   public String getName() {
     return "Buy House";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

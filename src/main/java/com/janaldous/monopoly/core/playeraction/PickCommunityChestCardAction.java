@@ -30,4 +30,9 @@ public class PickCommunityChestCardAction implements PlayerAction {
   public String getName() {
     return "Pick community chest card";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

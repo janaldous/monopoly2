@@ -18,6 +18,11 @@ public class PickGetOutOfJailFreeCardAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return null;
+    return "Pick get out of jail free card";
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

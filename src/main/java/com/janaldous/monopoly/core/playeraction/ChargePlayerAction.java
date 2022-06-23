@@ -32,4 +32,9 @@ public class ChargePlayerAction implements PlayerAction {
   public String getName() {
     return "Charge player";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

@@ -25,6 +25,11 @@ public class GoToJailPlayerAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return null;
+    return "GoToJail";
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

@@ -33,4 +33,9 @@ public class MoveByPropertyNamePlayerAction implements PlayerAction {
   public String getName() {
     return "Move by property: " + propertyName;
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

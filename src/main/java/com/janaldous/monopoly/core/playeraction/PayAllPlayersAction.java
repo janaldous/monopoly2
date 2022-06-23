@@ -35,6 +35,11 @@ public class PayAllPlayersAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return null;
+    return "Pay all players";
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

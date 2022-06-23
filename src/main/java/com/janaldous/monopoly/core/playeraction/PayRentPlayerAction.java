@@ -52,4 +52,9 @@ public class PayRentPlayerAction implements PlayerAction {
   public String getName() {
     return "Pay rent";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

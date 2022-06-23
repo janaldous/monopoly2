@@ -17,4 +17,9 @@ public class GetOutOfJailPLayerAction implements PlayerAction {
   public String getName() {
     return null;
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

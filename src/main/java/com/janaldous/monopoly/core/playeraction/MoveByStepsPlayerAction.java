@@ -31,4 +31,9 @@ public class MoveByStepsPlayerAction implements PlayerAction {
   public String getName() {
     return "Move player by steps: " + steps;
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

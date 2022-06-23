@@ -45,4 +45,9 @@ public class MakeGeneralRepairsAction implements PlayerAction {
   public String getName() {
     return "Make general repairs";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

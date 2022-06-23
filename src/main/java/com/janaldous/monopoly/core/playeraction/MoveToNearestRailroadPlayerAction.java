@@ -55,6 +55,11 @@ public class MoveToNearestRailroadPlayerAction implements PlayerAction {
 
   @Override
   public String getName() {
-    return null;
+    return "Move to nearest railroad";
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

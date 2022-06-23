@@ -114,4 +114,9 @@ public class BuyPropertyPlayerAction implements PlayerAction {
   public String getName() {
     return "Buy Property";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

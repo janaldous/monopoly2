@@ -36,4 +36,9 @@ public class ChargeIncomeTaxPlayerAction implements PlayerAction {
   public String getName() {
     return "Charge Income Tax";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

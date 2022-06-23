@@ -26,4 +26,9 @@ public class PayPlayerAction implements PlayerAction {
   public String getName() {
     return "Pay player";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }
