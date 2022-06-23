@@ -8,12 +8,13 @@ public class RailroadSpace extends PropertySpace {
   private Map<Integer, Integer> noOfPropertyToRent;
 
   public RailroadSpace(
-      String name,
-      int value,
-      Map<Integer, Integer> noOfPropertyToRent,
-      List<PlayerAction> requiredActions,
-      List<PlayerAction> playerActions) {
-    super(name, value, PropertyGroup.RAILROAD, 0, requiredActions, playerActions);
+          String name,
+          int value,
+          Map<Integer, Integer> noOfPropertyToRent,
+          List<PlayerAction> requiredActions,
+          List<PlayerAction> playerActions,
+          int mortgageValue) {
+    super(name, value, PropertyGroup.RAILROAD, 0, requiredActions, playerActions, mortgageValue);
     this.noOfPropertyToRent = noOfPropertyToRent;
   }
 

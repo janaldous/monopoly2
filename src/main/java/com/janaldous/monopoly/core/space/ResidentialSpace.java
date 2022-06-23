@@ -18,17 +18,18 @@ public class ResidentialSpace extends PropertySpace {
 
   @Builder
   public ResidentialSpace(
-      String name,
-      int value,
-      PropertyGroup colorGroup,
-      int housePrice,
-      int hotelPrice,
-      int siteOnlyRent,
-      int houseRent,
-      int hotelRent,
-      List<PlayerAction> requiredActions,
-      List<PlayerAction> playerActions) {
-    super(name, value, colorGroup, siteOnlyRent, requiredActions, playerActions);
+          String name,
+          int value,
+          PropertyGroup colorGroup,
+          int housePrice,
+          int hotelPrice,
+          int siteOnlyRent,
+          int houseRent,
+          int hotelRent,
+          List<PlayerAction> requiredActions,
+          List<PlayerAction> playerActions,
+          int mortgageValue) {
+    super(name, value, colorGroup, siteOnlyRent, requiredActions, playerActions, mortgageValue);
     this.housePrice = housePrice;
     this.hotelPrice = hotelPrice;
     this.houseRent = houseRent;

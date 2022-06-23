@@ -39,23 +39,23 @@ public class SpaceFactory
     }
     
     public ResidentialSpace createResidence(String propertyName, int value, int houseValue, int hotelValue,
-                                            int siteOnlyRent, int houseRent, int hotelRent, PropertyGroup colorGroup) {
+                                            int siteOnlyRent, int houseRent, int hotelRent, int mortgageValue, PropertyGroup colorGroup) {
         return new ResidentialSpace(propertyName, value, colorGroup, houseValue, hotelValue,
                     siteOnlyRent, houseRent, hotelRent, 
                     Arrays.asList(playerActionFactory.createPayRentAction()),
-                    Arrays.asList(playerActionFactory.createBuyPropertyAction(), playerActionFactory.createSellPropertyAction(), playerActionFactory.createBuyHouseAction()));
+                    Arrays.asList(playerActionFactory.createBuyPropertyAction(), playerActionFactory.createSellPropertyAction(), playerActionFactory.createBuyHouseAction()), mortgageValue);
     }
     
-    public UtilityCompanySpace createUtility(String propertyName, int value) {
+    public UtilityCompanySpace createUtility(String propertyName, int value, int mortgageValue) {
         return new UtilityCompanySpace(propertyName, value,
             Arrays.asList(playerActionFactory.createPayRentAction()),
-            Arrays.asList(playerActionFactory.createBuyPropertyAction(), playerActionFactory.createSellPropertyAction()));
+            Arrays.asList(playerActionFactory.createBuyPropertyAction(), playerActionFactory.createSellPropertyAction()), mortgageValue);
     }
 
-    public RailroadSpace createRailroad(String propertyName, int value, Map<Integer, Integer> noOfPropertiesToRent) {
+    public RailroadSpace createRailroad(String propertyName, int value, int mortgageValue, Map<Integer, Integer> noOfPropertiesToRent) {
         return new RailroadSpace(propertyName, value,
                 noOfPropertiesToRent,
                 Arrays.asList(playerActionFactory.createPayRentAction()),
-                Arrays.asList(playerActionFactory.createBuyPropertyAction(), playerActionFactory.createSellPropertyAction()));
+                Arrays.asList(playerActionFactory.createBuyPropertyAction(), playerActionFactory.createSellPropertyAction()), mortgageValue);
     }
 }

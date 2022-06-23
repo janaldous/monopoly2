@@ -17,19 +17,22 @@ public class PropertySpace extends Space {
   protected RentStrategy strategy;
   protected final PropertyGroup colorGroup;
   protected boolean isMortgaged;
+  private final int mortgageValue;
 
   protected PropertySpace(
-      String name,
-      int value,
-      PropertyGroup colorGroup,
-      int siteOnlyRent,
-      List<PlayerAction> requiredActions,
-      List<PlayerAction> playerActionOptions) {
+          String name,
+          int value,
+          PropertyGroup colorGroup,
+          int siteOnlyRent,
+          List<PlayerAction> requiredActions,
+          List<PlayerAction> playerActionOptions,
+          int mortgageValue) {
     super(name, requiredActions);
     this.colorGroup = colorGroup;
     this.value = value;
     this.siteOnlyRent = siteOnlyRent;
     this.playerActionOptions = playerActionOptions;
+    this.mortgageValue = mortgageValue;
   }
 
   public void setOwner(Player owner) {
@@ -89,5 +92,9 @@ public class PropertySpace extends Space {
 
   public void unmortgage() {
     isMortgaged = true;
+  }
+
+  public int getMortgageValue() {
+    return mortgageValue;
   }
 }

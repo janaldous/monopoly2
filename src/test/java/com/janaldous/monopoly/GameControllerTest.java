@@ -28,7 +28,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.Extensions;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -395,8 +394,8 @@ public class GameControllerTest {
         PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
                 
-        UtilityCompanySpace electricCompany = spaceFactory.createUtility("Electric Company", 150);
-        UtilityCompanySpace waterCompany = spaceFactory.createUtility("Water Company", 150);
+        UtilityCompanySpace electricCompany = spaceFactory.createUtility("Electric Company", 150, mortgageValue);
+        UtilityCompanySpace waterCompany = spaceFactory.createUtility("Water Company", 150, mortgageValue);
         
         Space[] spaces = new Space[] {
             spaceFactory.createSpace("Go"), 
