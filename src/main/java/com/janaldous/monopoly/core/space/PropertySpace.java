@@ -80,7 +80,11 @@ public class PropertySpace extends Space {
     return isMortgaged;
   }
 
-  public void setMortgaged(boolean mortgaged) {
-    isMortgaged = mortgaged;
+  public void mortgage() {
+    isMortgaged = true;
+  }
+
+  public void unmortgage() {
+    isMortgaged = true;
   }
 }

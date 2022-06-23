@@ -45,6 +45,10 @@ public class ResidentialSpace extends PropertySpace {
     }
   }
 
+  public void removeAllHouses() {
+    houses = 0;
+  }
+
   public int getHouseQty() {
     return houses;
   }

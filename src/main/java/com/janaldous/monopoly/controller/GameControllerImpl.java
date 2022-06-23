@@ -1,10 +1,11 @@
 package com.janaldous.monopoly.controller;
 
-import com.janaldous.monopoly.core.gamecontext.GameContext;
-import com.janaldous.monopoly.core.player.Player;
+import com.janaldous.monopoly.core.bank.MortgageEligibilityChecker;
 import com.janaldous.monopoly.core.dice.Dice;
 import com.janaldous.monopoly.core.exception.PlayerActionException;
 import com.janaldous.monopoly.core.gameboard.Gameboard;
+import com.janaldous.monopoly.core.gamecontext.GameContext;
+import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerAction;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
 import com.janaldous.monopoly.core.playeraction.SellPropertyPlayerAction;
@@ -33,6 +34,7 @@ public class GameControllerImpl implements GameController {
   private final GameContext gameContext;
   private Player currentPlayer;
   private int currentPlayerIndex;
+  private MortgageEligibilityChecker mortgageEligibilityChecker;
 
   public GameControllerImpl(GameContext gameContext, PlayerActionFactory playerActionFactory) {
     this.gameContext = gameContext;
@@ -188,7 +190,8 @@ public class GameControllerImpl implements GameController {
         propertySpace ->
             playerActionOptions.add(playerActionFactory.createBuyHouseAction(propertySpace)));
 
-    // be able to mortgage?
+    // be able to mortgage
+    List<PropertySpace> mortgageableProperties = mortgageEligibilityChecker.getEligibleProperties(currentPlayer.getPropertiesByPropertyGroup());
 
     return playerActionOptions;
   }
