@@ -87,7 +87,7 @@ public class SellPropertyPlayerAction implements PlayerAction {
     
     @Override
     public String getName() {
-        return "Sell Property";
+        return "Sell Property <" + propertyToSell.getName() + ">";
     }
 
     @Override
