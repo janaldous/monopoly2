@@ -39,7 +39,7 @@ public class BuyHousePlayerAction implements PlayerAction {
 
       if (property.getHouseQty() >= context.getConfig().getMaxNumOfApartments()) {
         throw new PlayerActionException(
-            "You cannot have more than " + context.getConfig().getMaxNumOfApartments() + " apartments");
+            "You cannot have more than <" + context.getConfig().getMaxNumOfApartments() + "> apartments");
       }
 
       if (playerCanAffordApartment(player, property)) {
