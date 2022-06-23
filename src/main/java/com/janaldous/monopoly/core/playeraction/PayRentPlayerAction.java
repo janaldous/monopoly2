@@ -45,7 +45,7 @@ public class PayRentPlayerAction implements PlayerAction {
   @Override
   public boolean isValidAction(Player player) {
     Space space = context.getPlayerSpace(player);
-    return space instanceof PropertySpace property && property.hasOwner();
+    return space instanceof PropertySpace property && property.hasOwner() && !property.isMortgaged();
   }
 
   @Override

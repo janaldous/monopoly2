@@ -57,6 +57,9 @@ public class PropertySpace extends Space {
   }
 
   public int getRent() {
+    // cannot pay rent to mortgaged properties
+    if (isMortgaged) return 0;
+
     if (strategy == null) throw new IllegalStateException("strategy not initialized");
     return strategy.calculateRent();
   }

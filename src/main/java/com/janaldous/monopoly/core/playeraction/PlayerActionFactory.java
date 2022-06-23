@@ -102,4 +102,8 @@ public class PlayerActionFactory {
   public PlayerAction createMortgagePropertyAction(PropertySpace propertySpace) {
     return new MortgagePropertyPlayerAction(context, propertySpace, mortgageEligibilityChecker);
   }
+
+  public PlayerAction createUnmortgagePropertyAction(PropertySpace propertySpace) {
+    return new UnmortgagePropertyPlayerAction(context, propertySpace);
+  }
 }
