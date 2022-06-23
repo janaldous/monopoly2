@@ -6,9 +6,12 @@ import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.space.*;
 import com.janaldous.monopoly.core.space.rentstrategy.*;
+import lombok.extern.java.Log;
 
+import java.text.MessageFormat;
 import java.util.*;
 
+@Log
 public class BuyPropertyPlayerAction implements PlayerAction {
   private final GameContext context;
 
@@ -32,6 +35,8 @@ public class BuyPropertyPlayerAction implements PlayerAction {
     player.addProperty(property);
 
     setRentStrategyForProperty(player, gameboard, property);
+
+    log.info(MessageFormat.format("<{0}> bought property <{1}>", player.getName(), property.getName()));
 
     return Optional.empty();
   }

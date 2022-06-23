@@ -36,9 +36,10 @@ public class GameControllerImpl implements GameController {
   private int currentPlayerIndex;
   private MortgageEligibilityChecker mortgageEligibilityChecker;
 
-  public GameControllerImpl(GameContext gameContext,
-                            PlayerActionFactory playerActionFactory,
-                            MortgageEligibilityChecker mortgageEligibilityChecker) {
+  public GameControllerImpl(
+      GameContext gameContext,
+      PlayerActionFactory playerActionFactory,
+      MortgageEligibilityChecker mortgageEligibilityChecker) {
     this.gameContext = gameContext;
     this.gameboard = gameContext.getGameboard();
     this.players = gameContext.getPlayers();
@@ -81,7 +82,9 @@ public class GameControllerImpl implements GameController {
     for (int i = 0; i < requiredActions.size(); i++) {
       PlayerAction playerAction = requiredActions.get(i);
       try {
-        log.info(MessageFormat.format("<{0}> is required to act <{1}>", currentPlayer.getName(), playerAction));
+        log.info(
+            MessageFormat.format(
+                "<{0}> is required to act <{1}>", currentPlayer.getName(), playerAction));
         Optional<List<PlayerAction>> maybeFollowUpAction = playerAction.act(currentPlayer);
         maybeFollowUpAction.ifPresent(followUpAction -> requiredActions.addAll(followUpAction));
       } catch (PlayerActionException e) {
@@ -134,7 +137,9 @@ public class GameControllerImpl implements GameController {
     SellPropertyPlayerAction sellPropertyPlayerAction =
         new SellPropertyPlayerAction(gameContext, propertyToSell.get());
     log.info(
-        currentPlayer.getName() + " sold " + propertyToSell.get().getName() + " to get more money");
+        MessageFormat.format(
+            "<{0}> sold <{1}> to get more money",
+            currentPlayer.getName(), propertyToSell.get().getName()));
     try {
       sellPropertyPlayerAction.act(player);
       return true;
@@ -194,13 +199,21 @@ public class GameControllerImpl implements GameController {
             playerActionOptions.add(playerActionFactory.createBuyHouseAction(propertySpace)));
 
     // be able to mortgage
-    List<PropertySpace> mortgageableProperties = mortgageEligibilityChecker.getEligibleProperties(currentPlayer.getPropertiesByPropertyGroup());
-    mortgageableProperties.forEach(propertySpace -> playerActionOptions.add(playerActionFactory.createMortgagePropertyAction(propertySpace)));
+    List<PropertySpace> mortgageableProperties =
+        mortgageEligibilityChecker.getEligibleProperties(
+            currentPlayer.getPropertiesByPropertyGroup());
+    mortgageableProperties.forEach(
+        propertySpace ->
+            playerActionOptions.add(
+                playerActionFactory.createMortgagePropertyAction(propertySpace)));
 
     // be able to unmortgage
     currentPlayer.getProperties().stream()
-            .filter(property -> property.isMortgaged())
-            .forEach(propertySpace -> playerActionOptions.add(playerActionFactory.createUnmortgagePropertyAction(propertySpace)));
+        .filter(property -> property.isMortgaged())
+        .forEach(
+            propertySpace ->
+                playerActionOptions.add(
+                    playerActionFactory.createUnmortgagePropertyAction(propertySpace)));
 
     return playerActionOptions;
   }
