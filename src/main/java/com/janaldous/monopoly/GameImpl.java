@@ -69,7 +69,7 @@ public class GameImpl implements Game {
             log.info("no winner within 1000 turns");
             return null;
         } else {
-            log.info(gameController.getCurrentPlayer().getName() + " wins");
+            log.info("<" + gameController.getCurrentPlayer().getName() + "> wins");
             return gameController.getCurrentPlayer();
         }
     }

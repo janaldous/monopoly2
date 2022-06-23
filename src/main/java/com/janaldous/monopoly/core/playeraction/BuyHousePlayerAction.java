@@ -34,7 +34,7 @@ public class BuyHousePlayerAction implements PlayerAction {
     Space space = getSpace(token, gameboard);
     if (space instanceof ResidentialSpace property) {
       if (!player.equals(property.getOwner())) {
-        throw new PlayerActionException("This property is not owned by the player");
+        throw new PlayerActionException("This property <" + property.getName() + "> is not owned by the player <" + player.getName() + ">");
       }
 
       if (property.getHouseQty() >= context.getConfig().getMaxNumOfApartments()) {

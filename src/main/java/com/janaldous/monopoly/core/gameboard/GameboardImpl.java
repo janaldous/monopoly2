@@ -84,7 +84,7 @@ public class GameboardImpl implements Gameboard {
         steps > 0
             ? calculateForwardMove(startPosition, moduloSteps) % spaces.length
             : calculateBackwardMove(startPosition, moduloSteps);
-    log.info("moving from position=" + startPosition + " steps=" + moduloSteps);
+    log.info("moving from position=<" + startPosition + "> steps=<" + moduloSteps + ">");
     return moveToPosition(token, newPosition);
   }
 

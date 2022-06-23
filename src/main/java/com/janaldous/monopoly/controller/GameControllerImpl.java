@@ -141,7 +141,7 @@ public class GameControllerImpl implements GameController {
 
   private void removeCurrentPlayerFromGame() {
     players.remove(currentPlayerIndex);
-    log.info(currentPlayer.getName() + " is removed from the game");
+    log.info(MessageFormat.format("<{0}> is removed from the game", currentPlayer.getName()));
   }
 
   @Override
