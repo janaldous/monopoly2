@@ -53,10 +53,7 @@ public class MortgagePropertyPlayerAction implements PlayerAction {
 
     @Override
     public boolean isValidAction(Player player) {
-        Token token = context.getPlayerToken(player);
-        Gameboard gameboard = context.getGameboard();
-        Space space = gameboard.getSpace(token);
-        if (space instanceof PropertySpace property && player.equals(property.getOwner())) {
+        if (player.equals(propertyToMortgage.getOwner())) {
             return !mortgageEligibilityChecker.getEligibleProperties(player.getPropertiesByPropertyGroup()).isEmpty();
         }
         return false;

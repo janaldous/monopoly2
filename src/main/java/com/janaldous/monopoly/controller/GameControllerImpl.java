@@ -197,6 +197,11 @@ public class GameControllerImpl implements GameController {
     List<PropertySpace> mortgageableProperties = mortgageEligibilityChecker.getEligibleProperties(currentPlayer.getPropertiesByPropertyGroup());
     mortgageableProperties.forEach(propertySpace -> playerActionOptions.add(playerActionFactory.createMortgagePropertyAction(propertySpace)));
 
+    // be able to unmortgage
+    currentPlayer.getProperties().stream()
+            .filter(property -> property.isMortgaged())
+            .forEach(propertySpace -> playerActionOptions.add(playerActionFactory.createUnmortgagePropertyAction(propertySpace)));
+
     return playerActionOptions;
   }
 
