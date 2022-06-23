@@ -9,7 +9,6 @@ public class ResidentialSpace extends PropertySpace {
   // implement as priority list? or separate apartments from hotel?
   private int houses;
   private int hotels;
-  private boolean isMortgaged;
   private final int housePrice;
   private final int hotelPrice;
 
@@ -73,4 +72,5 @@ public class ResidentialSpace extends PropertySpace {
   public int getHotelQty() {
     return hotels;
   }
+
 }

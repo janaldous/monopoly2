@@ -16,6 +16,7 @@ public class PropertySpace extends Space {
   protected final int siteOnlyRent;
   protected RentStrategy strategy;
   protected final PropertyGroup colorGroup;
+  protected boolean isMortgaged;
 
   protected PropertySpace(
       String name,
@@ -73,5 +74,13 @@ public class PropertySpace extends Space {
 
   public boolean hasOwner() {
     return owner != null;
+  }
+
+  public boolean isMortgaged() {
+    return isMortgaged;
+  }
+
+  public void setMortgaged(boolean mortgaged) {
+    isMortgaged = mortgaged;
   }
 }
