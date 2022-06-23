@@ -46,7 +46,7 @@ public class MortgageEligibilityChecker {
     if (property instanceof ResidentialSpace residentialSpace) {
       boolean propertyIsPartOfGroup = fullGroups.contains(residentialSpace.getPropertyGroup());
       boolean propertyHasBuildings = residentialSpace.getHouseQty() > 0;
-      return propertyIsPartOfGroup && propertyHasBuildings;
+      return propertyIsPartOfGroup ? !propertyHasBuildings : true;
     }
     return true;
   }
