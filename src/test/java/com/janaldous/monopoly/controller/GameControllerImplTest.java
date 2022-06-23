@@ -1,5 +1,6 @@
 package com.janaldous.monopoly.controller;
 
+import com.janaldous.monopoly.core.bank.MortgageEligibilityChecker;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.player.Player;
 import com.janaldous.monopoly.core.playeraction.PlayerActionFactory;
@@ -30,6 +31,9 @@ class GameControllerImplTest {
     @Mock
     PlayerActionFactory playerActionFactoryMock;
 
+    @Mock
+    MortgageEligibilityChecker mortgageEligibilityCheckerMock;
+
     GameControllerImpl gameController;
 
     @BeforeEach
@@ -40,7 +44,7 @@ class GameControllerImplTest {
 
         when(gameContextMock.getPlayers()).thenReturn(players);
 
-        gameController = new GameControllerImpl(gameContextMock, playerActionFactoryMock);
+        gameController = new GameControllerImpl(gameContextMock, playerActionFactoryMock, mortgageEligibilityCheckerMock);
     }
 
     @Test

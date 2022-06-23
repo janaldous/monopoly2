@@ -36,12 +36,15 @@ public class GameControllerImpl implements GameController {
   private int currentPlayerIndex;
   private MortgageEligibilityChecker mortgageEligibilityChecker;
 
-  public GameControllerImpl(GameContext gameContext, PlayerActionFactory playerActionFactory) {
+  public GameControllerImpl(GameContext gameContext,
+                            PlayerActionFactory playerActionFactory,
+                            MortgageEligibilityChecker mortgageEligibilityChecker) {
     this.gameContext = gameContext;
     this.gameboard = gameContext.getGameboard();
     this.players = gameContext.getPlayers();
     this.dice = gameContext.getDice();
     this.playerActionFactory = playerActionFactory;
+    this.mortgageEligibilityChecker = mortgageEligibilityChecker;
     currentPlayerIndex = 0;
     currentPlayer = players.get(currentPlayerIndex);
   }
@@ -192,6 +195,7 @@ public class GameControllerImpl implements GameController {
 
     // be able to mortgage
     List<PropertySpace> mortgageableProperties = mortgageEligibilityChecker.getEligibleProperties(currentPlayer.getPropertiesByPropertyGroup());
+    mortgageableProperties.forEach(propertySpace -> playerActionOptions.add(playerActionFactory.createMortgagePropertyAction(propertySpace)));
 
     return playerActionOptions;
   }

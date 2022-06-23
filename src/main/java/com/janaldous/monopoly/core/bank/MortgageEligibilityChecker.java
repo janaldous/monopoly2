@@ -1,6 +1,6 @@
 package com.janaldous.monopoly.core.bank;
 
-import com.janaldous.monopoly.core.gameboard.GameboardImpl;
+import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.space.PropertyGroup;
 import com.janaldous.monopoly.core.space.PropertySpace;
 import com.janaldous.monopoly.core.space.ResidentialSpace;
@@ -12,9 +12,14 @@ import java.util.stream.Collectors;
 
 public class MortgageEligibilityChecker {
 
-  private final GameboardImpl gameboard;
+  private Gameboard gameboard;
 
-  public MortgageEligibilityChecker(GameboardImpl gameboard) {
+  public MortgageEligibilityChecker() {
+    // TODO fix this
+    this.gameboard = null;
+  }
+
+  public MortgageEligibilityChecker(Gameboard gameboard) {
     this.gameboard = gameboard;
   }
 
@@ -46,4 +51,7 @@ public class MortgageEligibilityChecker {
     return true;
   }
 
+  public void setGameboard(Gameboard gameboard) {
+    this.gameboard = gameboard;
+  }
 }

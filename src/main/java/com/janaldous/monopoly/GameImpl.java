@@ -3,6 +3,8 @@ package com.janaldous.monopoly;
 import com.janaldous.monopoly.controller.GameController;
 import com.janaldous.monopoly.controller.GameControllerImpl;
 import com.janaldous.monopoly.core.bank.BankImpl;
+import com.janaldous.monopoly.core.bank.MortgageEligibilityChecker;
+import com.janaldous.monopoly.core.gameboard.Gameboard;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.gamecontext.GameContextFactory;
 import com.janaldous.monopoly.core.player.Player;
@@ -17,7 +19,6 @@ import lombok.extern.java.Log;
 
 import java.text.MessageFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Log
 public class GameImpl implements Game {
@@ -28,13 +29,16 @@ public class GameImpl implements Game {
 
     public GameImpl() {
         gameContext = new GameContextFactory().createGameContextWithoutGameBoard();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(new BankImpl(), gameContext);
+        MortgageEligibilityChecker mortgageEligibilityChecker = new MortgageEligibilityChecker();
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(new BankImpl(), gameContext, mortgageEligibilityChecker);
         GameboardFactory gameboardFactory =
                 new GameboardFactory(
                         new OriginalGameboardFactory(new SpaceFactory(playerActionFactory)),
                         new OriginalCardFactory(playerActionFactory));
-        gameContext.setGameboard(gameboardFactory.createGameboard("original", gameContext.getTokens()));
-        gameController = new GameControllerImpl(gameContext, playerActionFactory);
+        Gameboard gameboard = gameboardFactory.createGameboard("original", gameContext.getTokens());
+        gameContext.setGameboard(gameboard);
+        mortgageEligibilityChecker.setGameboard(gameboard);
+        gameController = new GameControllerImpl(gameContext, playerActionFactory, mortgageEligibilityChecker);
     }
 
     @Override

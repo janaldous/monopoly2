@@ -2,6 +2,7 @@ package com.janaldous.monopoly;
 
 import com.janaldous.monopoly.core.bank.Bank;
 import com.janaldous.monopoly.core.bank.BankImpl;
+import com.janaldous.monopoly.core.bank.MortgageEligibilityChecker;
 import com.janaldous.monopoly.core.card.Card;
 import com.janaldous.monopoly.core.card.CardFactory;
 import com.janaldous.monopoly.core.dice.Dice;
@@ -26,6 +27,10 @@ import com.janaldous.monopoly.versions.original.OriginalGameboardFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.Extensions;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
@@ -38,11 +43,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author  (your name)
  * @version (a version number or a date)378
  */
-public class GameControllerTest
-{
+@ExtendWith(MockitoExtension.class)
+public class GameControllerTest {
     PlayerImpl[] players;
     Gameboard gameboard;
     Token[] tokens;
+    @Mock
+    MortgageEligibilityChecker mortgageEligibilityChecker;
     
     /**
      * Sets up the test fixture.
@@ -70,7 +77,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
                 
         Space[] spaces = new Space[] {
@@ -113,7 +120,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
         
         Space[] spaces = new Space[] {
@@ -164,10 +171,10 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
         
-        ResidentialSpace property = (ResidentialSpace) createStCharlesPlace(spaceFactory);
+        ResidentialSpace property = createStCharlesPlace(spaceFactory);
         
         Space[] spaces = new Space[] {
             spaceFactory.createSpace("Go"), 
@@ -212,7 +219,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
                 
         ResidentialSpace stCharlesPlace = (ResidentialSpace) createStCharlesPlace(spaceFactory);
@@ -268,7 +275,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
                 
         ResidentialSpace stCharlesPlace = (ResidentialSpace) createStCharlesPlace(spaceFactory);
@@ -326,7 +333,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
                 
         ResidentialSpace stCharlesPlace = (ResidentialSpace) createStCharlesPlace(spaceFactory);
@@ -385,7 +392,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
                 
         UtilityCompanySpace electricCompany = spaceFactory.createUtility("Electric Company", 150);
@@ -454,7 +461,7 @@ public class GameControllerTest
         // given
         GameContextImpl gameContext = new GameContextImpl();
         Bank bank = new BankImpl();
-        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext);
+        PlayerActionFactory playerActionFactory = new PlayerActionFactory(bank, gameContext, mortgageEligibilityChecker);
         SpaceFactory spaceFactory = new SpaceFactory(playerActionFactory);
         OriginalGameboardFactory originalGameboardFactory = new OriginalGameboardFactory(spaceFactory);
 

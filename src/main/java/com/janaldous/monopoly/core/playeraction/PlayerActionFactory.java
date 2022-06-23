@@ -1,16 +1,19 @@
 package com.janaldous.monopoly.core.playeraction;
 
 import com.janaldous.monopoly.core.bank.Bank;
+import com.janaldous.monopoly.core.bank.MortgageEligibilityChecker;
 import com.janaldous.monopoly.core.gamecontext.GameContext;
 import com.janaldous.monopoly.core.space.PropertySpace;
 
 public class PlayerActionFactory {
   private final Bank bank;
   private final GameContext context;
+  private final MortgageEligibilityChecker mortgageEligibilityChecker;
 
-  public PlayerActionFactory(Bank bank, GameContext context) {
+  public PlayerActionFactory(Bank bank, GameContext context, MortgageEligibilityChecker mortgageEligibilityChecker) {
     this.bank = bank;
     this.context = context;
+    this.mortgageEligibilityChecker = mortgageEligibilityChecker;
   }
 
     public PlayerAction createPlayerAction(String actionName) {
@@ -94,5 +97,9 @@ public class PlayerActionFactory {
 
   public PlayerAction createBuyHouseAction(PropertySpace propertySpace) {
     return new BuyHousePlayerAction(context, propertySpace);
+  }
+
+  public PlayerAction createMortgagePropertyAction(PropertySpace propertySpace) {
+    return new MortgagePropertyPlayerAction(context, propertySpace, mortgageEligibilityChecker);
   }
 }
